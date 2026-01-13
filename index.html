@@ -5,14 +5,19 @@
   <title>mytarova 🔮</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Okült hissi veren font -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
       min-height: 100vh;
-      background: radial-gradient(circle at top, #1b1026, #050008);
-      color: #e0c97f;
-      font-family: "Georgia", serif;
+      background:
+        radial-gradient(circle at top, #1b0f2a 0%, #050008 70%);
+      color: #e6d28c;
+      font-family: 'Cinzel', serif;
       text-align: center;
+      overflow-x: hidden;
     }
 
     header {
@@ -20,59 +25,184 @@
     }
 
     h1 {
-      font-size: 3em;
-      letter-spacing: 4px;
+      font-size: 3.2em;
+      letter-spacing: 6px;
       margin-bottom: 10px;
+      text-shadow: 0 0 15px rgba(230,210,140,0.4);
     }
 
     .subtitle {
       font-style: italic;
-      opacity: 0.85;
+      opacity: 0.8;
+      letter-spacing: 2px;
     }
 
     .divider {
-      width: 120px;
+      width: 160px;
       height: 2px;
-      background: #e0c97f;
+      background: linear-gradient(90deg, transparent, #e6d28c, transparent);
       margin: 40px auto;
     }
 
     .intro {
-      max-width: 700px;
+      max-width: 720px;
       margin: auto;
-      line-height: 1.8;
+      line-height: 1.9;
       font-size: 1.1em;
       padding: 0 20px;
+      opacity: 0.95;
+    }
+
+    /* TAROT ALANI */
+    .tarot-area {
+      margin-top: 100px;
+    }
+
+    .tarot-title {
+      font-size: 1.6em;
+      margin-bottom: 40px;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px rgba(230,210,140,0.3);
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      perspective: 1200px;
+    }
+
+    .card {
+      width: 150px;
+      height: 260px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.9s ease, box-shadow 0.6s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: rotateY(180deg) translateY(-10px);
+      box-shadow: 0 0 30px rgba(230,210,140,0.6);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      backface-visibility: hidden;
+      border: 1px solid #e6d28c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Kart arka yüzü */
+    .card-back {
+      background:
+        linear-gradient(135deg, #2b173d, #0b0712);
+      font-size: 3em;
+      text-shadow: 0 0 12px rgba(230,210,140,0.6);
+    }
+
+    /* Kart ön yüzü */
+    .card-front {
+      background:
+        linear-gradient(135deg, #0b0712, #2b173d);
+      transform: rotateY(180deg);
+      font-size: 1.1em;
+      padding: 15px;
+      box-sizing: border-box;
+      opacity: 0.95;
+    }
+
+    .message {
+      margin-top: 50px;
+      min-height: 28px;
+      font-style: italic;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px rgba(230,210,140,0.3);
+    }
+
+    /* YOUTUBE */
+    .youtube {
+      margin-top: 120px;
+    }
+
+    .youtube h2 {
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+    }
+
+    .youtube a {
+      display: inline-block;
+      padding: 14px 34px;
+      border: 1px solid #e6d28c;
+      color: #e6d28c;
+      text-decoration: none;
+      letter-spacing: 3px;
+      transition: background 0.4s, color 0.4s, box-shadow 0.4s;
+    }
+
+    .youtube a:hover {
+      background: #e6d28c;
+      color: #050008;
+      box-shadow: 0 0 25px rgba(230,210,140,0.7);
     }
 
     footer {
-      margin-top: 80px;
-      padding: 30px;
-      font-size: 0.9em;
+      margin-top: 140px;
+      padding: 40px;
+      font-size: 0.85em;
       opacity: 0.6;
+      letter-spacing: 2px;
     }
   </style>
 </head>
 
 <body>
+
   <header>
     <h1>🔮 MYTAROVA 🔮</h1>
-    <div class="subtitle">Tarot • Sezgi • Mistik Yolculuk</div>
+    <div class="subtitle">Tarot • Sezgi • Okült Yolculuk</div>
     <div class="divider"></div>
   </header>
 
   <section class="intro">
     <p>
-      mytarova, tarotun sembolik diliyle sezgisel farkındalığı
-      buluşturan mistik bir yolculuktur.
+      Kartlar sembollerle konuşur.  
+      Sezgi karanlıkta bile yolunu bulur.
     </p>
     <p>
-      Burada kartlar konuşur, sezgiler yön gösterir.
+      Bir kart seç ve mesajın sana gelsin.
     </p>
   </section>
 
-  <footer>
-    © mytarova — Tarot & Mistik Bilgelik
-  </footer>
-</body>
-</html>
+  <section class="tarot-area">
+    <div class="tarot-title">KARTINI SEÇ</div>
+
+    <div class="cards">
+      <div class="card" onclick="selectCard()">
+        <div class="card-face card-back">✶</div>
+        <div class="card-face card-front">Mesaj ortaya çıkıyor…</div>
+      </div>
+
+      <div class="card" onclick="selectCard()">
+        <div class="card-face card-back">✶</div>
+        <div class="card-face card-front">Mesaj ortaya çıkıyor…</div>
+      </div>
+
+      <div class="card" onclick="selectCard()">
+        <div class="card-face card-back">✶</div>
+        <div class="card-face card-front">Mesaj ortaya çıkıyor…</div>
+      </div>
+    </div>
+
+    <div class="message" id="message"></div>
+  </section>
+
+  <section class="youtube">
+    <h2>YouTube Kanalım</h2>
+    <a href="https://www.youtube.com/channel/UClnBWxK6z-CRm
