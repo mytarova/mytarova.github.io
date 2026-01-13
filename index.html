@@ -10,7 +10,6 @@
 
 <style>
 *{box-sizing:border-box}
-
 body{
   margin:0;
   font-family:'Cinzel',serif;
@@ -34,65 +33,44 @@ nav ul{
   display:flex;
   gap:26px;
   margin:0;
-  padding:0;
 }
 nav a{
   color:#e6d28c;
   text-decoration:none;
   font-size:.85em;
-  letter-spacing:1px;
 }
 
-/* HERO / BANNER */
+/* HERO */
 .hero{
-  height:65vh; /* 3/2 oranına yakın */
+  height:65vh;
   padding-top:120px;
   text-align:center;
   position:relative;
   overflow:hidden;
 }
-
 .hero h1{
   font-size:1.9em;
   letter-spacing:4px;
   margin:0;
 }
-
 .hero p{
   font-size:.8em;
   margin-top:8px;
   font-style:italic;
-  opacity:.85;
 }
 
-/* ANİMASYONLU SEMBOLLER */
+/* SYMBOLS */
 .symbol{
   position:absolute;
   font-size:5rem;
   opacity:.08;
-  color:#fff;
 }
-.moon{
-  top:20%;
-  left:8%;
-  animation:float 6s ease-in-out infinite;
-}
-.star{
-  bottom:20%;
-  right:10%;
-  animation:glow 4s ease-in-out infinite;
-}
+.moon{top:20%;left:8%;animation:float 6s ease-in-out infinite;}
+.star{bottom:20%;right:10%;animation:glow 4s ease-in-out infinite;}
+@keyframes float{50%{transform:translateY(-20px)}}
+@keyframes glow{50%{opacity:.15}}
 
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-20px)}
-}
-@keyframes glow{
-  0%,100%{opacity:.05}
-  50%{opacity:.15}
-}
-
-/* TAROT ÇİZİM KARTLARI */
+/* TAROT CARDS */
 .cards{
   position:absolute;
   bottom:10%;
@@ -109,46 +87,30 @@ nav a{
   border-radius:10px;
   animation:cardFloat 7s ease-in-out infinite;
 }
-.card:nth-child(1){animation-delay:0s}
 .card:nth-child(2){animation-delay:2s}
 .card:nth-child(3){animation-delay:4s}
+@keyframes cardFloat{50%{transform:translateY(-25px)}}
 
-@keyframes cardFloat{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-25px)}
-}
-
-/* AÇILIMLAR */
-.readings{
-  padding:100px 60px;
-}
-.readings h2{
-  text-align:center;
-  margin-bottom:60px;
-  letter-spacing:3px;
-}
-
+/* READINGS */
+.readings{padding:100px 60px}
+.readings h2{text-align:center;margin-bottom:60px;letter-spacing:3px}
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:40px;
 }
-
 .box{
   border:1px solid rgba(230,210,140,.4);
   padding:20px;
 }
-
 .schema{
   display:flex;
-  justify-content:center;
-  align-items:center;
   flex-wrap:wrap;
+  justify-content:center;
   gap:10px;
   margin-bottom:15px;
 }
-
-.schema .s-card{
+.s-card{
   width:45px;
   height:70px;
   border:1px solid rgba(230,210,140,.7);
@@ -157,16 +119,27 @@ nav a{
   justify-content:center;
   font-size:.8em;
 }
+.box h3{margin:10px 0}
+.box p{font-size:.75em;line-height:1.6}
 
-.box h3{
-  margin:10px 0 6px;
-  font-size:1em;
+/* CTA */
+.cta{
+  text-align:center;
+  padding:100px 40px;
 }
-
-.box p{
-  font-size:.75em;
-  line-height:1.6;
-  opacity:.85;
+.cta h2{
+  font-size:1.4em;
+  margin-bottom:30px;
+}
+.cta a{
+  font-size:2.2em;
+  margin:0 20px;
+}
+.whatsapp{color:#25D366}
+.instagram{
+  background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
 /* FOOTER */
@@ -175,16 +148,7 @@ footer{
   padding:50px;
   font-size:.75em;
 }
-.socials a{
-  margin:0 12px;
-  font-size:1.6em;
-}
 .youtube{color:#ff0000}
-.instagram{
-  background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
 </style>
 </head>
 
@@ -201,17 +165,13 @@ footer{
 </nav>
 
 <section class="hero">
-  <h1>mytarova</h1>
-  <p>bilinmeyenin eşiğinde</p>
-
-  <div class="symbol moon">☽</div>
-  <div class="symbol star">✧</div>
-
-  <div class="cards">
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-  </div>
+<h1>mytarova</h1>
+<p>bilinmeyenin eşiğinde</p>
+<div class="symbol moon">☽</div>
+<div class="symbol star">✧</div>
+<div class="cards">
+<div class="card"></div><div class="card"></div><div class="card"></div>
+</div>
 </section>
 
 <section class="readings">
@@ -219,85 +179,57 @@ footer{
 
 <div class="grid">
 
-<!-- 1 -->
 <div class="box">
-<div class="schema">
-<div class="s-card">1</div>—<div class="s-card">2</div>—<div class="s-card">3</div>—<div class="s-card">4</div>
-</div>
+<div class="schema"><div class="s-card">1</div>—<div class="s-card">2</div>—<div class="s-card">3</div>—<div class="s-card">4</div></div>
 <h3>Zaman Akışı Açılımı</h3>
-<p>Bir konunun geçmişten bugüne nasıl ilerlediğini ve nereye aktığını gösterir.</p>
+<p><b>Ne için?</b> Bir konunun nasıl ilerleyeceğini görmek.<br>
+<b>Kart sayısı:</b> 4<br>
+1️⃣ Geçmiş • 2️⃣ Şu an • 3️⃣ Yakın gelecek • 4️⃣ Sonuç<br>
+<i>“Bu konu geçmişten bugüne nasıl geldi ve nereye akıyor?”</i></p>
 </div>
 
-<!-- 2 -->
 <div class="box">
-<div class="schema">
-<div class="s-card">2</div><br>
-<div class="s-card">1</div> <div class="s-card">3</div>
-</div>
+<div class="schema"><div class="s-card">2</div><div class="s-card">1</div><div class="s-card">3</div></div>
 <h3>Engel – Çözüm Açılımı</h3>
-<p>Tıkanıklıkların sebebi ve çözüm yolunu gösterir.</p>
+<p><b>Ne için?</b> Tıkanıklık yaşayanlar için.<br>
+<b>Kart sayısı:</b> 3<br>
+1️⃣ Asıl engel • 2️⃣ Görülmeyen etki • 3️⃣ Çözüm<br>
+<i>“Neden olmuyor?”</i></p>
 </div>
 
-<!-- 3 -->
 <div class="box">
-<div class="schema">
-<div class="s-card">1</div>
-<div class="s-card">2</div>
-<div class="s-card">3</div>
-<div class="s-card">4</div>
-</div>
+<div class="schema"><div class="s-card">1</div><div class="s-card">2</div><div class="s-card">3</div><div class="s-card">4</div></div>
 <h3>Karşı Tarafın İç Dünyası</h3>
-<p>Düşünce, duygu, korku ve niyetleri açığa çıkarır.</p>
+<p>1️⃣ Düşünceler • 2️⃣ Duygular • 3️⃣ Korkular • 4️⃣ Niyet</p>
 </div>
 
-<!-- 4 -->
 <div class="box">
-<div class="schema">
-<div class="s-card">1</div>
-<div class="s-card">2</div><div class="s-card">3</div>
-<div class="s-card">4</div><div class="s-card">5</div>
-</div>
+<div class="schema"><div class="s-card">1</div><div class="s-card">2</div><div class="s-card">3</div><div class="s-card">4</div><div class="s-card">5</div></div>
 <h3>İki Seçenek Karar Açılımı</h3>
-<p>Hangi yolun daha uygun olduğunu gösterir.</p>
+<p>Hangisini seçmeliyim sorusu için öğretici açılım.</p>
 </div>
 
-<!-- 5 -->
 <div class="box">
-<div class="schema">
-<div class="s-card">1</div><div class="s-card">2</div>
-<div class="s-card">3</div><div class="s-card">4</div>
-</div>
+<div class="schema"><div class="s-card">1</div><div class="s-card">2</div><div class="s-card">3</div><div class="s-card">4</div></div>
 <h3>Gizli Etkiler Açılımı</h3>
-<p>Arka plandaki gerçek niyetleri açığa çıkarır.</p>
+<p>Arka plandaki gerçek niyetleri gösterir.</p>
 </div>
 
-<!-- 6 -->
 <div class="box">
-<div class="schema">
-<div class="s-card">1</div>
-<div class="s-card">2</div>
-<div class="s-card">3</div>
-</div>
+<div class="schema"><div class="s-card">1</div><div class="s-card">2</div><div class="s-card">3</div></div>
 <h3>Ruhsal Mesaj Açılımı</h3>
-<p>Ruhunun şu anki derslerini gösterir.</p>
+<p>Ruhunun şu anki dersleri.</p>
 </div>
 
-<!-- 7 -->
 <div class="box">
-<div class="schema">
-<div class="s-card">4</div>
-<div class="s-card">2</div><div class="s-card">1</div><div class="s-card">3</div>
-<div class="s-card">5</div>
-</div>
+<div class="schema"><div class="s-card">4</div><div class="s-card">2</div><div class="s-card">1</div><div class="s-card">3</div><div class="s-card">5</div></div>
 <h3>5 Kart Derin Açılım</h3>
-<p>Kısa ama etkili derin analiz.</p>
+<p>Kısa ama derin analiz.</p>
 </div>
 
-<!-- 8 -->
 <div class="box">
 <div class="schema">
-<div class="s-card">7</div>
-<div class="s-card">1</div><div class="s-card">3</div><div class="s-card">2</div>
+<div class="s-card">7</div><div class="s-card">1</div><div class="s-card">3</div><div class="s-card">2</div>
 <div class="s-card">4</div><div class="s-card">5</div><div class="s-card">6</div>
 <div class="s-card">8</div><div class="s-card">9</div><div class="s-card">10</div>
 </div>
@@ -308,12 +240,14 @@ footer{
 </div>
 </section>
 
-<footer>
-© 2006 mytarova — Tüm hakları saklıdır<br><br>
-<span class="socials">
-<a class="youtube" href="https://www.youtube.com/channel/UClnBWxK6z-CRmFB0bdytNmQ" target="_blank"><i class="fab fa-youtube"></i></a>
+<section class="cta">
+<h2>Tarot Açılımı İçin Bize Ulaşın</h2>
+<a class="whatsapp" href="https://wa.me/905XXXXXXXXX" target="_blank"><i class="fab fa-whatsapp"></i></a>
 <a class="instagram" href="https://instagram.com/my_tarova/" target="_blank"><i class="fab fa-instagram"></i></a>
-</span>
+</section>
+
+<footer>
+© 2006 mytarova — Tüm hakları saklıdır
 </footer>
 
 </body>
