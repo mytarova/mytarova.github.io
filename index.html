@@ -2,248 +2,182 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>mytarova 🔮</title>
+<title>My Tarova 🔮</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<!-- Okült font -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  background: radial-gradient(circle at top, #0f0718, #020003);
-  color: #e6d28c;
   font-family: 'Cinzel', serif;
-  text-align: center;
-  overflow-x: hidden;
+  background: radial-gradient(circle at top, #12081c, #030005);
+  color: #e6d28c;
 }
 
-/* DUMAN CANVAS */
-#smoke {
+/* ===== NAVBAR ===== */
+nav {
   position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+  top: 0;
+  right: 0;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(3,0,5,0.9), rgba(3,0,5,0));
 }
 
-/* RİTÜEL OVERLAY */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: #020003;
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: #e6d28c;
+  text-decoration: none;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 1px;
+  background: #e6d28c;
+  transition: width 0.3s;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* ===== HERO / BANNER ===== */
+.hero {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  transition: opacity 1.5s;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 120px 20px 40px;
 }
 
-.overlay.hidden {
-  opacity: 0;
-  pointer-events: none;
+/* Spiritüel objeler (arka plan süsleri) */
+.hero::before,
+.hero::after {
+  content: "✶ ☽ ✧";
+  position: absolute;
+  font-size: 6rem;
+  opacity: 0.04;
+  color: #ffffff;
 }
 
-.overlay button {
-  padding: 18px 42px;
-  background: none;
-  border: 1px solid #e6d28c;
-  color: #e6d28c;
-  font-family: 'Cinzel', serif;
-  letter-spacing: 3px;
-  cursor: pointer;
+.hero::before {
+  top: 15%;
+  left: 10%;
 }
 
-/* İÇERİK */
-header, section, footer {
+.hero::after {
+  bottom: 10%;
+  right: 12%;
+}
+
+/* Tarot kart siluetleri */
+.tarot-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  opacity: 0.08;
+  z-index: 0;
+}
+
+.tarot-bg div {
+  width: 160px;
+  height: 280px;
+  border: 1px solid #fff;
+  border-radius: 12px;
+  transform: rotate(-8deg);
+}
+
+.tarot-bg div:nth-child(2) {
+  transform: rotate(0deg);
+}
+
+.tarot-bg div:nth-child(3) {
+  transform: rotate(8deg);
+}
+
+/* Hero içerik */
+.hero-content {
   position: relative;
   z-index: 2;
 }
 
-header {
-  padding: 100px 20px 50px;
+.hero h1 {
+  font-size: 4em;
+  letter-spacing: 10px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 25px rgba(230,210,140,0.5);
 }
 
-h1 {
-  font-size: 3.5em;
-  letter-spacing: 8px;
-  text-shadow: 0 0 25px rgba(230,210,140,0.4);
+.hero p {
+  font-style: italic;
+  letter-spacing: 2px;
+  opacity: 0.85;
 }
 
-.divider {
-  width: 180px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #e6d28c, transparent);
-  margin: 40px auto;
-}
-
-/* GÜNÜN KARTI */
-.daily img {
-  width: 220px;
-  border-radius: 12px;
-  box-shadow: 0 0 40px rgba(230,210,140,0.5);
-}
-
-/* KART SEÇİM */
-.cards {
-  margin-top: 120px;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-}
-
-.card {
-  width: 140px;
-  height: 240px;
-  background: linear-gradient(135deg, #2b173d, #0b0712);
-  border: 1px solid #e6d28c;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-/* ODAK */
-.focus {
-  position: fixed;
-  inset: 0;
-  background: rgba(2,0,3,0.95);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9;
-}
-
-.focus img {
-  width: 320px;
-  box-shadow: 0 0 70px rgba(230,210,140,0.8);
-}
-
-/* YOUTUBE */
-.youtube iframe {
-  width: 90%;
-  max-width: 560px;
-  height: 315px;
-  border: none;
-  margin-top: 20px;
-}
-
-footer {
-  margin-top: 160px;
-  padding: 40px;
-  opacity: 0.6;
+/* ===== ALT BOŞLUK (ileride dolduracağız) ===== */
+.placeholder {
+  height: 600px;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="smoke"></canvas>
+<!-- NAVBAR -->
+<nav>
+  <ul>
+    <li><a href="#">Anasayfa</a></li>
+    <li><a href="#">Tarot Tarihçesi</a></li>
+    <li><a href="#">Tarot Kartları</a></li>
+    <li><a href="#">Günün Kartı</a></li>
+    <li><a href="#">Bize Ulaşın</a></li>
+  </ul>
+</nav>
 
-<div class="overlay" id="overlay">
-  <button onclick="startRitual()">RİTÜELİ BAŞLAT</button>
-</div>
+<!-- HERO / BANNER -->
+<section class="hero">
+  <div class="tarot-bg">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 
-<div class="focus" id="focus" onclick="closeFocus()">
-  <img id="focusImg">
-</div>
-
-<header>
-  <h1>🔮 MYTAROVA 🔮</h1>
-  <div class="divider"></div>
-</header>
-
-<section class="daily">
-  <h2>GÜNÜN KARTI</h2>
-  <img id="dailyImg">
-  <div id="dailyMsg"></div>
+  <div class="hero-content">
+    <h1>MY TAROVA</h1>
+    <p>Tarot • Sezgi • Spiritüel Yolculuk</p>
+  </div>
 </section>
 
-<section class="cards">
-  <div class="card" onclick="pickCard()"></div>
-  <div class="card" onclick="pickCard()"></div>
-  <div class="card" onclick="pickCard()"></div>
-</section>
-
-<section class="youtube">
-  <h2>YouTube</h2>
-  <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=UClnBWxK6z-CRmFB0bdytNmQ"></iframe>
-</section>
-
-<footer>
-  © mytarova — Okült Tarot
-</footer>
-
-<script>
-/* TAROT */
-const tarot = [
- {img:"https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg",msg:"Yeni bir başlangıç."},
- {img:"https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg",msg:"Güç senin elinde."},
- {img:"https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg",msg:"Sessizlik konuşur."},
- {img:"https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg",msg:"Bereket zamanı."},
- {img:"https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg",msg:"Dönüşüm başlıyor."}
-];
-
-function startRitual(){
- document.getElementById("overlay").classList.add("hidden");
-}
-
-function dailyCard(){
- const c = tarot[Math.floor(Math.random()*tarot.length)];
- dailyImg.src = c.img;
- dailyMsg.textContent = c.msg;
-}
-
-function pickCard(){
- const c = tarot[Math.floor(Math.random()*tarot.length)];
- focusImg.src = c.img;
- document.getElementById("focus").style.display="flex";
-}
-
-function closeFocus(){
- document.getElementById("focus").style.display="none";
-}
-
-dailyCard();
-
-/* 🌫️ DUMAN / SİS CANVAS */
-const canvas = document.getElementById("smoke");
-const ctx = canvas.getContext("2d");
-let w, h;
-const particles = [];
-
-function resize(){
- w = canvas.width = window.innerWidth;
- h = canvas.height = window.innerHeight;
-}
-window.addEventListener("resize", resize);
-resize();
-
-for(let i=0;i<80;i++){
- particles.push({
-  x: Math.random()*w,
-  y: h + Math.random()*h,
-  r: 100 + Math.random()*200,
-  a: 0.03 + Math.random()*0.05,
-  s: 0.2 + Math.random()*0.6
- });
-}
-
-function draw(){
- ctx.clearRect(0,0,w,h);
- particles.forEach(p=>{
-  ctx.beginPath();
-  const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
-  g.addColorStop(0,`rgba(200,200,200,${p.a})`);
-  g.addColorStop(1,"rgba(200,200,200,0)");
-  ctx.fillStyle=g;
-  ctx.fill();
-  p.y -= p.s;
-  if(p.y < -p.r){
-    p.y = h + p.r;
-    p.x = Math.random()*w;
-  }
- });
- requestAnimationFrame(draw);
-}
-draw();
-</script>
+<!-- ŞİMDİLİK BOŞ -->
+<div class="placeholder"></div>
 
 </body>
 </html>
