@@ -2,190 +2,188 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>mytarova 🔮</title>
+<title>mytarova</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-  margin: 0;
-  font-family: 'Cinzel', serif;
-  background: radial-gradient(circle at top, #140a1f, #030005);
-  color: #e6d28c;
+body{
+  margin:0;
+  font-family:'Cinzel',serif;
+  background:radial-gradient(circle at top,#160b22,#050008);
+  color:#e6d28c;
 }
 
-/* ===== NAV ===== */
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 24px 48px;
-  display: flex;
-  justify-content: flex-end;
-  z-index: 10;
-  background: linear-gradient(to bottom, rgba(3,0,5,0.9), rgba(3,0,5,0));
+/* NAV */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:20px 50px;
+  display:flex;
+  justify-content:flex-end;
+  z-index:10;
+  background:linear-gradient(to bottom,rgba(5,0,8,.9),rgba(5,0,8,0));
+}
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:26px;
+  margin:0;
+  padding:0;
+}
+nav a{
+  color:#e6d28c;
+  text-decoration:none;
+  font-size:.85em;
+  letter-spacing:1px;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 28px;
-  margin: 0;
-  padding: 0;
+/* HERO / BANNER */
+.hero{
+  height:65vh; /* 3/2 oranına yakın */
+  padding-top:120px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
 
-nav a {
-  color: #e6d28c;
-  text-decoration: none;
-  font-size: 0.85em;
-  letter-spacing: 1px;
+.hero h1{
+  font-size:1.9em;
+  letter-spacing:4px;
+  margin:0;
 }
 
-/* ===== HERO ===== */
-.hero {
-  min-height: 100vh;
-  padding-top: 140px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.hero p{
+  font-size:.8em;
+  margin-top:8px;
+  font-style:italic;
+  opacity:.85;
 }
 
-/* Tarot kart animasyonu */
-.tarot-bg {
-  position: absolute;
-  top: 24%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  opacity: 0.15;
+/* ANİMASYONLU SEMBOLLER */
+.symbol{
+  position:absolute;
+  font-size:5rem;
+  opacity:.08;
+  color:#fff;
+}
+.moon{
+  top:20%;
+  left:8%;
+  animation:float 6s ease-in-out infinite;
+}
+.star{
+  bottom:20%;
+  right:10%;
+  animation:glow 4s ease-in-out infinite;
 }
 
-.tarot-bg img {
-  width: 140px;
-  border-radius: 12px;
-  animation: floatCard 8s ease-in-out infinite;
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
+}
+@keyframes glow{
+  0%,100%{opacity:.05}
+  50%{opacity:.15}
 }
 
-.tarot-bg img:nth-child(1) { animation-delay: 0s; transform: rotate(-8deg); }
-.tarot-bg img:nth-child(2) { animation-delay: 2s; }
-.tarot-bg img:nth-child(3) { animation-delay: 4s; transform: rotate(8deg); }
+/* TAROT ÇİZİM KARTLARI */
+.cards{
+  position:absolute;
+  bottom:10%;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  gap:40px;
+  opacity:.18;
+}
+.card{
+  width:110px;
+  height:170px;
+  border:1px solid rgba(230,210,140,.6);
+  border-radius:10px;
+  animation:cardFloat 7s ease-in-out infinite;
+}
+.card:nth-child(1){animation-delay:0s}
+.card:nth-child(2){animation-delay:2s}
+.card:nth-child(3){animation-delay:4s}
 
-@keyframes floatCard {
-  0%,100% { transform: translateY(0) rotate(var(--r,0deg)); }
-  50% { transform: translateY(-25px) rotate(var(--r,0deg)); }
+@keyframes cardFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-25px)}
 }
 
-/* Ay & yıldız */
-.symbol {
-  position: absolute;
-  font-size: 5rem;
-  opacity: 0.08;
-  color: #fff;
+/* AÇILIMLAR */
+.readings{
+  padding:100px 60px;
+}
+.readings h2{
+  text-align:center;
+  margin-bottom:60px;
+  letter-spacing:3px;
 }
 
-.moon {
-  top: 18%;
-  left: 8%;
-  animation: moonFloat 6s ease-in-out infinite;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:40px;
 }
 
-.star {
-  bottom: 20%;
-  right: 10%;
-  animation: starGlow 4s ease-in-out infinite;
+.box{
+  border:1px solid rgba(230,210,140,.4);
+  padding:20px;
 }
 
-@keyframes moonFloat {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+.schema{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:15px;
 }
 
-@keyframes starGlow {
-  0%,100% { opacity: 0.05; }
-  50% { opacity: 0.15; }
+.schema .s-card{
+  width:45px;
+  height:70px;
+  border:1px solid rgba(230,210,140,.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.8em;
 }
 
-/* Yazı */
-.hero h1 {
-  font-size: 2em; /* KÜÇÜLTÜLDÜ */
-  letter-spacing: 4px;
-  margin: 0;
+.box h3{
+  margin:10px 0 6px;
+  font-size:1em;
 }
 
-.hero p {
-  font-size: 0.8em;
-  margin-top: 10px;
-  opacity: 0.8;
-  font-style: italic;
+.box p{
+  font-size:.75em;
+  line-height:1.6;
+  opacity:.85;
 }
 
-/* ===== AÇILIMLAR ===== */
-.readings {
-  padding: 120px 60px;
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:50px;
+  font-size:.75em;
 }
-
-.readings h2 {
-  text-align: center;
-  margin-bottom: 60px;
-  letter-spacing: 3px;
+.socials a{
+  margin:0 12px;
+  font-size:1.6em;
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap: 40px;
-}
-
-.reading-box {
-  border: 1px solid rgba(230,210,140,0.4);
-  padding: 20px;
-  text-align: center;
-}
-
-.cards-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.cards-row img {
-  width: 50px;
-  border-radius: 6px;
-}
-
-.reading-box h3 {
-  margin: 10px 0;
-}
-
-.reading-box p {
-  font-size: 0.75em;
-  opacity: 0.85;
-  line-height: 1.6;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 50px;
-  font-size: 0.75em;
-}
-
-.socials a {
-  margin: 0 12px;
-  font-size: 1.6em;
-}
-
-.youtube { color: #ff0000; }
-.instagram {
-  background: linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.youtube{color:#ff0000}
+.instagram{
+  background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 </style>
 </head>
@@ -193,71 +191,129 @@ footer {
 <body>
 
 <nav>
-  <ul>
-    <li><a href="#">Anasayfa</a></li>
-    <li><a href="#">Tarot Tarihçesi</a></li>
-    <li><a href="#">Tarot Kartları</a></li>
-    <li><a href="#">Günün Kartı</a></li>
-    <li><a href="#">Bize Ulaşın</a></li>
-  </ul>
+<ul>
+<li><a href="#">Anasayfa</a></li>
+<li><a href="#">Tarot Tarihçesi</a></li>
+<li><a href="#">Tarot Kartları</a></li>
+<li><a href="#">Günün Kartı</a></li>
+<li><a href="#">Bize Ulaşın</a></li>
+</ul>
 </nav>
 
 <section class="hero">
-  <div class="tarot-bg">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg">
-  </div>
+  <h1>mytarova</h1>
+  <p>bilinmeyenin eşiğinde</p>
 
   <div class="symbol moon">☽</div>
   <div class="symbol star">✧</div>
 
-  <h1>mytarova</h1>
-  <p>bilinmeyenin eşiğinde</p>
-</section>
-
-<section class="readings">
-  <h2>TAROT AÇILIMLARI</h2>
-
-  <div class="grid">
-    <div class="reading-box">
-      <div class="cards-row">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_06_Lovers.jpg">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_10_Wheel_of_Fortune.jpg">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/RWS_Tarot_18_Moon.jpg">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg">
-      </div>
-      <h3>Zaman Akışı Açılımı</h3>
-      <p>
-        Ne için? Bir konunun nasıl ilerleyeceğini görmek.<br><br>
-        Kart sayısı: 4<br>
-        1️⃣ Geçmiş<br>
-        2️⃣ Şu an<br>
-        3️⃣ Yakın gelecek<br>
-        4️⃣ Sonuç / gidişat
-      </p>
-    </div>
-
-    <!-- 7 BOŞ ALAN -->
-    <div class="reading-box">Yakında</div>
-    <div class="reading-box">Yakında</div>
-    <div class="reading-box">Yakında</div>
-    <div class="reading-box">Yakında</div>
-    <div class="reading-box">Yakında</div>
-    <div class="reading-box">Yakında</div>
+  <div class="cards">
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
   </div>
 </section>
 
+<section class="readings">
+<h2>TAROT AÇILIMLARI</h2>
+
+<div class="grid">
+
+<!-- 1 -->
+<div class="box">
+<div class="schema">
+<div class="s-card">1</div>—<div class="s-card">2</div>—<div class="s-card">3</div>—<div class="s-card">4</div>
+</div>
+<h3>Zaman Akışı Açılımı</h3>
+<p>Bir konunun geçmişten bugüne nasıl ilerlediğini ve nereye aktığını gösterir.</p>
+</div>
+
+<!-- 2 -->
+<div class="box">
+<div class="schema">
+<div class="s-card">2</div><br>
+<div class="s-card">1</div> <div class="s-card">3</div>
+</div>
+<h3>Engel – Çözüm Açılımı</h3>
+<p>Tıkanıklıkların sebebi ve çözüm yolunu gösterir.</p>
+</div>
+
+<!-- 3 -->
+<div class="box">
+<div class="schema">
+<div class="s-card">1</div>
+<div class="s-card">2</div>
+<div class="s-card">3</div>
+<div class="s-card">4</div>
+</div>
+<h3>Karşı Tarafın İç Dünyası</h3>
+<p>Düşünce, duygu, korku ve niyetleri açığa çıkarır.</p>
+</div>
+
+<!-- 4 -->
+<div class="box">
+<div class="schema">
+<div class="s-card">1</div>
+<div class="s-card">2</div><div class="s-card">3</div>
+<div class="s-card">4</div><div class="s-card">5</div>
+</div>
+<h3>İki Seçenek Karar Açılımı</h3>
+<p>Hangi yolun daha uygun olduğunu gösterir.</p>
+</div>
+
+<!-- 5 -->
+<div class="box">
+<div class="schema">
+<div class="s-card">1</div><div class="s-card">2</div>
+<div class="s-card">3</div><div class="s-card">4</div>
+</div>
+<h3>Gizli Etkiler Açılımı</h3>
+<p>Arka plandaki gerçek niyetleri açığa çıkarır.</p>
+</div>
+
+<!-- 6 -->
+<div class="box">
+<div class="schema">
+<div class="s-card">1</div>
+<div class="s-card">2</div>
+<div class="s-card">3</div>
+</div>
+<h3>Ruhsal Mesaj Açılımı</h3>
+<p>Ruhunun şu anki derslerini gösterir.</p>
+</div>
+
+<!-- 7 -->
+<div class="box">
+<div class="schema">
+<div class="s-card">4</div>
+<div class="s-card">2</div><div class="s-card">1</div><div class="s-card">3</div>
+<div class="s-card">5</div>
+</div>
+<h3>5 Kart Derin Açılım</h3>
+<p>Kısa ama etkili derin analiz.</p>
+</div>
+
+<!-- 8 -->
+<div class="box">
+<div class="schema">
+<div class="s-card">7</div>
+<div class="s-card">1</div><div class="s-card">3</div><div class="s-card">2</div>
+<div class="s-card">4</div><div class="s-card">5</div><div class="s-card">6</div>
+<div class="s-card">8</div><div class="s-card">9</div><div class="s-card">10</div>
+</div>
+<h3>10 Kartlık Evlilik Açılımı</h3>
+<p>Bağın kader yolunu ve evlilik potansiyelini gösterir.</p>
+</div>
+
+</div>
+</section>
+
 <footer>
-  © 2006 mytarova — Tüm hakları saklıdır<br><br>
-  <span class="socials">
-    <a class="youtube" href="https://www.youtube.com/channel/UClnBWxK6z-CRmFB0bdytNmQ" target="_blank">
-      <i class="fab fa-youtube"></i>
-    </a>
-    <a class="instagram" href="https://instagram.com/my_tarova/" target="_blank">
-      <i class="fab fa-instagram"></i>
-    </a>
-  </span>
+© 2006 mytarova — Tüm hakları saklıdır<br><br>
+<span class="socials">
+<a class="youtube" href="https://www.youtube.com/channel/UClnBWxK6z-CRmFB0bdytNmQ" target="_blank"><i class="fab fa-youtube"></i></a>
+<a class="instagram" href="https://instagram.com/my_tarova/" target="_blank"><i class="fab fa-instagram"></i></a>
+</span>
 </footer>
 
 </body>
