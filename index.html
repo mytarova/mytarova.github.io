@@ -17,7 +17,15 @@ body {
   overflow-x: hidden;
 }
 
-/* GİRİŞ RİTÜEL */
+/* DUMAN CANVAS */
+#smoke {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* RİTÜEL OVERLAY */
 .overlay {
   position: fixed;
   inset: 0;
@@ -25,24 +33,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;
+  z-index: 10;
   transition: opacity 1.5s;
-}
-
-.overlay button {
-  padding: 18px 40px;
-  background: none;
-  border: 1px solid #e6d28c;
-  color: #e6d28c;
-  font-family: 'Cinzel', serif;
-  font-size: 1.1em;
-  letter-spacing: 3px;
-  cursor: pointer;
 }
 
 .overlay.hidden {
   opacity: 0;
   pointer-events: none;
+}
+
+.overlay button {
+  padding: 18px 42px;
+  background: none;
+  border: 1px solid #e6d28c;
+  color: #e6d28c;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 3px;
+  cursor: pointer;
+}
+
+/* İÇERİK */
+header, section, footer {
+  position: relative;
+  z-index: 2;
 }
 
 header {
@@ -52,7 +65,7 @@ header {
 h1 {
   font-size: 3.5em;
   letter-spacing: 8px;
-  text-shadow: 0 0 20px rgba(230,210,140,0.4);
+  text-shadow: 0 0 25px rgba(230,210,140,0.4);
 }
 
 .divider {
@@ -63,22 +76,13 @@ h1 {
 }
 
 /* GÜNÜN KARTI */
-.daily {
-  margin-top: 80px;
-}
-
 .daily img {
   width: 220px;
   border-radius: 12px;
   box-shadow: 0 0 40px rgba(230,210,140,0.5);
 }
 
-.message {
-  margin-top: 20px;
-  font-style: italic;
-}
-
-/* TAROT SEÇİM */
+/* KART SEÇİM */
 .cards {
   margin-top: 120px;
   display: flex;
@@ -95,6 +99,7 @@ h1 {
   cursor: pointer;
 }
 
+/* ODAK */
 .focus {
   position: fixed;
   inset: 0;
@@ -102,19 +107,15 @@ h1 {
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 998;
+  z-index: 9;
 }
 
 .focus img {
-  width: 300px;
-  box-shadow: 0 0 60px rgba(230,210,140,0.8);
+  width: 320px;
+  box-shadow: 0 0 70px rgba(230,210,140,0.8);
 }
 
 /* YOUTUBE */
-.youtube {
-  margin-top: 160px;
-}
-
 .youtube iframe {
   width: 90%;
   max-width: 560px;
@@ -133,6 +134,8 @@ footer {
 
 <body>
 
+<canvas id="smoke"></canvas>
+
 <div class="overlay" id="overlay">
   <button onclick="startRitual()">RİTÜELİ BAŞLAT</button>
 </div>
@@ -149,7 +152,7 @@ footer {
 <section class="daily">
   <h2>GÜNÜN KARTI</h2>
   <img id="dailyImg">
-  <div class="message" id="dailyMsg"></div>
+  <div id="dailyMsg"></div>
 </section>
 
 <section class="cards">
@@ -160,6 +163,87 @@ footer {
 
 <section class="youtube">
   <h2>YouTube</h2>
-  <iframe 
-    src="https://www.youtube.com/embed?listType=user_uploads&list=UCl_
+  <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=UClnBWxK6z-CRmFB0bdytNmQ"></iframe>
+</section>
 
+<footer>
+  © mytarova — Okült Tarot
+</footer>
+
+<script>
+/* TAROT */
+const tarot = [
+ {img:"https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg",msg:"Yeni bir başlangıç."},
+ {img:"https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg",msg:"Güç senin elinde."},
+ {img:"https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg",msg:"Sessizlik konuşur."},
+ {img:"https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg",msg:"Bereket zamanı."},
+ {img:"https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg",msg:"Dönüşüm başlıyor."}
+];
+
+function startRitual(){
+ document.getElementById("overlay").classList.add("hidden");
+}
+
+function dailyCard(){
+ const c = tarot[Math.floor(Math.random()*tarot.length)];
+ dailyImg.src = c.img;
+ dailyMsg.textContent = c.msg;
+}
+
+function pickCard(){
+ const c = tarot[Math.floor(Math.random()*tarot.length)];
+ focusImg.src = c.img;
+ document.getElementById("focus").style.display="flex";
+}
+
+function closeFocus(){
+ document.getElementById("focus").style.display="none";
+}
+
+dailyCard();
+
+/* 🌫️ DUMAN / SİS CANVAS */
+const canvas = document.getElementById("smoke");
+const ctx = canvas.getContext("2d");
+let w, h;
+const particles = [];
+
+function resize(){
+ w = canvas.width = window.innerWidth;
+ h = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+for(let i=0;i<80;i++){
+ particles.push({
+  x: Math.random()*w,
+  y: h + Math.random()*h,
+  r: 100 + Math.random()*200,
+  a: 0.03 + Math.random()*0.05,
+  s: 0.2 + Math.random()*0.6
+ });
+}
+
+function draw(){
+ ctx.clearRect(0,0,w,h);
+ particles.forEach(p=>{
+  ctx.beginPath();
+  const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);
+  g.addColorStop(0,`rgba(200,200,200,${p.a})`);
+  g.addColorStop(1,"rgba(200,200,200,0)");
+  ctx.fillStyle=g;
+  ctx.fill();
+  p.y -= p.s;
+  if(p.y < -p.r){
+    p.y = h + p.r;
+    p.x = Math.random()*w;
+  }
+ });
+ requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
