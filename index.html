@@ -198,51 +198,81 @@ footer{
 
 <div class="grid">
 
-<div class="reading-box">
-<h3>Zaman Akışı Açılımı</h3>
-<p>Kart sayısı: 4</p>
-<ul>
-<li>Geçmiş</li><li>Şu an</li><li>Yakın gelecek</li><li>Sonuç</li>
-</ul>
-<div class="scheme"><span>1</span><span>2</span><span>3</span><span>4</span></div>
-</div>
+/* AÇILIM GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+  gap:45px;
+  align-items:stretch; /* TÜM KUTULAR EŞİT */
+}
 
-<div class="reading-box">
-<h3>Engel – Çözüm Açılımı</h3>
-<p>Kart sayısı: 3</p>
-<ul>
-<li>Asıl engel</li><li>Görülmeyen etki</li><li>Çözüm</li>
-</ul>
-<div class="scheme"><span>2</span><span>1</span><span>3</span></div>
-</div>
+/* AÇILIM KUTUSU – FİNAL */
+.reading-box{
+  position:relative;
+  padding:35px 30px 30px;
+  background:rgba(0,0,0,.45);
 
-<div class="reading-box">
-<h3>Ruhsal Mesaj Açılımı</h3>
-<p>Kart sayısı: 3</p>
-<ul>
-<li>Ruhunun dersi</li><li>Bırakman gereken</li><li>Gelişim alanı</li>
-</ul>
-<div class="scheme"><span>1</span><span>2</span><span>3</span></div>
-</div>
+  min-height:520px;           /* 🔥 EN BÜYÜĞE GÖRE */
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
 
-<div class="reading-box marriage">
-<h3>10 Kartlık Evlilik Açılımı</h3>
-<p>Kart sayısı: 10</p>
-<ul>
-<li>1️⃣ Sen</li><li>2️⃣ Karşı taraf</li><li>3️⃣ Bağ</li>
-<li>4️⃣ Duygusal uyum</li><li>5️⃣ İletişim</li><li>6️⃣ Maddi uyum</li>
-<li>7️⃣ Aile etkisi</li><li>8️⃣ Engeller</li><li>9️⃣ Potansiyel</li><li>🔟 Kader</li>
-</ul>
+/* ÇİFT RENKLİ ÇERÇEVE */
+.reading-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:2px solid #8b1e1e;
+}
+.reading-box::after{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border:1px solid #1e4b8b;
+}
 
-<div class="scheme marriage-scheme">
-<span class="c7">7</span>
-<span class="c1">1</span><span class="c3">3</span><span class="c2">2</span>
-<span class="c4">4</span><span class="c5">5</span><span class="c6">6</span>
-<span class="c8">8</span><span class="c9">9</span><span class="c10">10</span>
-</div>
-</div>
+/* METİNLER */
+.reading-box h3{
+  margin-top:0;
+  font-size:1em;
+  letter-spacing:1px;
+}
 
-</div>
+.reading-box p{
+  font-size:.85em;
+  margin:6px 0;
+}
+
+.reading-box ul{
+  font-size:.85em;
+  padding-left:18px;
+  margin:12px 0 0;
+}
+
+.reading-box ul li{
+  margin-bottom:6px;
+}
+
+/* ŞEMA – EN ALTA SABİTLENİR */
+.scheme{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(28px,1fr));
+  gap:8px;
+  max-width:220px;
+}
+.scheme span{
+  width:28px;
+  height:42px;
+  font-size:.7em;
+  border:1px solid rgba(230,210,140,.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:.85;
+}
+
 </section>
 
 <section class="cta" id="contact">
