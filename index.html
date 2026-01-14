@@ -1,63 +1,259 @@
-<section id="home" class="hero">
-  <div class="stars"></div>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>mytarova</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body{
+  margin:0;
+  background:#050008;
+  color:#e6d28c;
+  font-family:serif;
+}
+
+/* MENU */
+.menu{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:15px;
+}
+.menu a{
+  color:#e6d28c;
+  text-decoration:none;
+  font-size:.9em;
+}
+
+/* HERO */
+.hero{
+  height:45vh;
+  text-align:center;
+  padding-top:70px;
+}
+.hero h1{font-size:2em;letter-spacing:4px}
+.hero p{font-size:.8em;font-style:italic}
+
+.cards{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  margin-top:25px;
+}
+.card{
+  width:90px;
+  height:140px;
+  background:linear-gradient(135deg,#120016,#2a0033);
+  border:2px solid rgba(230,210,140,.7);
+  box-shadow:0 0 25px rgba(138,43,226,.4);
+  animation:float 6s infinite ease-in-out;
+}
+@keyframes float{50%{transform:translateY(-12px)}}
+
+/* GÜNÜN KARTI */
+.daily{
+  text-align:center;
+  padding:80px 20px;
+}
+.daily-card{
+  margin:30px auto;
+  width:120px;
+  height:180px;
+  background:#2a0033;
+  border:2px solid #e6d28c;
+  cursor:pointer;
+  transition:.6s;
+}
+.daily-card.open{
+  transform:rotateY(180deg);
+}
+
+/* AÇILIMLAR */
+.readings{padding:80px 10%}
+.readings h2{text-align:center;margin-bottom:60px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:45px;
+  align-items:stretch;
+}
+
+.reading-box{
+  position:relative;
+  padding:35px 30px 30px;
+  background:rgba(0,0,0,.45);
+
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.reading-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:2px solid #8b1e1e;
+}
+.reading-box::after{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border:1px solid #1e4b8b;
+}
+
+.reading-box h3{margin-top:0;font-size:1em}
+.reading-box p{font-size:.85em}
+.reading-box ul{font-size:.85em;padding-left:18px}
+.reading-box li{margin-bottom:6px}
+
+/* ŞEMALAR */
+.scheme{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(28px,1fr));
+  gap:8px;
+  max-width:220px;
+}
+.scheme span{
+  width:28px;
+  height:42px;
+  border:1px solid rgba(230,210,140,.6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.7em;
+}
+
+/* 10 KART ÖZEL */
+.marriage-scheme{
+  display:grid;
+  grid-template-columns:repeat(3,32px);
+  justify-content:center;
+  gap:8px;
+}
+.marriage-scheme span{
+  width:32px;
+  height:48px;
+}
+.c7{grid-column:2}
+.c1{grid-column:1}
+.c3{grid-column:2}
+.c2{grid-column:3}
+.c4{grid-column:1}
+.c5{grid-column:2}
+.c6{grid-column:3}
+.c8,.c9,.c10{grid-column:2}
+
+/* CTA */
+.cta{text-align:center;padding:90px 20px}
+.cta-icons{
+  display:flex;
+  justify-content:center;
+  gap:40px;
+}
+.cta-icons a{font-size:2.8em}
+.wa{color:#25D366}
+.ig{color:#E1306C}
+
+footer{
+  text-align:center;
+  padding:30px;
+  font-size:.8em;
+  opacity:.6;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="menu">
+  <a href="#">Anasayfa</a>
+  <a href="#">Tarot Kartları</a>
+  <a href="#">Günün Kartı</a>
+  <a href="#contact">Bize Ulaşın</a>
+</nav>
+
+<div class="hero">
   <h1>mytarova</h1>
   <p>bilinmeyenin eşiğinde</p>
-
-  <div class="symbols">
-    <span>☾</span>
-    <span>✶</span>
-    <span>🜁</span>
-    <span>🜂</span>
+  <div class="cards">
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
   </div>
+</div>
+
+<section class="daily">
+  <h2>Günün Kartı</h2>
+  <div class="daily-card" onclick="this.classList.toggle('open')"></div>
+  <p>Kartını seçmek için tıkla</p>
 </section>
-/* HERO BANNER */
-.hero{
-  height:60vh;
-  text-align:center;
-  padding-top:120px;
-  position:relative;
-  overflow:hidden;
-}
 
-.hero h1{
-  font-size:2em;
-  letter-spacing:4px;
-  margin:0;
-}
+<section class="readings">
+<h2>Tarot Açılımları</h2>
 
-.hero p{
-  font-size:.8em;
-  margin-top:8px;
-  font-style:italic;
-  opacity:.85;
-}
+<div class="grid">
 
-.symbols{
-  margin-top:30px;
-  font-size:1.6em;
-  opacity:.7;
-}
-.symbols span{
-  margin:0 10px;
-}
+<div class="reading-box">
+<h3>Zaman Akışı Açılımı</h3>
+<p>Kart sayısı: 4</p>
+<ul>
+<li>Geçmiş</li><li>Şu an</li><li>Yakın gelecek</li><li>Sonuç</li>
+</ul>
+<div class="scheme"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+</div>
 
-/* STARS */
-.stars{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:
-    radial-gradient(1px 1px at 20% 30%,#fff,transparent),
-    radial-gradient(1px 1px at 70% 60%,#fff,transparent),
-    radial-gradient(1px 1px at 40% 80%,#fff,transparent),
-    radial-gradient(1px 1px at 80% 20%,#fff,transparent);
-  animation:twinkle 6s infinite alternate;
-}
+<div class="reading-box">
+<h3>Engel – Çözüm Açılımı</h3>
+<p>Kart sayısı: 3</p>
+<ul>
+<li>Asıl engel</li><li>Görülmeyen etki</li><li>Çözüm</li>
+</ul>
+<div class="scheme"><span>2</span><span>1</span><span>3</span></div>
+</div>
 
-@keyframes twinkle{
-  from{opacity:.3}
-  to{opacity:.8}
-}
+<div class="reading-box">
+<h3>Ruhsal Mesaj Açılımı</h3>
+<p>Kart sayısı: 3</p>
+<ul>
+<li>Ruhunun dersi</li><li>Bırakman gereken</li><li>Gelişim alanı</li>
+</ul>
+<div class="scheme"><span>1</span><span>2</span><span>3</span></div>
+</div>
+
+<div class="reading-box marriage">
+<h3>10 Kartlık Evlilik Açılımı</h3>
+<p>Kart sayısı: 10</p>
+<ul>
+<li>1️⃣ Sen</li><li>2️⃣ Karşı taraf</li><li>3️⃣ Bağ</li>
+<li>4️⃣ Duygusal uyum</li><li>5️⃣ İletişim</li><li>6️⃣ Maddi uyum</li>
+<li>7️⃣ Aile etkisi</li><li>8️⃣ Engeller</li><li>9️⃣ Potansiyel</li><li>🔟 Kader</li>
+</ul>
+
+<div class="scheme marriage-scheme">
+<span class="c7">7</span>
+<span class="c1">1</span><span class="c3">3</span><span class="c2">2</span>
+<span class="c4">4</span><span class="c5">5</span><span class="c6">6</span>
+<span class="c8">8</span><span class="c9">9</span><span class="c10">10</span>
+</div>
+</div>
+
+</div>
+</section>
+
+<section class="cta" id="contact">
+<h2>Tarot Açılımı İçin Bize Ulaşın</h2>
+<div class="cta-icons">
+<a class="wa" href="https://wa.me/905075669228"><i class="fab fa-whatsapp"></i></a>
+<a class="ig" href="https://instagram.com/my_tarova/"><i class="fab fa-instagram"></i></a>
+</div>
+</section>
+
+<footer>© 2006 mytarova — Tüm hakları saklıdır</footer>
+
+</body>
+</html>
