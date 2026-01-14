@@ -7,21 +7,53 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
+/* GENEL */
 body{
   margin:0;
   background:#050008;
   color:#e6d28c;
-  font-family:serif;
+  font-family:"Times New Roman", serif;
+  overflow-x:hidden;
 }
 
-/* MENU */
-.menu{
-  display:flex;
-  justify-content:center;
-  gap:30px;
-  padding:15px;
+/* YILDIZ ARKAPLAN */
+.stars{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+    radial-gradient(1px 1px at 70% 60%, #fff, transparent),
+    radial-gradient(1px 1px at 40% 80%, #fff, transparent);
+  animation:twinkle 6s infinite alternate;
+  z-index:-3;
 }
-.menu a{
+@keyframes twinkle{from{opacity:.4}to{opacity:.8}}
+
+/* DUMAN */
+.smoke{
+  position:fixed;
+  bottom:-200px;
+  left:-50%;
+  width:200%;
+  height:600px;
+  background:radial-gradient(circle at 50% 50%, rgba(200,200,255,.08), transparent 70%);
+  animation:smokeMove 25s linear infinite;
+  z-index:-2;
+}
+@keyframes smokeMove{
+  from{transform:translateX(0)}
+  to{transform:translateX(50%)}
+}
+
+/* MENÜ */
+nav{
+  position:absolute;
+  top:20px;
+  right:40px;
+  display:flex;
+  gap:25px;
+}
+nav a{
   color:#e6d28c;
   text-decoration:none;
   font-size:.9em;
@@ -29,28 +61,65 @@ body{
 
 /* HERO */
 .hero{
-  height:45vh;
+  height:50vh;
   text-align:center;
-  padding-top:70px;
+  padding-top:80px;
+  position:relative;
 }
-.hero h1{font-size:2em;letter-spacing:4px}
-.hero p{font-size:.8em;font-style:italic}
+.hero h1{
+  font-size:2em;
+  letter-spacing:4px;
+}
+.hero p{
+  font-size:.8em;
+  font-style:italic;
+}
 
+/* AY */
+.moon{
+  position:absolute;
+  top:60px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:#ddd;
+  box-shadow:0 0 30px rgba(255,255,255,.3);
+  opacity:.15;
+}
+
+/* TAROT KARTLARI (DOLU) */
 .cards{
   display:flex;
   justify-content:center;
   gap:30px;
-  margin-top:25px;
+  margin-top:30px;
 }
 .card{
   width:90px;
   height:140px;
-  background:linear-gradient(135deg,#120016,#2a0033);
-  border:2px solid rgba(230,210,140,.7);
-  box-shadow:0 0 25px rgba(138,43,226,.4);
-  animation:float 6s infinite ease-in-out;
+  background:
+    linear-gradient(135deg,#1a001f,#3b0047),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,.05),
+      rgba(255,255,255,.05) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  border:2px solid #e6d28c;
+  box-shadow:0 0 20px rgba(138,43,226,.4);
+  animation:float 6s ease-in-out infinite;
 }
-@keyframes float{50%{transform:translateY(-12px)}}
+.card:nth-child(2){animation-delay:2s}
+.card:nth-child(3){animation-delay:4s}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+  100%{transform:translateY(0)}
+}
 
 /* GÜNÜN KARTI */
 .daily{
@@ -59,39 +128,42 @@ body{
 }
 .daily-card{
   margin:30px auto;
-  width:120px;
-  height:180px;
-  background:#2a0033;
+  width:130px;
+  height:190px;
+  background:linear-gradient(135deg,#1a001f,#3b0047);
   border:2px solid #e6d28c;
   cursor:pointer;
-  transition:.6s;
+  transition:transform .8s;
+  transform-style:preserve-3d;
 }
 .daily-card.open{
   transform:rotateY(180deg);
 }
 
 /* AÇILIMLAR */
-.readings{padding:80px 10%}
-.readings h2{text-align:center;margin-bottom:60px}
+.readings{
+  padding:80px 10%;
+}
+.readings h2{
+  text-align:center;
+  margin-bottom:60px;
+}
 
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:45px;
-  align-items:stretch;
 }
 
 .reading-box{
   position:relative;
   padding:35px 30px 30px;
   background:rgba(0,0,0,.45);
-
   min-height:520px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
 }
-
 .reading-box::before{
   content:"";
   position:absolute;
@@ -105,14 +177,16 @@ body{
   border:1px solid #1e4b8b;
 }
 
-.reading-box h3{margin-top:0;font-size:1em}
-.reading-box p{font-size:.85em}
-.reading-box ul{font-size:.85em;padding-left:18px}
-.reading-box li{margin-bottom:6px}
+.reading-box h3{margin-top:0}
+.reading-box p, .reading-box li{
+  font-size:.85em;
+}
+.reading-box ul{
+  padding-left:18px;
+}
 
-/* ŞEMALAR */
+/* ŞEMA */
 .scheme{
-  margin-top:20px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(28px,1fr));
   gap:8px;
@@ -128,28 +202,11 @@ body{
   font-size:.7em;
 }
 
-/* 10 KART ÖZEL */
-.marriage-scheme{
-  display:grid;
-  grid-template-columns:repeat(3,32px);
-  justify-content:center;
-  gap:8px;
-}
-.marriage-scheme span{
-  width:32px;
-  height:48px;
-}
-.c7{grid-column:2}
-.c1{grid-column:1}
-.c3{grid-column:2}
-.c2{grid-column:3}
-.c4{grid-column:1}
-.c5{grid-column:2}
-.c6{grid-column:3}
-.c8,.c9,.c10{grid-column:2}
-
 /* CTA */
-.cta{text-align:center;padding:90px 20px}
+.cta{
+  text-align:center;
+  padding:90px 20px;
+}
 .cta-icons{
   display:flex;
   justify-content:center;
@@ -170,7 +227,10 @@ footer{
 
 <body>
 
-<nav class="menu">
+<div class="stars"></div>
+<div class="smoke"></div>
+
+<nav>
   <a href="#">Anasayfa</a>
   <a href="#">Tarot Kartları</a>
   <a href="#">Günün Kartı</a>
@@ -178,6 +238,7 @@ footer{
 </nav>
 
 <div class="hero">
+  <div class="moon"></div>
   <h1>mytarova</h1>
   <p>bilinmeyenin eşiğinde</p>
   <div class="cards">
@@ -195,90 +256,20 @@ footer{
 
 <section class="readings">
 <h2>Tarot Açılımları</h2>
-
 <div class="grid">
-
-/* AÇILIM GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
-  gap:45px;
-  align-items:stretch; /* TÜM KUTULAR EŞİT */
-}
-
-/* AÇILIM KUTUSU – FİNAL */
-.reading-box{
-  position:relative;
-  padding:35px 30px 30px;
-  background:rgba(0,0,0,.45);
-
-  min-height:520px;           /* 🔥 EN BÜYÜĞE GÖRE */
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-/* ÇİFT RENKLİ ÇERÇEVE */
-.reading-box::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border:2px solid #8b1e1e;
-}
-.reading-box::after{
-  content:"";
-  position:absolute;
-  inset:8px;
-  border:1px solid #1e4b8b;
-}
-
-/* METİNLER */
-.reading-box h3{
-  margin-top:0;
-  font-size:1em;
-  letter-spacing:1px;
-}
-
-.reading-box p{
-  font-size:.85em;
-  margin:6px 0;
-}
-
-.reading-box ul{
-  font-size:.85em;
-  padding-left:18px;
-  margin:12px 0 0;
-}
-
-.reading-box ul li{
-  margin-bottom:6px;
-}
-
-/* ŞEMA – EN ALTA SABİTLENİR */
-.scheme{
-  margin-top:20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(28px,1fr));
-  gap:8px;
-  max-width:220px;
-}
-.scheme span{
-  width:28px;
-  height:42px;
-  font-size:.7em;
-  border:1px solid rgba(230,210,140,.6);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:.85;
-}
-
+  <div class="reading-box">
+    <h3>Zaman Akışı Açılımı</h3>
+    <p>Kart sayısı: 4</p>
+    <ul><li>Geçmiş</li><li>Şu an</li><li>Yakın gelecek</li><li>Sonuç</li></ul>
+    <div class="scheme"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+  </div>
+</div>
 </section>
 
 <section class="cta" id="contact">
 <h2>Tarot Açılımı İçin Bize Ulaşın</h2>
 <div class="cta-icons">
-<a class="wa" href="https://wa.me/905075669228"><i class="fab fa-whatsapp"></i></a>
+<a class="wa" href="https://wa.me/905000000000"><i class="fab fa-whatsapp"></i></a>
 <a class="ig" href="https://instagram.com/my_tarova/"><i class="fab fa-instagram"></i></a>
 </div>
 </section>
