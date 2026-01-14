@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-/* GENEL */
 body{
   margin:0;
   background:#050008;
@@ -16,7 +15,7 @@ body{
   overflow-x:hidden;
 }
 
-/* YILDIZ ARKAPLAN */
+/* BACKGROUND */
 .stars{
   position:fixed;
   inset:0;
@@ -29,23 +28,19 @@ body{
 }
 @keyframes twinkle{from{opacity:.4}to{opacity:.8}}
 
-/* DUMAN */
 .smoke{
   position:fixed;
-  bottom:-200px;
+  bottom:-250px;
   left:-50%;
   width:200%;
-  height:600px;
-  background:radial-gradient(circle at 50% 50%, rgba(200,200,255,.08), transparent 70%);
-  animation:smokeMove 25s linear infinite;
+  height:700px;
+  background:radial-gradient(circle at 50% 50%, rgba(200,200,255,.1), transparent 70%);
+  animation:smokeMove 30s linear infinite;
   z-index:-2;
 }
-@keyframes smokeMove{
-  from{transform:translateX(0)}
-  to{transform:translateX(50%)}
-}
+@keyframes smokeMove{from{transform:translateX(0)}to{transform:translateX(50%)}}
 
-/* MENÜ */
+/* MENU */
 nav{
   position:absolute;
   top:20px;
@@ -70,12 +65,8 @@ nav a{
   font-size:2em;
   letter-spacing:4px;
 }
-.hero p{
-  font-size:.8em;
-  font-style:italic;
-}
+.hero p{font-size:.8em;font-style:italic}
 
-/* AY */
 .moon{
   position:absolute;
   top:60px;
@@ -85,11 +76,11 @@ nav a{
   height:120px;
   border-radius:50%;
   background:#ddd;
-  box-shadow:0 0 30px rgba(255,255,255,.3);
-  opacity:.15;
+  box-shadow:0 0 40px rgba(255,255,255,.3);
+  opacity:.18;
 }
 
-/* TAROT KARTLARI (DOLU) */
+/* TAROT CARDS */
 .cards{
   display:flex;
   justify-content:center;
@@ -99,17 +90,9 @@ nav a{
 .card{
   width:90px;
   height:140px;
-  background:
-    linear-gradient(135deg,#1a001f,#3b0047),
-    repeating-linear-gradient(
-      45deg,
-      rgba(255,255,255,.05),
-      rgba(255,255,255,.05) 4px,
-      transparent 4px,
-      transparent 8px
-    );
+  background:linear-gradient(135deg,#1a001f,#3b0047);
   border:2px solid #e6d28c;
-  box-shadow:0 0 20px rgba(138,43,226,.4);
+  box-shadow:0 0 20px rgba(138,43,226,.5);
   animation:float 6s ease-in-out infinite;
 }
 .card:nth-child(2){animation-delay:2s}
@@ -121,45 +104,39 @@ nav a{
   100%{transform:translateY(0)}
 }
 
-/* GÜNÜN KARTI */
+/* DAILY CARD */
 .daily{
   text-align:center;
-  padding:80px 20px;
+  padding:90px 20px;
 }
 .daily-card{
   margin:30px auto;
-  width:130px;
-  height:190px;
+  width:140px;
+  height:200px;
   background:linear-gradient(135deg,#1a001f,#3b0047);
   border:2px solid #e6d28c;
   cursor:pointer;
-  transition:transform .8s;
+  transition:transform 1s;
   transform-style:preserve-3d;
 }
-.daily-card.open{
-  transform:rotateY(180deg);
-}
+.daily-card.open{transform:rotateY(180deg)}
+#daily-text{font-size:.9em;margin-top:15px}
 
-/* AÇILIMLAR */
-.readings{
-  padding:80px 10%;
-}
-.readings h2{
-  text-align:center;
-  margin-bottom:60px;
-}
+/* READINGS */
+.readings{padding:90px 10%}
+.readings h2{text-align:center;margin-bottom:60px}
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:45px;
 }
 
 .reading-box{
   position:relative;
-  padding:35px 30px 30px;
+  padding:35px;
   background:rgba(0,0,0,.45);
-  min-height:520px;
+  min-height:600px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
@@ -178,54 +155,50 @@ nav a{
 }
 
 .reading-box h3{margin-top:0}
-.reading-box p, .reading-box li{
-  font-size:.85em;
-}
-.reading-box ul{
-  padding-left:18px;
-}
+.reading-box li{font-size:.85em;margin-bottom:6px}
 
-/* ŞEMA */
+/* SCHEMES */
 .scheme{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(28px,1fr));
-  gap:8px;
-  max-width:220px;
+  gap:10px;
+  justify-content:center;
 }
 .scheme span{
-  width:28px;
-  height:42px;
-  border:1px solid rgba(230,210,140,.6);
+  width:36px;
+  height:54px;
+  border:1px solid #e6d28c;
+  background:rgba(20,0,30,.7);
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:.7em;
+  box-shadow:0 0 10px rgba(138,43,226,.5);
 }
+
+/* marriage */
+.scheme-marriage{
+  grid-template-columns:repeat(3,36px);
+}
+.scheme-marriage span:nth-child(1){grid-column:1}
+.scheme-marriage span:nth-child(2){grid-column:3}
+.scheme-marriage span:nth-child(3){grid-column:2}
+.scheme-marriage span:nth-child(4){grid-column:1}
+.scheme-marriage span:nth-child(5){grid-column:2}
+.scheme-marriage span:nth-child(6){grid-column:3}
+.scheme-marriage span:nth-child(7){grid-column:2}
+.scheme-marriage span:nth-child(8){grid-column:2}
+.scheme-marriage span:nth-child(9){grid-column:2}
+.scheme-marriage span:nth-child(10){grid-column:2}
 
 /* CTA */
-.cta{
-  text-align:center;
-  padding:90px 20px;
-}
-.cta-icons{
-  display:flex;
-  justify-content:center;
-  gap:40px;
-}
-.cta-icons a{font-size:2.8em}
+.cta{text-align:center;padding:100px 20px}
+.cta-icons{display:flex;justify-content:center;gap:40px}
 .wa{color:#25D366}
 .ig{color:#E1306C}
-  .yt{
-  color:#FF0000; /* YouTube orijinal kırmızı */
-}
+.yt{color:#FF0000}
+.cta-icons a{font-size:2.8em}
 
-
-footer{
-  text-align:center;
-  padding:30px;
-  font-size:.8em;
-  opacity:.6;
-}
+footer{text-align:center;padding:30px;font-size:.8em;opacity:.6}
 </style>
 </head>
 
@@ -237,7 +210,7 @@ footer{
 <nav>
   <a href="#">Anasayfa</a>
   <a href="#">Tarot Kartları</a>
-  <a href="#">Günün Kartı</a>
+  <a href="#daily">Günün Kartı</a>
   <a href="#contact">Bize Ulaşın</a>
 </nav>
 
@@ -246,148 +219,73 @@ footer{
   <h1>mytarova</h1>
   <p>bilinmeyenin eşiğinde</p>
   <div class="cards">
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
+    <div class="card"></div><div class="card"></div><div class="card"></div>
   </div>
 </div>
 
-<section class="readings">
-<h2>Tarot Açılımları</h2>
-
-<div class="grid">
-
-  <!-- 1 -->
-  <div class="reading-box">
-    <h3>EVLİLİK AÇILIMI</h3>
-    <p><strong>Kart Sayısı:</strong> 10</p>
-    <ul>
-      <li>1️⃣ Senin evliliğe bakışın <br><em>(Ne istiyorsun, beklentin ne?)</em></li>
-      <li>2️⃣ Karşı tarafın evliliğe bakışı <br><em>(Ciddi mi, kaçıyor mu?)</em></li>
-      <li>3️⃣ Aranızdaki bağın doğası <br><em>(Bu ilişki neden var?)</em></li>
-    </ul>
-    <div class="scheme">
-      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-      <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
-    </div>
-  </div>
-
-  <!-- 2 -->
-  <div class="reading-box">
-    <h3>ZAMAN AKIŞI AÇILIMI</h3>
-    <p><strong>Kart Sayısı:</strong> 4</p>
-    <ul>
-      <li>1️⃣ Geçmiş <em>(Olay nasıl başladı?)</em></li>
-      <li>2️⃣ Şu an <em>(Mevcut enerji)</em></li>
-      <li>3️⃣ Yakın gelecek <em>(Yaklaşan etki)</em></li>
-      <li>4️⃣ Sonuç <em>(Gidişat)</em></li>
-    </ul>
-    <div class="scheme">
-      <span>1</span><span>2</span><span>3</span><span>4</span>
-    </div>
-  </div>
-
-  <!-- 3 -->
-  <div class="reading-box">
-    <h3>ENGEL – ÇÖZÜM AÇILIMI</h3>
-    <p><strong>Kart Sayısı:</strong> 3</p>
-    <ul>
-      <li>1️⃣ Asıl engel <em>(Tıkanıklık)</em></li>
-      <li>2️⃣ Görülmeyen etki <em>(Fark edilmemiş sebep)</em></li>
-      <li>3️⃣ Çözüm <em>(Ne yapılmalı?)</em></li>
-    </ul>
-    <div class="scheme">
-      <span>1</span><span>2</span><span>3</span>
-    </div>
-  </div>
-
-  <!-- 4 -->
-  <div class="reading-box">
-    <h3>KARŞI TARAFIN İÇ DÜNYASI</h3>
-    <p><strong>Kart Sayısı:</strong> 4</p>
-    <ul>
-      <li>1️⃣ Düşünceleri <em>(Aklında ne var?)</em></li>
-      <li>2️⃣ Duyguları <em>(Kalbi ne söylüyor?)</em></li>
-      <li>3️⃣ Korkuları <em>(Çekinceleri)</em></li>
-      <li>4️⃣ Niyeti <em>(Sana yaklaşımı)</em></li>
-    </ul>
-    <div class="scheme">
-      <span>1</span><span>2</span><span>3</span><span>4</span>
-    </div>
-  </div>
-
-  <!-- 5 -->
-  <div class="reading-box">
-    <h3>İKİ SEÇENEK KARAR AÇILIMI</h3>
-    <p><strong>Kart Sayısı:</strong> 5</p>
-    <ul>
-      <li>1️⃣ Sen <em>(Mevcut enerji)</em></li>
-      <li>2️⃣ A yolu sonucu</li>
-      <li>3️⃣ A yolu bedeli</li>
-      <li>4️⃣ B yolu sonucu</li>
-      <li>5️⃣ B yolu bedeli</li>
-    </ul>
-    <div class="scheme">
-      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-    </div>
-  </div>
-
-  <!-- 6 -->
-  <div class="reading-box">
-    <h3>RUHSAL MESAJ AÇILIMI</h3>
-    <p><strong>Kart Sayısı:</strong> 3</p>
-    <ul>
-      <li>1️⃣ Ruhunun dersi</li>
-      <li>2️⃣ Bırakman gereken</li>
-      <li>3️⃣ Gelişim alanı</li>
-    </ul>
-    <div class="scheme">
-      <span>1</span><span>2</span><span>3</span>
-    </div>
-  </div>
-
-  <!-- 7–10 -->
-  <div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
-  <div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
-  <div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
-  <div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
-
-</div>
+<section class="daily" id="daily">
+<h2>Günün Kartı</h2>
+<div class="daily-card" onclick="drawCard()"></div>
+<div id="daily-text"></div>
 </section>
 
-
 <section class="readings">
 <h2>Tarot Açılımları</h2>
 <div class="grid">
-  <div class="reading-box">
-    <h3>Zaman Akışı Açılımı</h3>
-    <p>Kart sayısı: 4</p>
-    <ul><li>Geçmiş</li><li>Şu an</li><li>Yakın gelecek</li><li>Sonuç</li></ul>
-    <div class="scheme"><span>1</span><span>2</span><span>3</span><span>4</span></div>
-  </div>
+
+<div class="reading-box">
+<h3>EVLİLİK AÇILIMI</h3>
+<p><strong>Kart Sayısı:</strong> 10</p>
+<ul>
+<li>1️⃣ Senin evliliğe bakışın <em>(Beklentiler)</em></li>
+<li>2️⃣ Karşı tarafın bakışı <em>(Ciddiyet)</em></li>
+<li>3️⃣ Bağın doğası <em>(Kader)</em></li>
+</ul>
+<div class="scheme scheme-marriage">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+<span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+</div>
+</div>
+
+<!-- 9 placeholder -->
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+<div class="reading-box"><h3>ÇOK YAKINDA</h3></div>
+
 </div>
 </section>
 
 <section class="cta" id="contact">
-<h2>Tarot Açılımı İçin Bize Ulaşın</h2>
+<h2>Tarot Açılımı İçin Bize Ulaşın @mytarova</h2>
 <div class="cta-icons">
-  <a class="wa" href="https://wa.me/905075669228" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <a class="ig" href="https://instagram.com/my_tarova/" target="_blank">
-    <i class="fab fa-instagram"></i>
-  </a>
-
-  <a class="yt" href="https://www.youtube.com/@mytarova" target="_blank">
-    <i class="fab fa-youtube"></i>
-  </a>
-</div>
-
+<a class="wa" href="https://wa.me/905075669228" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a class="ig" href="https://instagram.com/my_tarova/" target="_blank"><i class="fab fa-instagram"></i></a>
+<a class="yt" href="https://www.youtube.com/@mytarova" target="_blank"><i class="fab fa-youtube"></i></a>
 </div>
 </section>
 
 <footer>© 2006 mytarova — Tüm hakları saklıdır</footer>
+
+<script>
+const cards=[
+  "Bugün sezgilerine güven",
+  "Beklenmedik bir haber geliyor",
+  "Geçmişten gelen bir konu kapanıyor",
+  "Yeni bir başlangıç kapıda",
+  "Sabır ödüllendirilecek"
+];
+function drawCard(){
+  document.querySelector('.daily-card').classList.toggle('open');
+  document.getElementById('daily-text').innerText=
+    cards[Math.floor(Math.random()*cards.length)];
+}
+</script>
 
 </body>
 </html>
