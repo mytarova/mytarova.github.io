@@ -168,16 +168,64 @@ const majorMeanings = {
   mahkeme: "Uyanış, fark ediş ve kader çağrısı.",
   dunya: "Tamamlanma, bütünlük ve başarı."
 };
+/* ===== MİNÖR ARKANA SEZGİSEL ANLAMLAR ===== */
+
+const minorSuitMeanings = {
+  degnek: "ilham, hareket, tutku ve yaşam enerjisi",
+  kupa: "duygular, ilişkiler, sevgi ve sezgiler",
+  kilic: "zihin, düşünceler, kararlar ve çatışmalar",
+  tilsim: "maddi dünya, emek, güvenlik ve sorumluluklar"
+};
+
+const minorNumberMeanings = {
+  1: "başlangıç, potansiyel ve saf niyet",
+  2: "denge arayışı ve ikilem",
+  3: "büyüme ve ilk sonuçlar",
+  4: "istikrar ve sağlam zemin",
+  5: "gerilim, sınav ve değişim",
+  6: "uyum, destek ve ilerleme",
+  7: "sabır, değerlendirme ve iç sorgu",
+  8: "emek, disiplin ve ustalaşma",
+  9: "tamamlanmaya yakınlık ve iç güç",
+  10: "yük, sorumluluk ve döngünün sonu"
+};
+
+const minorCourtMeanings = {
+  vale: "öğrenmeye açık, meraklı ve yeni bir enerjiyi temsil eder",
+  sovalye: "hareket, arayış ve aktif ilerlemeyi temsil eder",
+  kralice: "içsel bilgelik, şefkat ve olgun dişil enerjiyi temsil eder",
+  kral: "otorite, sorumluluk ve olgun eril enerjiyi temsil eder"
+};
 
 /* ===== MODAL ===== */
 function openModal(img, title){
-  const key = img.split("/").pop().replace(".jpg","");
+  const file = img.split("/").pop().replace(".jpg","");
+  const parts = img.split("/");
+
+  let meaning = "Bu kartın sezgisel anlamı yakında eklenecek.";
+
+  // MAJÖR
+  if(parts.includes("major")){
+    meaning = majorMeanings[file] || meaning;
+  }
+
+  // MİNÖR
+  if(parts.includes("minor")){
+    const suit = parts[parts.length - 2];
+    if(minorCourtMeanings[file]){
+      meaning = `${suit.toUpperCase()} — ${minorCourtMeanings[file]}.`;
+    }
+    if(minorNumberMeanings[file]){
+      meaning = `${suit.toUpperCase()} — ${minorNumberMeanings[file]}, ${minorSuitMeanings[suit]} temaları ön plandadır.`;
+    }
+  }
+
   document.getElementById("modalImg").src = img;
   document.getElementById("modalTitle").innerText = title;
-  document.getElementById("modalText").innerText =
-    majorMeanings[key] || "Bu kartın sezgisel anlamı yakında eklenecek.";
+  document.getElementById("modalText").innerText = meaning;
   document.getElementById("modal").style.display = "flex";
 }
+
 
 function closeModal(){
   document.getElementById("modal").style.display="none";
