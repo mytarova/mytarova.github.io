@@ -13,10 +13,31 @@ body{
   color:#e6d28c;
   font-family:"Times New Roman", serif;
   overflow-x:hidden;
-  <section class="cards-section">
-  <h2>Majör Arkana</h2>
-  <div id="major" class="cards-grid"></div>
-</section>
+}
+
+.cards-section{
+  padding:40px;
+  text-align:center;
+}
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+
+.card{
+  cursor:pointer;
+}
+
+.card img{
+  width:100%;
+  border:2px solid #e6d28c;
+  box-shadow:0 0 15px rgba(230,210,140,0.4);
+}
+</style>
+>
 
 }
 
