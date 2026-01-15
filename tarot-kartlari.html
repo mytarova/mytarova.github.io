@@ -2,7 +2,8 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Tarot Kartları | Mytarova</title>
+<title>Tarot Kartları | mytarova</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
@@ -14,17 +15,22 @@ body{
 
 h1,h2{
   text-align:center;
-  margin:40px 0 20px;
+  font-weight:normal;
   letter-spacing:2px;
+}
+
+a{color:#e6d28c;text-decoration:none}
+a:hover{color:#fff}
+
+.cards-section{
+  padding:40px 20px;
 }
 
 .cards-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:25px;
-  padding:30px;
-  max-width:1200px;
-  margin:auto;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:20px;
+  margin-top:30px;
 }
 
 .card{
@@ -34,157 +40,155 @@ h1,h2{
 
 .card img{
   width:100%;
-  height:320px;
-  object-fit:cover;
-  border:2px solid #e6d28c;
+  border-radius:8px;
+  box-shadow:0 0 12px rgba(0,0,0,.6);
+  transition:transform .3s;
+}
+
+.card:hover img{
+  transform:scale(1.05);
 }
 
 .card span{
   display:block;
-  margin-top:10px;
+  margin-top:8px;
+  font-size:14px;
 }
 
+/* MODAL */
 #modal{
-  display:none;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,.85);
-  justify-content:center;
+  display:none;
   align-items:center;
+  justify-content:center;
   z-index:999;
 }
 
 .modal-box{
-  background:#120015;
-  border:2px solid #e6d28c;
+  background:#0b0012;
   padding:20px;
-  max-width:700px;
-  width:90%;
-  display:flex;
-  gap:20px;
+  max-width:320px;
+  text-align:center;
+  border:1px solid #e6d28c;
 }
 
 .modal-box img{
-  width:220px;
-  height:380px;
-  object-fit:cover;
+  width:100%;
+  border-radius:8px;
 }
 
 .close{
-  position:absolute;
-  top:20px;
-  right:30px;
-  font-size:30px;
+  margin-top:10px;
+  display:inline-block;
   cursor:pointer;
 }
 
-.back-home{
-  text-align:center;
-  margin:40px 0;
-}
-
-.back-home a{
-  color:#e6d28c;
-  text-decoration:none;
-  border-bottom:1px solid #e6d28c;
+/* NAV */
+.top-nav{
+  display:flex;
+  justify-content:flex-end;
+  gap:20px;
+  padding:15px 25px;
 }
 </style>
 </head>
 
 <body>
 
+<nav class="top-nav">
+  <a href="index.html">Anasayfa</a>
+  <a href="tarot-kartlari.html">Tarot Kartları</a>
+</nav>
+
+<h1>Tarot Kartları</h1>
+
+<!-- MAJÖR ARKANA -->
 <section class="cards-section">
   <h2>Majör Arkana</h2>
   <div id="major" class="cards-grid"></div>
 </section>
 
+<!-- MİNÖR ARKANA -->
+<section class="cards-section">
+  <h2>Minör Arkana – Değnek</h2>
+  <div id="degnek" class="cards-grid"></div>
+</section>
 
-<h1>Minör Arkana</h1>
-<h2>Değnek</h2>
-<div class="cards-grid" id="degnek"></div>
+<section class="cards-section">
+  <h2>Minör Arkana – Kupa</h2>
+  <div id="kupa" class="cards-grid"></div>
+</section>
 
-<h2>Kupa</h2>
-<div class="cards-grid" id="kupa"></div>
+<section class="cards-section">
+  <h2>Minör Arkana – Kılıç</h2>
+  <div id="kilic" class="cards-grid"></div>
+</section>
 
-<h2>Kılıç</h2>
-<div class="cards-grid" id="kilic"></div>
+<section class="cards-section">
+  <h2>Minör Arkana – Tılsım</h2>
+  <div id="tilsim" class="cards-grid"></div>
+</section>
 
-<h2>Tılsım</h2>
-<div class="cards-grid" id="tilsim"></div>
-
-<div class="back-home">
-  <a href="index.html">← Anasayfaya Dön</a>
-</div>
-
-<div id="modal">
-  <div class="close" onclick="closeModal()">✕</div>
-  <div class="modal-box">
+<!-- MODAL -->
+<div id="modal" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
     <img id="modalImg">
-    <div>
-      <h2 id="modalTitle"></h2>
-      <p id="modalDesc"></p>
-    </div>
+    <h3 id="modalTitle"></h3>
+    <p id="modalText">Bu kartın sezgisel anlamı yakında eklenecek.</p>
+    <span class="close">Kapat</span>
   </div>
 </div>
 
 <script>
+/* ===== MODAL ===== */
+function openModal(img,title){
+  document.getElementById("modalImg").src=img;
+  document.getElementById("modalTitle").innerText=title;
+  document.getElementById("modal").style.display="flex";
+}
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+/* ===== MAJÖR ARKANA ===== */
 const majorArcana=[
-["joker","Joker"],["buyucu","Büyücü"],["azize","Azize"],["imparatorice","İmparatoriçe"],
-["imparator","İmparator"],["aziz","Aziz"],["asiklar","Aşıklar"],["araba","Araba"],
-["guc","Güç"],["ermis","Ermiş"],["kader_carki","Kader Çarkı"],["adalet","Adalet"],
-["asilan_adam","Asılan Adam"],["olum","Ölüm"],["denge","Denge"],["seytan","Şeytan"],
-["kule","Kule"],["yildiz","Yıldız"],["ay","Ay"],["gunes","Güneş"],
-["mahkeme","Mahkeme"],["dunya","Dünya"]
+ ["joker","Joker"],["buyucu","Buyucu"],["azize","Azize"],
+ ["imparatorice","Imparatorice"],["imparator","Imparator"],
+ ["aziz","Aziz"],["asiklar","Asiklar"],["araba","Araba"],
+ ["guc","Guc"],["ermis","Ermis"],["kader_carki","Kader Carki"],
+ ["adalet","Adalet"],["asilan_adam","Asilan Adam"],["olum","Olum"],
+ ["denge","Denge"],["seytan","Seytan"],["kule","Kule"],
+ ["yildiz","Yildiz"],["ay","Ay"],["gunes","Gunes"],
+ ["mahkeme","Mahkeme"],["dunya","Dunya"]
 ];
 
-const minorNums=["1","2","3","4","5","6","7","8","9","10"];
-const minorFig=["vale","sovalye","kralice","kral"];
+majorArcana.forEach(c=>{
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`
+    <img src="cards/major/${c[0]}.jpg">
+    <span>${c[1]}</span>
+  `;
+  d.onclick=()=>openModal(`cards/major/${c[0]}.jpg`,c[1]);
+  document.getElementById("major").appendChild(d);
+});
 
-let majorDesc={}, minorDesc={};
+/* ===== MİNÖR ARKANA (DOKUNMADIK) ===== */
+const minorSets=["degnek","kupa","kilic","tilsim"];
+const minorCards=["1","2","3","4","5","6","7","8","9","10","vale","sovalye","kralice","kral"];
 
-fetch("data/major.json").then(r=>r.json()).then(d=>{
-  majorDesc=d;
-  majorArcana.forEach(c=>{
-    const div=document.createElement("div");
-    div.className="card";
-    div.innerHTML=`<img src="cards/major/${c[0]}.jpg"><span>${c[1]}</span>`;
-    div.onclick=()=>openModal(`cards/major/${c[0]}.jpg`,c[1],majorDesc[c[0]]);
-    document.getElementById("major").appendChild(div);
+minorSets.forEach(set=>{
+  minorCards.forEach(card=>{
+    const d=document.createElement("div");
+    d.className="card";
+    const img=`cards/minor/${set}/${card}.jpg`;
+    d.innerHTML=`<img src="${img}"><span>${set.toUpperCase()} ${card}</span>`;
+    d.onclick=()=>openModal(img,`${set.toUpperCase()} ${card}`);
+    document.getElementById(set).appendChild(d);
   });
 });
-
-fetch("data/minor.json").then(r=>r.json()).then(d=>{
-  minorDesc=d;
-  ["degnek","kupa","kilic","tilsim"].forEach(loadMinor);
-});
-
-function loadMinor(s){
-  const box=document.getElementById(s);
-  minorNums.forEach(n=>addMinor(box,s,n));
-  minorFig.forEach(f=>addMinor(box,s,f));
-}
-
-function addMinor(box,s,k){
-  const div=document.createElement("div");
-  div.className="card";
-  div.innerHTML=`<img src="cards/minor/${s}/${k}.jpg"><span>${k} ${cap(s)}</span>`;
-  div.onclick=()=>openModal(
-    `cards/minor/${s}/${k}.jpg`,
-    `${k} ${cap(s)}`,
-    minorDesc[s][k] || "Açıklama yakında."
-  );
-  box.appendChild(div);
-}
-
-function openModal(img,t,d){
-  modal.style.display="flex";
-  modalImg.src=img;
-  modalTitle.innerText=t;
-  modalDesc.innerText=d;
-}
-
-function closeModal(){ modal.style.display="none"; }
-function cap(t){ return t[0].toUpperCase()+t.slice(1); }
 </script>
 
 </body>
