@@ -206,21 +206,40 @@ function loadMinor(suit){
   const target=document.getElementById(suit);
 
   minorNumbers.forEach(n=>{
-    createMinor(target,`cards/minor/${suit}/${n}.jpg`,`${n} ${cap(suit)}`);
+    createMinor(
+      target,
+      `cards/minor/${suit}/${n}.jpg`,
+      `${n} ${cap(suit)}`,
+      suit,
+      n
+    );
   });
 
   minorFigures.forEach(f=>{
-    createMinor(target,`cards/minor/${suit}/${f}.jpg`,`${cap(suit)} ${cap(f)}`);
+    createMinor(
+      target,
+      `cards/minor/${suit}/${f}.jpg`,
+      `${cap(suit)} ${cap(f)}`,
+      suit,
+      f
+    );
   });
 }
 
-function createMinor(target,img,title){
+function createMinor(target,img,title,suit,key){
   const d=document.createElement("div");
   d.className="card";
   d.innerHTML=`<img src="${img}"><span>${title}</span>`;
-  d.onclick=()=>openModal(img,title,"Bu kartın açıklaması daha sonra eklenecek.");
+  d.onclick=()=>{
+    const desc =
+      minorDescriptions[suit] && minorDescriptions[suit][key]
+      ? minorDescriptions[suit][key]
+      : "Açıklama yakında eklenecek.";
+    openModal(img,title,desc);
+  };
   target.appendChild(d);
 }
+
 
 ["degnek","kupa","kilic","tilsim"].forEach(loadMinor);
 
