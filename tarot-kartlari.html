@@ -18,13 +18,21 @@ h1{
   letter-spacing:2px;
 }
 
+.cards-section{
+  max-width:1200px;
+  margin:40px auto;
+}
+
+.cards-section h2{
+  margin-left:30px;
+  letter-spacing:1px;
+}
+
 .cards-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:25px;
   padding:30px;
-  max-width:1200px;
-  margin:auto;
 }
 
 .card{
@@ -107,8 +115,29 @@ h1{
 <body>
 
 <h1>Majör Arkana</h1>
-
 <div class="cards-grid" id="major"></div>
+
+<h1>Minör Arkana</h1>
+
+<section class="cards-section">
+  <h2>Değnek</h2>
+  <div class="cards-grid" id="degnek"></div>
+</section>
+
+<section class="cards-section">
+  <h2>Kupa</h2>
+  <div class="cards-grid" id="kupa"></div>
+</section>
+
+<section class="cards-section">
+  <h2>Kılıç</h2>
+  <div class="cards-grid" id="kilic"></div>
+</section>
+
+<section class="cards-section">
+  <h2>Tılsım</h2>
+  <div class="cards-grid" id="tilsim"></div>
+</section>
 
 <div class="back-home">
   <a href="index.html">← Anasayfaya Dön</a>
@@ -127,53 +156,82 @@ h1{
 </div>
 
 <script>
+/* ===== MAJÖR ARKANA ===== */
 const majorArcana = [
-["joker","Joker","Yeni başlangıçlar, saf potansiyel, yolculuk."],
-["buyucu","Büyücü","İrade, yaratım, bilinçli eylem."],
-["azize","Azize","Sezgi, iç ses, gizli bilgiler."],
-["imparatorice","İmparatoriçe","Bereket, üretkenlik, dişil enerji."],
-["imparator","İmparator","Otorite, yapı, kontrol."],
-["aziz","Aziz","Gelenek, rehberlik, öğreti."],
-["asiklar","Aşıklar","Seçim, bağ, uyum."],
-["araba","Araba","İlerleme, kararlılık, zafer."],
-["guc","Güç","İçsel güç, sabır, şefkat."],
-["ermis","Ermiş","İçe dönüş, bilgelik."],
-["kader_carki","Kader Çarkı","Kader, döngüler, değişim."],
-["adalet","Adalet","Denge, doğruluk."],
-["asilan_adam","Asılan Adam","Teslimiyet, farklı bakış."],
-["olum","Ölüm","Bitiş ve dönüşüm."],
-["denge","Denge","Uyum, ölçü."],
-["seytan","Şeytan","Bağımlılıklar, gölge yönler."],
-["kule","Kule","Ani yıkım, farkındalık."],
-["yildiz","Yıldız","Umut, şifa."],
-["ay","Ay","Belirsizlik, sezgiler."],
-["gunes","Güneş","Mutluluk, netlik."],
-["mahkeme","Mahkeme","Uyanış, çağrı."],
-["dunya","Dünya","Tamamlanma, bütünlük."]
+["joker","Joker","Yeni başlangıçlar, saf potansiyel."],
+["buyucu","Büyücü","İrade, yaratım."],
+["azize","Azize","Sezgi, içsel bilgelik."],
+["imparatorice","İmparatoriçe","Bereket, üretkenlik."],
+["imparator","İmparator","Otorite, yapı."],
+["aziz","Aziz","Gelenek, rehberlik."],
+["asiklar","Aşıklar","Seçim, bağ."],
+["araba","Araba","İlerleme, zafer."],
+["guc","Güç","İçsel güç."],
+["ermis","Ermiş","İçe dönüş."],
+["kader_carki","Kader Çarkı","Kader, döngü."],
+["adalet","Adalet","Denge."],
+["asilan_adam","Asılan Adam","Teslimiyet."],
+["olum","Ölüm","Dönüşüm."],
+["denge","Denge","Uyum."],
+["seytan","Şeytan","Bağımlılıklar."],
+["kule","Kule","Ani farkındalık."],
+["yildiz","Yıldız","Umut."],
+["ay","Ay","Belirsizlik."],
+["gunes","Güneş","Netlik."],
+["mahkeme","Mahkeme","Uyanış."],
+["dunya","Dünya","Tamamlanma."]
 ];
 
-const container=document.getElementById("major");
+const majorBox=document.getElementById("major");
 
 majorArcana.forEach(c=>{
-  const div=document.createElement("div");
-  div.className="card";
-  div.innerHTML=`
-    <img src="cards/major/${c[0]}.jpg" alt="${c[1]}">
-    <span>${c[1]}</span>
-  `;
-  div.onclick=()=>openModal(c);
-  container.appendChild(div);
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`<img src="cards/major/${c[0]}.jpg"><span>${c[1]}</span>`;
+  d.onclick=()=>openModal(c[0],c[1],c[2]);
+  majorBox.appendChild(d);
 });
 
-function openModal(c){
+/* ===== MINÖR ARKANA ===== */
+const minorNumbers=["1","2","3","4","5","6","7","8","9","10"];
+const minorFigures=["vale","sovalye","kralice","kral"];
+
+function loadMinor(suit){
+  const target=document.getElementById(suit);
+
+  minorNumbers.forEach(n=>{
+    createMinor(target,`cards/minor/${suit}/${n}.jpg`,`${n} ${cap(suit)}`);
+  });
+
+  minorFigures.forEach(f=>{
+    createMinor(target,`cards/minor/${suit}/${f}.jpg`,`${cap(suit)} ${cap(f)}`);
+  });
+}
+
+function createMinor(target,img,title){
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`<img src="${img}"><span>${title}</span>`;
+  d.onclick=()=>openModal(img,title,"Bu kartın açıklaması daha sonra eklenecek.");
+  target.appendChild(d);
+}
+
+["degnek","kupa","kilic","tilsim"].forEach(loadMinor);
+
+/* ===== MODAL ===== */
+function openModal(img,title,desc){
   document.getElementById("modal").style.display="flex";
-  document.getElementById("modalImg").src=`cards/major/${c[0]}.jpg`;
-  document.getElementById("modalTitle").innerText=c[1];
-  document.getElementById("modalDesc").innerText=c[2];
+  document.getElementById("modalImg").src=img.includes("/") ? img : `cards/major/${img}.jpg`;
+  document.getElementById("modalTitle").innerText=title;
+  document.getElementById("modalDesc").innerText=desc;
 }
 
 function closeModal(){
   document.getElementById("modal").style.display="none";
+}
+
+function cap(t){
+  return t.charAt(0).toUpperCase()+t.slice(1);
 }
 </script>
 
