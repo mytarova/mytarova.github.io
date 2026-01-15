@@ -12,20 +12,10 @@ body{
   font-family:"Times New Roman", serif;
 }
 
-h1{
+h1,h2{
   text-align:center;
   margin:40px 0 20px;
   letter-spacing:2px;
-}
-
-.cards-section{
-  max-width:1200px;
-  margin:40px auto;
-}
-
-.cards-section h2{
-  margin-left:30px;
-  letter-spacing:1px;
 }
 
 .cards-grid{
@@ -33,12 +23,13 @@ h1{
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:25px;
   padding:30px;
+  max-width:1200px;
+  margin:auto;
 }
 
 .card{
   text-align:center;
   cursor:pointer;
-  transition:transform .3s, box-shadow .3s;
 }
 
 .card img{
@@ -46,21 +37,13 @@ h1{
   height:320px;
   object-fit:cover;
   border:2px solid #e6d28c;
-  box-shadow:0 0 15px rgba(230,210,140,.3);
-}
-
-.card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 0 25px rgba(230,210,140,.6);
 }
 
 .card span{
   display:block;
   margin-top:10px;
-  font-size:16px;
 }
 
-/* MODAL */
 #modal{
   display:none;
   position:fixed;
@@ -85,10 +68,6 @@ h1{
   width:220px;
   height:380px;
   object-fit:cover;
-}
-
-.modal-text h2{
-  margin-top:0;
 }
 
 .close{
@@ -118,172 +97,91 @@ h1{
 <div class="cards-grid" id="major"></div>
 
 <h1>Minör Arkana</h1>
+<h2>Değnek</h2>
+<div class="cards-grid" id="degnek"></div>
 
-<section class="cards-section">
-  <h2>Değnek</h2>
-  <div class="cards-grid" id="degnek"></div>
-</section>
+<h2>Kupa</h2>
+<div class="cards-grid" id="kupa"></div>
 
-<section class="cards-section">
-  <h2>Kupa</h2>
-  <div class="cards-grid" id="kupa"></div>
-</section>
+<h2>Kılıç</h2>
+<div class="cards-grid" id="kilic"></div>
 
-<section class="cards-section">
-  <h2>Kılıç</h2>
-  <div class="cards-grid" id="kilic"></div>
-</section>
-
-<section class="cards-section">
-  <h2>Tılsım</h2>
-  <div class="cards-grid" id="tilsim"></div>
-</section>
+<h2>Tılsım</h2>
+<div class="cards-grid" id="tilsim"></div>
 
 <div class="back-home">
   <a href="index.html">← Anasayfaya Dön</a>
 </div>
 
-<!-- MODAL -->
 <div id="modal">
   <div class="close" onclick="closeModal()">✕</div>
   <div class="modal-box">
     <img id="modalImg">
-    <div class="modal-text">
+    <div>
       <h2 id="modalTitle"></h2>
       <p id="modalDesc"></p>
     </div>
   </div>
 </div>
 
-  <script>
-let minorDescriptions = {};
-
-fetch("data/major.json")
-  .then(r => r.json())
-  .then(d => {
-    majorDescriptions = d;
-
- 
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerHTML = `
-        <img src="cards/major/${c[0]}.jpg">
-        <span>${c[1]}</span>
-      `;
-      div.onclick = () => {
-        const desc = majorDescriptions[c[0]]
-          ? majorDescriptions[c[0]]
-          : "Açıklama yakında eklenecek.";
-        openModal(`cards/major/${c[0]}.jpg`, c[1], desc);
-      };
-      document.getElementById("major").appendChild(div);
-    });
-
-  });
-
-
-/* ===== MAJÖR ARKANA ===== */
-const majorArcana = [
-["joker","Joker","Yeni başlangıçlar, saf potansiyel."],
-["buyucu","Büyücü","İrade, yaratım."],
-["azize","Azize","Sezgi, içsel bilgelik."],
-["imparatorice","İmparatoriçe","Bereket, üretkenlik."],
-["imparator","İmparator","Otorite, yapı."],
-["aziz","Aziz","Gelenek, rehberlik."],
-["asiklar","Aşıklar","Seçim, bağ."],
-["araba","Araba","İlerleme, zafer."],
-["guc","Güç","İçsel güç."],
-["ermis","Ermiş","İçe dönüş."],
-["kader_carki","Kader Çarkı","Kader, döngü."],
-["adalet","Adalet","Denge."],
-["asilan_adam","Asılan Adam","Teslimiyet."],
-["olum","Ölüm","Dönüşüm."],
-["denge","Denge","Uyum."],
-["seytan","Şeytan","Bağımlılıklar."],
-["kule","Kule","Ani farkındalık."],
-["yildiz","Yıldız","Umut."],
-["ay","Ay","Belirsizlik."],
-["gunes","Güneş","Netlik."],
-["mahkeme","Mahkeme","Uyanış."],
-["dunya","Dünya","Tamamlanma."]
+<script>
+const majorArcana=[
+["joker","Joker"],["buyucu","Büyücü"],["azize","Azize"],["imparatorice","İmparatoriçe"],
+["imparator","İmparator"],["aziz","Aziz"],["asiklar","Aşıklar"],["araba","Araba"],
+["guc","Güç"],["ermis","Ermiş"],["kader_carki","Kader Çarkı"],["adalet","Adalet"],
+["asilan_adam","Asılan Adam"],["olum","Ölüm"],["denge","Denge"],["seytan","Şeytan"],
+["kule","Kule"],["yildiz","Yıldız"],["ay","Ay"],["gunes","Güneş"],
+["mahkeme","Mahkeme"],["dunya","Dünya"]
 ];
 
-const majorBox=document.getElementById("major");
+const minorNums=["1","2","3","4","5","6","7","8","9","10"];
+const minorFig=["vale","sovalye","kralice","kral"];
 
-majorArcana.forEach(c=>{
-  const d=document.createElement("div");
-  d.className="card";
-  d.innerHTML=`<img src="cards/major/${c[0]}.jpg"><span>${c[1]}</span>`;
-  d.onclick=()=>{
-    const desc = majorDescriptions[c[0]]
-      ? majorDescriptions[c[0]]
-      : "Açıklama yakında eklenecek.";
-    openModal(`cards/major/${c[0]}.jpg`, c[1], desc);
-  };
-  majorBox.appendChild(d);
+let majorDesc={}, minorDesc={};
+
+fetch("data/major.json").then(r=>r.json()).then(d=>{
+  majorDesc=d;
+  majorArcana.forEach(c=>{
+    const div=document.createElement("div");
+    div.className="card";
+    div.innerHTML=`<img src="cards/major/${c[0]}.jpg"><span>${c[1]}</span>`;
+    div.onclick=()=>openModal(`cards/major/${c[0]}.jpg`,c[1],majorDesc[c[0]]);
+    document.getElementById("major").appendChild(div);
+  });
 });
 
+fetch("data/minor.json").then(r=>r.json()).then(d=>{
+  minorDesc=d;
+  ["degnek","kupa","kilic","tilsim"].forEach(loadMinor);
+});
 
-/* ===== MINÖR ARKANA ===== */
-const minorNumbers=["1","2","3","4","5","6","7","8","9","10"];
-const minorFigures=["vale","sovalye","kralice","kral"];
-
-function loadMinor(suit){
-  const target=document.getElementById(suit);
-
-  minorNumbers.forEach(n=>{
-    createMinor(
-      target,
-      `cards/minor/${suit}/${n}.jpg`,
-      `${n} ${cap(suit)}`,
-      suit,
-      n
-    );
-  });
-
-  minorFigures.forEach(f=>{
-    createMinor(
-      target,
-      `cards/minor/${suit}/${f}.jpg`,
-      `${cap(suit)} ${cap(f)}`,
-      suit,
-      f
-    );
-  });
+function loadMinor(s){
+  const box=document.getElementById(s);
+  minorNums.forEach(n=>addMinor(box,s,n));
+  minorFig.forEach(f=>addMinor(box,s,f));
 }
 
-function createMinor(target,img,title,suit,key){
-  const d=document.createElement("div");
-  d.className="card";
-  d.innerHTML=`<img src="${img}"><span>${title}</span>`;
-  d.onclick=()=>{
-    const desc =
-      minorDescriptions[suit] && minorDescriptions[suit][key]
-      ? minorDescriptions[suit][key]
-      : "Açıklama yakında eklenecek.";
-    openModal(img,title,desc);
-  };
-  target.appendChild(d);
+function addMinor(box,s,k){
+  const div=document.createElement("div");
+  div.className="card";
+  div.innerHTML=`<img src="cards/minor/${s}/${k}.jpg"><span>${k} ${cap(s)}</span>`;
+  div.onclick=()=>openModal(
+    `cards/minor/${s}/${k}.jpg`,
+    `${k} ${cap(s)}`,
+    minorDesc[s][k] || "Açıklama yakında."
+  );
+  box.appendChild(div);
 }
 
-
-["degnek","kupa","kilic","tilsim"].forEach(loadMinor);
-
-/* ===== MODAL ===== */
-function openModal(img,title,desc){
-  document.getElementById("modal").style.display="flex";
-  document.getElementById("modalImg").src=img.includes("/") ? img : `cards/major/${img}.jpg`;
-  document.getElementById("modalTitle").innerText=title;
-  document.getElementById("modalDesc").innerText=desc;
+function openModal(img,t,d){
+  modal.style.display="flex";
+  modalImg.src=img;
+  modalTitle.innerText=t;
+  modalDesc.innerText=d;
 }
 
-function closeModal(){
-  document.getElementById("modal").style.display="none";
-}
-
-function cap(t){
-  return t.charAt(0).toUpperCase()+t.slice(1);
-}
+function closeModal(){ modal.style.display="none"; }
+function cap(t){ return t[0].toUpperCase()+t.slice(1); }
 </script>
 
 </body>
