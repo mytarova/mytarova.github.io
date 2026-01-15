@@ -1,0 +1,37 @@
+<script>
+let minorDescriptions = {};
+let majorDescriptions = {};
+
+fetch("data/minor.json")
+  .then(r => r.json())
+  .then(d => minorDescriptions = d);
+
+fetch("data/major.json")
+  .then(r => r.json())
+  .then(d => majorDescriptions = d);
+</script>
+
+{
+  "joker": "Yeni başlangıçlar, saf potansiyel, bilinmeyene atılan adım.",
+  "buyucu": "İrade gücü, yaratım, bilinçli eylem ve odaklanma.",
+  "azize": "Sezgi, iç ses, gizli bilgiler ve ruhsal bilgelik.",
+  "imparatorice": "Bereket, üretkenlik, doğurganlık ve dişil enerji.",
+  "imparator": "Otorite, yapı, disiplin ve liderlik.",
+  "aziz": "Gelenekler, ruhsal rehberlik ve öğreti.",
+  "asiklar": "Seçimler, bağlar, uyum ve kalpten kararlar.",
+  "araba": "Kararlılık, ilerleme, kontrol ve zafer.",
+  "guc": "İçsel güç, sabır, şefkat ve cesaret.",
+  "ermis": "İçe dönüş, yalnızlıkta bilgelik arayışı.",
+  "kader_carki": "Kader, döngüler, ani değişimler.",
+  "adalet": "Denge, adalet, dürüstlük ve karma.",
+  "asilan_adam": "Teslimiyet, bakış açısını değiştirme.",
+  "olum": "Bitişler, dönüşüm ve yeniden doğuş.",
+  "denge": "Uyum, ölçülülük ve dengeyi bulma.",
+  "seytan": "Bağımlılıklar, gölge yönler, maddi bağlar.",
+  "kule": "Ani yıkım, farkındalık ve sarsıcı gerçekler.",
+  "yildiz": "Umut, şifa, ilahi rehberlik.",
+  "ay": "Belirsizlik, korkular ve bilinçaltı.",
+  "gunes": "Mutluluk, netlik, başarı ve yaşam enerjisi.",
+  "mahkeme": "Uyanış, çağrı ve yeniden değerlendirme.",
+  "dunya": "Tamamlanma, bütünlük ve döngünün sonu."
+}
