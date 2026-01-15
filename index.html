@@ -220,7 +220,9 @@ document.addEventListener("DOMContentLoaded",()=>{
   const card=getDailyCard();
   el.innerHTML=`
     <div class="daily-box">
-      <img src="https://via.placeholder.com/220x380/120015/e6d28c?text=Gunun+Karti">
+      <img src="cards/major/${name}.jpg"
+     onerror="this.src='https://via.placeholder.com/200x350/120015/e6d28c?text=Tarot'">
+
       <h3>${card}</h3>
       <p class="daily-msg">Bugün için sezgisel bir mesaj var.</p>
       <a class="daily-link" href="tarot-kartlari.html">Detay için tıkla</a>
