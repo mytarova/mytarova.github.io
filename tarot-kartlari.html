@@ -194,9 +194,15 @@ majorArcana.forEach(c=>{
   const d=document.createElement("div");
   d.className="card";
   d.innerHTML=`<img src="cards/major/${c[0]}.jpg"><span>${c[1]}</span>`;
-  d.onclick=()=>openModal(c[0],c[1],c[2]);
+  d.onclick=()=>{
+    const desc = majorDescriptions[c[0]]
+      ? majorDescriptions[c[0]]
+      : "Açıklama yakında eklenecek.";
+    openModal(`cards/major/${c[0]}.jpg`, c[1], desc);
+  };
   majorBox.appendChild(d);
 });
+
 
 /* ===== MINÖR ARKANA ===== */
 const minorNumbers=["1","2","3","4","5","6","7","8","9","10"];
