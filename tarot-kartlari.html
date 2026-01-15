@@ -155,7 +155,13 @@ h1{
   </div>
 </div>
 
-<script>
+  <script>
+let minorDescriptions = {};
+
+fetch("data/minor.json")
+  .then(r => r.json())
+  .then(d => minorDescriptions = d);
+
 /* ===== MAJÖR ARKANA ===== */
 const majorArcana = [
 ["joker","Joker","Yeni başlangıçlar, saf potansiyel."],
