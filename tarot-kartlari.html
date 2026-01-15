@@ -10,6 +10,51 @@ body{
   background:#050008;
   color:#e6d28c;
   font-family:"Times New Roman", serif;
+  <script>
+/* ===== GÜNÜN KARTI SİSTEMİ ===== */
+
+// Majör + Minör toplam 78 kartlık basit liste (şimdilik isim odaklı)
+const tarotDeck = [
+  "Joker","Buyucu","Azize","Imparatorice","Imparator","Aziz","Asiklar","Araba",
+  "Guc","Ermis","Kader Carki","Adalet","Asilan Adam","Olum","Denge","Seytan",
+  "Kule","Yildiz","Ay","Gunes","Mahkeme","Dunya"
+];
+
+// Tarihe göre sabit kart üret
+function getDailyCard(){
+  const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD
+  let hash = 0;
+  for(let i=0;i<today.length;i++){
+    hash += today.charCodeAt(i);
+  }
+  return tarotDeck[hash % tarotDeck.length];
+}
+
+// DOM'a bas
+function renderDailyCard(){
+  const cardName = getDailyCard();
+
+  const el = document.getElementById("daily-card");
+  if(!el) return;
+
+  el.innerHTML = `
+    <div class="daily-box">
+      <img src="https://via.placeholder.com/220x380/120015/e6d28c?text=Gunun+Karti" alt="Günün Kartı">
+      <h3>${cardName}</h3>
+      <p class="daily-msg">
+        Bugün için sana bir mesaj var.  
+        Sezgilerine güven ve işaretleri fark et.
+      </p>
+      <a href="tarot-kartlari.html" class="daily-link">
+        Detay için tıkla
+      </a>
+    </div>
+  `;
+}
+
+document.addEventListener("DOMContentLoaded", renderDailyCard);
+</script>
+
 }
 header{
   text-align:center;
