@@ -141,13 +141,44 @@ a:hover{color:#fff}
   </div>
 </div>
 
-<script>
+  <script>
+/* ===== MAJÖR ARKANA SEZGİSEL ANLAMLAR ===== */
+
+const majorMeanings = {
+  joker: "Yeni bir yol, saf niyet ve bilinmeyene güven. Risk al ama sezgini dinle.",
+  buyucu: "Yaratım gücü sende. Düşünce → niyet → eylem zinciri aktif.",
+  azize: "İç ses, gizli bilgi ve sezgisel farkındalık. Acele etme.",
+  imparatorice: "Bereket, üretkenlik, dişil enerji ve şefkat.",
+  imparator: "Düzen, otorite ve sağlam sınırlar kurma zamanı.",
+  aziz: "Gelenek, öğreti ve ruhsal rehberlik.",
+  asiklar: "Seçim, bağlanma ve kalpten gelen kararlar.",
+  araba: "Kontrol sende. Kararlılıkla ilerlersen başarı gelir.",
+  guc: "Sabır, içsel güç ve şefkatle yönetme.",
+  ermis: "İçe dönüş, yalnızlık ve derin farkındalık.",
+  kader_carki: "Kadersel değişim. Akışa direnme.",
+  adalet: "Denge, dürüstlük ve karmanın karşılığı.",
+  asilan_adam: "Bekleme, teslimiyet ve bakış açısı değişimi.",
+  olum: "Bir son ve güçlü bir dönüşüm. Yeniden doğuş.",
+  denge: "Uyum, sabır ve ruhsal dengeleme.",
+  seytan: "Bağımlılıklar, korkular ve bağlayan düşünceler.",
+  kule: "Ani yıkım, gerçeklerin açığa çıkışı.",
+  yildiz: "Umut, şifa ve ilahi rehberlik.",
+  ay: "Bilinçaltı, belirsizlik ve sezgisel sınav.",
+  gunes: "Mutluluk, açıklık ve yaşam enerjisi.",
+  mahkeme: "Uyanış, fark ediş ve kader çağrısı.",
+  dunya: "Tamamlanma, bütünlük ve başarı."
+};
+
 /* ===== MODAL ===== */
-function openModal(img,title){
-  document.getElementById("modalImg").src=img;
-  document.getElementById("modalTitle").innerText=title;
-  document.getElementById("modal").style.display="flex";
+function openModal(img, title){
+  const key = img.split("/").pop().replace(".jpg","");
+  document.getElementById("modalImg").src = img;
+  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("modalText").innerText =
+    majorMeanings[key] || "Bu kartın sezgisel anlamı yakında eklenecek.";
+  document.getElementById("modal").style.display = "flex";
 }
+
 function closeModal(){
   document.getElementById("modal").style.display="none";
 }
