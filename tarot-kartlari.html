@@ -2,8 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Tarot Kartları</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarot Kartları | Mytarova</title>
 
 <style>
 body{
@@ -15,23 +14,92 @@ body{
 
 h1{
   text-align:center;
-  padding:20px;
+  margin:40px 0 20px;
+  letter-spacing:2px;
 }
 
 .cards-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:25px;
   padding:30px;
+  max-width:1200px;
+  margin:auto;
 }
 
 .card{
   text-align:center;
+  cursor:pointer;
+  transition:transform .3s, box-shadow .3s;
 }
 
 .card img{
   width:100%;
+  height:320px;
+  object-fit:cover;
   border:2px solid #e6d28c;
+  box-shadow:0 0 15px rgba(230,210,140,.3);
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 25px rgba(230,210,140,.6);
+}
+
+.card span{
+  display:block;
+  margin-top:10px;
+  font-size:16px;
+}
+
+/* MODAL */
+#modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.modal-box{
+  background:#120015;
+  border:2px solid #e6d28c;
+  padding:20px;
+  max-width:700px;
+  width:90%;
+  display:flex;
+  gap:20px;
+}
+
+.modal-box img{
+  width:220px;
+  height:380px;
+  object-fit:cover;
+}
+
+.modal-text h2{
+  margin-top:0;
+}
+
+.close{
+  position:absolute;
+  top:20px;
+  right:30px;
+  font-size:30px;
+  cursor:pointer;
+}
+
+.back-home{
+  text-align:center;
+  margin:40px 0;
+}
+
+.back-home a{
+  color:#e6d28c;
+  text-decoration:none;
+  border-bottom:1px solid #e6d28c;
 }
 </style>
 </head>
@@ -40,32 +108,73 @@ h1{
 
 <h1>Majör Arkana</h1>
 
-<div id="major" class="cards-grid"></div>
+<div class="cards-grid" id="major"></div>
+
+<div class="back-home">
+  <a href="index.html">← Anasayfaya Dön</a>
+</div>
+
+<!-- MODAL -->
+<div id="modal">
+  <div class="close" onclick="closeModal()">✕</div>
+  <div class="modal-box">
+    <img id="modalImg">
+    <div class="modal-text">
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+</div>
 
 <script>
-document.addEventListener("DOMContentLoaded",function(){
+const majorArcana = [
+["joker","Joker","Yeni başlangıçlar, saf potansiyel, yolculuk."],
+["buyucu","Büyücü","İrade, yaratım, bilinçli eylem."],
+["azize","Azize","Sezgi, iç ses, gizli bilgiler."],
+["imparatorice","İmparatoriçe","Bereket, üretkenlik, dişil enerji."],
+["imparator","İmparator","Otorite, yapı, kontrol."],
+["aziz","Aziz","Gelenek, rehberlik, öğreti."],
+["asiklar","Aşıklar","Seçim, bağ, uyum."],
+["araba","Araba","İlerleme, kararlılık, zafer."],
+["guc","Güç","İçsel güç, sabır, şefkat."],
+["ermis","Ermiş","İçe dönüş, bilgelik."],
+["kader_carki","Kader Çarkı","Kader, döngüler, değişim."],
+["adalet","Adalet","Denge, doğruluk."],
+["asilan_adam","Asılan Adam","Teslimiyet, farklı bakış."],
+["olum","Ölüm","Bitiş ve dönüşüm."],
+["denge","Denge","Uyum, ölçü."],
+["seytan","Şeytan","Bağımlılıklar, gölge yönler."],
+["kule","Kule","Ani yıkım, farkındalık."],
+["yildiz","Yıldız","Umut, şifa."],
+["ay","Ay","Belirsizlik, sezgiler."],
+["gunes","Güneş","Mutluluk, netlik."],
+["mahkeme","Mahkeme","Uyanış, çağrı."],
+["dunya","Dünya","Tamamlanma, bütünlük."]
+];
 
-  const major=[
-    "joker","buyucu","azize","imparatorice","imparator","aziz",
-    "asiklar","araba","guc","ermis","kader_carki","adalet",
-    "asilan_adam","olum","denge","seytan","kule",
-    "yildiz","ay","gunes","mahkeme","dunya"
-  ];
+const container=document.getElementById("major");
 
-  const container=document.getElementById("major");
-
-  major.forEach(name=>{
-    const d=document.createElement("div");
-    d.className="card";
-    d.innerHTML=`
-     <img src="./cards/major/${name}.jpg"
-
-      <div>${name}</div>
-    `;
-    container.appendChild(d);
-  });
-
+majorArcana.forEach(c=>{
+  const div=document.createElement("div");
+  div.className="card";
+  div.innerHTML=`
+    <img src="cards/major/${c[0]}.jpg" alt="${c[1]}">
+    <span>${c[1]}</span>
+  `;
+  div.onclick=()=>openModal(c);
+  container.appendChild(div);
 });
+
+function openModal(c){
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("modalImg").src=`cards/major/${c[0]}.jpg`;
+  document.getElementById("modalTitle").innerText=c[1];
+  document.getElementById("modalDesc").innerText=c[2];
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
 </script>
 
 </body>
