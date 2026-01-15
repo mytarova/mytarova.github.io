@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Tarot Kartları | mytarova</title>
+<title>Tarot Kartları</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -13,161 +13,59 @@ body{
   font-family:"Times New Roman", serif;
 }
 
-header{
+h1{
+  text-align:center;
   padding:20px;
-  text-align:center;
-  border-bottom:1px solid #2a002a;
-}
-
-header h1{
-  margin:0;
-  font-size:28px;
-  letter-spacing:2px;
-}
-
-.cards-section{
-  padding:40px 20px;
-  text-align:center;
-}
-
-.cards-section h2{
-  margin-bottom:25px;
-  font-size:24px;
 }
 
 .cards-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:25px;
+  gap:20px;
+  padding:30px;
 }
 
 .card{
-  cursor:pointer;
-  transition:transform .3s;
-}
-
-.card:hover{
-  transform:translateY(-6px);
+  text-align:center;
 }
 
 .card img{
   width:100%;
   border:2px solid #e6d28c;
-  box-shadow:0 0 15px rgba(230,210,140,.4);
-}
-
-.card span{
-  display:block;
-  margin-top:8px;
-  font-size:14px;
-}
-
-/* MODAL */
-#modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-
-.modal-box{
-  background:#120015;
-  padding:20px;
-  max-width:90%;
-  max-height:90%;
-  text-align:center;
-  border:2px solid #e6d28c;
-}
-
-.modal-box img{
-  max-width:100%;
-  max-height:70vh;
-}
-
-.modal-box h3{
-  margin:10px 0 0;
-}
-
-.close{
-  margin-top:10px;
-  cursor:pointer;
-  color:#c44;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Tarot Kartları</h1>
-</header>
+<h1>Majör Arkana</h1>
 
-<main>
+<div id="major" class="cards-grid"></div>
 
-  <!-- MAJÖR ARKANA -->
-  <section class="cards-section">
-    <h2>Majör Arkana</h2>
-    <div id="major" class="cards-grid"></div>
-  </section>
-
-</main>
-
-<!-- MODAL -->
-<div id="modal" onclick="closeModal()">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <img id="modalImg">
-    <h3 id="modalTitle"></h3>
-    <div class="close" onclick="closeModal()">Kapat ✕</div>
-  </div>
-</div>
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded",function(){
 
   const major=[
-    ["joker","Joker"],
-    ["buyucu","Buyucu"],
-    ["azize","Azize"],
-    ["imparatorice","Imparatorice"],
-    ["imparator","Imparator"],
-    ["aziz","Aziz"],
-    ["asiklar","Asiklar"],
-    ["araba","Araba"],
-    ["guc","Guc"],
-    ["ermis","Ermis"],
-    ["kader_carki","Kader Carki"],
-    ["adalet","Adalet"],
-    ["asilan_adam","Asilan Adam"],
-    ["olum","Olum"],
-    ["denge","Denge"],
-    ["seytan","Seytan"],
-    ["kule","Kule"],
-    ["yildiz","Yildiz"],
-    ["ay","Ay"],
-    ["gunes","Gunes"],
-    ["mahkeme","Mahkeme"],
-    ["dunya","Dunya"]
+    "joker","buyucu","azize","imparatorice","imparator","aziz",
+    "asiklar","araba","guc","ermis","kader_carki","adalet",
+    "asilan_adam","olum","denge","seytan","kule",
+    "yildiz","ay","gunes","mahkeme","dunya"
   ];
 
-  function createCard(target,img,title){
+  const container=document.getElementById("major");
+
+  major.forEach(name=>{
     const d=document.createElement("div");
     d.className="card";
     d.innerHTML=`
-      <img src="${img}"
-           onerror="this.src='https://via.placeholder.com/200x350/120015/e6d28c?text=Tarot'">
-      <span>${title}</span>`;
-    document.getElementById(target).appendChild(d);
-  }
-
-  major.forEach(c=>{
-    createCard("major",`cards/major/${c[0]}.jpg`,c[1]);
+      <img src="https://via.placeholder.com/200x350/120015/e6d28c?text=${name}">
+      <div>${name}</div>
+    `;
+    container.appendChild(d);
   });
 
 });
 </script>
-
 
 </body>
 </html>
