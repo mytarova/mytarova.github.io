@@ -158,9 +158,29 @@ h1{
   <script>
 let minorDescriptions = {};
 
-fetch("data/minor.json")
+fetch("data/major.json")
   .then(r => r.json())
-  .then(d => minorDescriptions = d);
+  .then(d => {
+    majorDescriptions = d;
+
+ 
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <img src="cards/major/${c[0]}.jpg">
+        <span>${c[1]}</span>
+      `;
+      div.onclick = () => {
+        const desc = majorDescriptions[c[0]]
+          ? majorDescriptions[c[0]]
+          : "Açıklama yakında eklenecek.";
+        openModal(`cards/major/${c[0]}.jpg`, c[1], desc);
+      };
+      document.getElementById("major").appendChild(div);
+    });
+
+  });
+
 
 /* ===== MAJÖR ARKANA ===== */
 const majorArcana = [
