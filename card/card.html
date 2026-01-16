@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Tarot Kartı</title>
+<title>Tarot Kartı | MYTAROVA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -14,21 +14,35 @@ body{
   text-align:center;
   padding:30px;
 }
+
+h1{
+  margin-bottom:20px;
+  letter-spacing:2px;
+}
+
 img{
   width:260px;
   border:2px solid #e6d28c;
+  margin-bottom:20px;
 }
+
 .box{
   max-width:600px;
-  margin:30px auto;
+  margin:0 auto;
+  font-size:18px;
+  line-height:1.6;
 }
-a{
-  color:#e6d28c;
-  display:inline-block;
-  margin-top:20px;
-}
-  <script src="meanings.js"></script>
 
+a{
+  display:inline-block;
+  margin-top:30px;
+  color:#e6d28c;
+  text-decoration:none;
+  font-size:14px;
+}
+a:hover{
+  text-decoration:underline;
+}
 </style>
 </head>
 
@@ -36,23 +50,33 @@ a{
 
 <h1 id="title">Tarot Kartı</h1>
 
-<img id="cardImg">
+<img id="cardImg" alt="Tarot Kartı">
 
 <div class="box">
-  <p id="meaning">Bu kartın sezgisel anlamı yakında eklenecek.</p>
+  <p id="meaning">Kart anlamı yükleniyor...</p>
 </div>
 
 <a href="../index.html">← Anasayfaya Dön</a>
 
+<!-- KART ANLAMLARI -->
+<script src="meanings.js"></script>
+
+<!-- ANA SCRIPT -->
 <script>
+/* URL PARAMETRESİ */
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name") || "joker";
 
+/* BAŞLIK */
 const title = name.replace(/_/g," ");
 document.getElementById("title").innerText = title.toUpperCase();
 
-const imgPath = "../cards/major/" + name + ".jpg";
-document.getElementById("cardImg").src = imgPath;
+/* GÖRSEL YOLU
+   Önce majör dener, yoksa minör klasörlerine bakar */
+const majorPath = "../cards/major/" + name + ".jpg";
+
+/* GÖRSEL */
+document.getElementById("cardImg").src = majorPath;
 
 /* ANLAM */
 const text = meanings[name] || meanings.default_minor;
