@@ -1,296 +1,260 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <title>MYTAROVA | Sezgilerin Eşiğinde Tarot Rehberi</title>
-
-<meta name="description" content="MYTAROVA tarot rehberi ile majör ve minör arkana kartlarını keşfet. Günün kartı, tarot açılımları ve sezgisel mesajlar." />
-
-<meta name="keywords" content="tarot, tarot kartları, günün kartı, majör arkana, minör arkana, tarot açılımları, tarot falı" />
-
-<meta name="author" content="MYTAROVA" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta charset="UTF-8">
-<title>MYTAROVA | Tarot Rehberi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="MYTAROVA – Sezgilerin eşiğinde Tarot Rehberi. Günün kartı, tarot açılımları ve sezgisel rehberlik.">
+<title>MYTAROVA | Tarot Rehberi</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+/* ===== TEMEL MOBİL AYAR ===== */
 body{
   margin:0;
   background:#050008;
   color:#e6d28c;
   font-family:"Times New Roman", serif;
+  line-height:1.6;
 }
-a{text-decoration:none;color:inherit}
 
-/* TOP MENU */
+a{color:inherit;text-decoration:none}
+
+/* ===== ÜST MENÜ ===== */
 .topbar{
   display:flex;
-  justify-content:flex-end;
-  gap:22px;
-  padding:15px 30px;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 16px;
+}
+
+.menu a{
+  margin-left:14px;
   font-size:14px;
 }
 
-/* HEADER */
-header{
+/* ===== BAŞLIK ===== */
+.header{
   text-align:center;
-  padding:30px 15px 10px;
+  padding:20px 16px 10px;
 }
-header h1{
-  font-size:54px;
-  letter-spacing:6px;
+.header h1{
   margin:0;
+  font-size:2.4rem;
+  letter-spacing:3px;
 }
-header p{
-  margin-top:8px;
-  font-style:italic;
-  opacity:.85;
-}
-
-/* MAIN */
-.main{
-  display:flex;
-  gap:30px;
-  padding:30px;
+.header p{
+  margin-top:6px;
+  font-size:1rem;
+  opacity:.9;
 }
 
-/* LEFT */
-.left{flex:2}
-
-/* ASK */
-.ask h2{margin-bottom:8px}
-.ask textarea{
+/* ===== BİR SORU SOR ===== */
+.question-area{
+  padding:20px 16px;
+}
+.question-area h2{
+  font-size:1.2rem;
+  margin-bottom:10px;
+}
+.question-input{
   width:100%;
-  height:60px;
-  background:#0b0012;
-  border:1px solid #555;
-  color:#e6d28c;
-  padding:10px;
-  resize:none;
+  padding:14px;
+  font-size:16px;
+  border-radius:12px;
+  border:none;
 }
 
-/* 3 CARDS */
+/* ===== KARTLAR ===== */
 .cards{
   display:flex;
-  gap:15px;
-  margin-top:15px;
+  gap:12px;
+  margin-top:16px;
 }
-.slot{
-  width:130px;
-  height:210px;
-  border:2px double #7a2bff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.slot img{
+.card{
   width:100%;
-  height:100%;
-  object-fit:cover;
+  max-width:120px;
   cursor:pointer;
 }
-
-/* RIGHT */
-.right{
-  flex:1;
-  border-left:1px solid #333;
-  padding-left:20px;
-}
-.daily img{
-  width:150px;
-  display:block;
-  margin:auto;
+.card img{
+  width:100%;
+  border-radius:12px;
+  border:2px solid #e6d28c;
 }
 
-/* INFO SECTIONS */
-.sections{
-  padding:30px;
+/* ===== GÜNÜN KARTI ===== */
+.daily{
+  padding:20px 16px;
 }
-.box{
-  border:2px double #b02c2c;
-  padding:20px;
-  margin-bottom:20px;
+.daily h2{
+  font-size:1.2rem;
+  margin-bottom:10px;
+}
+.daily-box{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+.daily-box img{
+  width:110px;
+  border-radius:12px;
 }
 
-/* SOCIAL */
+/* ===== BİLGİ ALANLARI ===== */
+.section{
+  padding:20px 16px;
+  border-top:1px solid rgba(230,210,140,.2);
+}
+.section h3{
+  margin-bottom:6px;
+}
+
+/* ===== SOSYAL ===== */
 .social{
   text-align:center;
-  padding:20px;
+  padding:20px 0 30px;
 }
 .social a{
   font-size:28px;
-  margin:0 10px;
+  margin:0 14px;
 }
-.wa{color:#25D366}
-.ig{color:#E1306C}
-.yt{color:#FF0000}
+.social .fa-whatsapp{color:#25D366}
+.social .fa-instagram{color:#E4405F}
+.social .fa-youtube{color:#FF0000}
 
-/* MODAL */
-#modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
+/* ===== DESKTOP İYİLEŞTİRME ===== */
+@media(min-width:768px){
+  .cards{justify-content:center}
+  .card{max-width:150px}
 }
-.modal{
-  background:#0b0012;
-  padding:20px;
-  border:2px solid #e6d28c;
-  text-align:center;
-}
-.modal img{width:220px}
-.modal button{margin-top:10px}
 </style>
 </head>
 
 <body>
 
-<!-- TOP -->
+<!-- ÜST MENÜ -->
 <div class="topbar">
-  <a href="index.html">Anasayfa</a>
-  <a href="tarot-kartlari.html">Tarot Kartları</a>
-  <a href="#daily">Günün Kartı</a>
-  <a href="#contact">Bize Ulaşın</a>
+  <strong>MYTAROVA</strong>
+  <div class="menu">
+    <a href="index.html">Anasayfa</a>
+    <a href="tarot-kartlari.html">Tarot Kartları</a>
+    <a href="#contact">Bize Ulaşın</a>
+  </div>
 </div>
 
-<header>
+<!-- BAŞLIK -->
+<div class="header">
   <h1>MYTAROVA</h1>
   <p>Sezgilerin eşiğinde Tarot Rehberi</p>
-</header>
-
-<div class="main">
-
-  <!-- LEFT -->
-  <div class="left">
-    <div class="ask">
-      <h2>Bir Soru Sor</h2>
-      <textarea id="question" placeholder="Sorunu yaz ve Enter'a bas..."></textarea>
-    </div>
-
-    <div class="cards">
-      <div class="slot" id="c1"></div>
-      <div class="slot" id="c2"></div>
-      <div class="slot" id="c3"></div>
-    </div>
-  </div>
-
-  <!-- RIGHT -->
-  <div class="right" id="daily">
-    <h2>Günün Kartı</h2>
-    <div class="daily">
-      <img id="dailyImg">
-      <p id="dailyText"></p>
-    </div>
-  </div>
-
 </div>
 
-<!-- INFO -->
-<div class="sections">
-  <div class="box">Tarot Nedir? (yakında)</div>
-  <div class="box">Tarot Tarihçesi (yakında)</div>
-  <div class="box">Tarot Açılım Yöntemleri (yakında)</div>
-  <div class="box">Majör & Minör Tarot Kartları (yakında)</div>
+<!-- BİR SORU SOR -->
+<div class="question-area">
+  <h2>Bir Soru Sor</h2>
+  <input id="question" class="question-input" placeholder="Sorunu yaz ve Enter'a bas">
+
+  <div id="drawnCards" class="cards"></div>
 </div>
 
-<!-- CONTACT -->
-<div class="social" id="contact">
-  <a class="wa" href="https://wa.me/905075669228"><i class="fab fa-whatsapp"></i></a>
-  <a class="ig" href="https://instagram.com/my_tarova/"><i class="fab fa-instagram"></i></a>
-  <a class="yt" href="https://www.youtube.com/@mytarova"><i class="fab fa-youtube"></i></a>
+<!-- GÜNÜN KARTI -->
+<div class="daily">
+  <h2>Günün Kartı</h2>
+  <div id="dailyCard" class="daily-box"></div>
 </div>
 
-<!-- MODAL -->
-<div id="modal">
-  <div class="modal">
-    <img id="modalImg">
-    <h3>Sezgisel Kart</h3>
-    <button onclick="closeModal()">Kapat</button>
-  </div>
+<!-- BİLGİ ALANLARI -->
+<div class="section">
+  <h3>Tarot Nedir?</h3>
+  <p>(Daha sonra doldurulacak)</p>
 </div>
-<script src="card/meanings.js"></script>
+
+<div class="section">
+  <h3>Tarot Açılım Yöntemleri</h3>
+  <p>(Daha sonra doldurulacak)</p>
+</div>
+
+<div class="section">
+  <h3>Majör & Minör Arkana</h3>
+  <p>(Daha sonra doldurulacak)</p>
+</div>
+
+<!-- SOSYAL -->
+<div id="contact" class="social">
+  <a href="https://wa.me/905075669228"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://instagram.com/my_tarova/"><i class="fab fa-instagram"></i></a>
+  <a href="https://www.youtube.com/@mytarova"><i class="fab fa-youtube"></i></a>
+</div>
 
 <script>
-/* === 78 KARTLIK DESTEDEN (şimdilik majör, minör otomatik genişler) === */
-const deck=[
-"cards/major/joker.jpg","cards/major/buyucu.jpg","cards/major/azize.jpg",
-"cards/major/imparatorice.jpg","cards/major/imparator.jpg","cards/major/aziz.jpg",
-"cards/major/asiklar.jpg","cards/major/araba.jpg","cards/major/guc.jpg",
-"cards/major/ermis.jpg","cards/major/kader_carki.jpg","cards/major/adalet.jpg",
-"cards/major/asilan_adam.jpg","cards/major/olum.jpg","cards/major/denge.jpg",
-"cards/major/seytan.jpg","cards/major/kule.jpg","cards/major/yildiz.jpg",
-"cards/major/ay.jpg","cards/major/gunes.jpg","cards/major/mahkeme.jpg",
-"cards/major/dunya.jpg"
-];
+/* ===== 78 KARTLIK GERÇEK DESTEK ===== */
 
-/* QUESTION ENTER */
+/* MAJÖR ARKANA (22) */
+const majorArcana = [
+  "joker","buyucu","azize","imparatorice","imparator","aziz",
+  "asiklar","araba","guc","ermis","kader_carki","adalet",
+  "asilan_adam","olum","denge","seytan","kule","yildiz",
+  "ay","gunes","mahkeme","dunya"
+].map(c => `cards/major/${c}.jpg`);
+
+/* MİNÖR ARKANA (56) */
+const suits = ["degnek","kupa","kilic","tilsim"];
+const minors = [];
+
+suits.forEach(suit=>{
+  for(let i=1;i<=10;i++){
+    minors.push(`cards/minor/${suit}/${i}.jpg`);
+  }
+  minors.push(`cards/minor/${suit}/${suit}_vale.jpg`);
+  minors.push(`cards/minor/${suit}/${suit}_sovalyesi.jpg`);
+  minors.push(`cards/minor/${suit}/${suit}_kralicesi.jpg`);
+  minors.push(`cards/minor/${suit}/${suit}_krali.jpg`);
+});
+
+/* TÜM DESTEK */
+const deck = [...majorArcana, ...minors];
+
+/* RASTGELE KART */
+function randomCard(){
+  return deck[Math.floor(Math.random() * deck.length)];
+}
+</script>
+
+
+function randomCard(){
+  return deck[Math.floor(Math.random()*deck.length)];
+}
+
+/* ===== SORU SOR ===== */
 document.getElementById("question").addEventListener("keydown",e=>{
   if(e.key==="Enter"){
-    e.preventDefault();
-    drawCards();
+    const area=document.getElementById("drawnCards");
+    area.innerHTML="";
+    for(let i=0;i<3;i++){
+      const img=randomCard();
+      area.innerHTML+=`
+        <div class="card" onclick="openCard('${img}')">
+          <img src="${img}">
+        </div>`;
+    }
   }
 });
 
-function drawCards(){
-  const used=[];
-  ["c1","c2","c3"].forEach(id=>{
-    let card;
-    do{
-      card=deck[Math.floor(Math.random()*deck.length)];
-    }while(used.includes(card));
-    used.push(card);
-    document.getElementById(id).innerHTML=
-      `<img src="${card}" onclick="openCard('${card}')">
-`;
-  });
+function openCard(img){
+  window.open(`card.html?img=${encodeURIComponent(img)}`,"_blank");
 }
 
-/* DAILY CARD */
-const d=new Date().toISOString().slice(0,10);
-let h=0; for(let c of d) h+=c.charCodeAt(0);
-const daily=deck[h%deck.length];
-document.getElementById("dailyImg").src=daily;
-document.getElementById("dailyText").innerText="Bugünün enerjisi seninle.";
-
-/* MODAL */
-function openModal(img){
-  document.getElementById("modal").style.display="flex";
-  document.getElementById("modalImg").src=img;
-}
-function closeModal(){
-  document.getElementById("modal").style.display="none";
-}
-  function openCard(path){
-  const name=path.split("/").pop().replace(".jpg","");
-  window.open("card/card.html?name="+name,"_blank");
-}
-/* === GÜNÜN KARTI (TARİH BAZLI) === */
-const today = new Date().toISOString().slice(0,10);
-let hash = 0;
-for (let c of today) hash += c.charCodeAt(0);
-
-/* ŞİMDİLİK MAJÖR + SONRA MİNÖR EKLENİR */
-const dailyDeck = Object.keys(meanings).filter(k => k !== "default_minor");
-const dailyName = dailyDeck[hash % dailyDeck.length];
-
-const dailyImg = "cards/major/" + dailyName + ".jpg";
-
-document.getElementById("dailyImg").src = dailyImg;
-document.getElementById("dailyText").innerText = meanings[dailyName];
-
-/* Günün kartına tıklama */
-document.getElementById("dailyImg").onclick = () => {
-  window.open("card/card.html?name=" + dailyName, "_blank");
-};
-
+/* ===== GÜNÜN KARTI ===== */
+(function(){
+  const d=new Date().toISOString().slice(0,10);
+  let h=0; for(let c of d) h+=c.charCodeAt(0);
+  const card=deck[h%deck.length];
+  document.getElementById("dailyCard").innerHTML=`
+    <img src="${card}">
+    <div>
+      <strong>Bugünün Mesajı</strong>
+      <p>Sezgilerine kulak ver.</p>
+    </div>`;
+})();
 </script>
 
 </body>
