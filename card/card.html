@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Tarot Kartı</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  background:#050008;
+  color:#e6d28c;
+  font-family:"Times New Roman", serif;
+  text-align:center;
+  padding:30px;
+}
+img{
+  width:260px;
+  border:2px solid #e6d28c;
+}
+.box{
+  max-width:600px;
+  margin:30px auto;
+}
+a{
+  color:#e6d28c;
+  display:inline-block;
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="title">Tarot Kartı</h1>
+
+<img id="cardImg">
+
+<div class="box">
+  <p id="meaning">Bu kartın sezgisel anlamı yakında eklenecek.</p>
+</div>
+
+<a href="../index.html">← Anasayfaya Dön</a>
+
+<script>
+/* URL’den kart adı */
+const params=new URLSearchParams(window.location.search);
+const name=params.get("name") || "joker";
+
+/* Başlık */
+const title=name.replace(/_/g," ");
+document.getElementById("title").innerText=title.toUpperCase();
+
+/* Görsel yolu */
+let imgPath="cards/major/"+name+".jpg";
+if(!name) imgPath="cards/major/joker.jpg";
+
+document.getElementById("cardImg").src="../"+imgPath;
+</script>
+
+</body>
+</html>
