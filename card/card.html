@@ -67,6 +67,17 @@ a:hover{
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name") || "joker";
 
+  document.title = cardTitle + " | MYTAROVA Tarot";
+
+const metaDesc = document.querySelector("meta[name='description']");
+if (metaDesc) {
+  metaDesc.setAttribute(
+    "content",
+    cardTitle + " tarot kartının sezgisel anlamı, mesajı ve spiritüel yorumu."
+  );
+}
+
+
 /* BAŞLIK */
 const title = name.replace(/_/g," ");
 document.getElementById("title").innerText = title.toUpperCase();
