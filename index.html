@@ -237,7 +237,8 @@ function drawCards(){
     }while(used.includes(card));
     used.push(card);
     document.getElementById(id).innerHTML=
-      `<img src="${card}" onclick="openModal('${card}')">`;
+      `<img src="${card}" onclick="openCard('${card}')">
+`;
   });
 }
 
@@ -256,6 +257,11 @@ function openModal(img){
 function closeModal(){
   document.getElementById("modal").style.display="none";
 }
+  function openCard(path){
+  const name=path.split("/").pop().replace(".jpg","");
+  window.open("card/card.html?name="+name,"_blank");
+}
+
 </script>
 
 </body>
