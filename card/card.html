@@ -27,6 +27,8 @@ a{
   display:inline-block;
   margin-top:20px;
 }
+  <script src="meanings.js"></script>
+
 </style>
 </head>
 
@@ -43,19 +45,18 @@ a{
 <a href="../index.html">← Anasayfaya Dön</a>
 
 <script>
-/* URL’den kart adı */
-const params=new URLSearchParams(window.location.search);
-const name=params.get("name") || "joker";
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name") || "joker";
 
-/* Başlık */
-const title=name.replace(/_/g," ");
-document.getElementById("title").innerText=title.toUpperCase();
+const title = name.replace(/_/g," ");
+document.getElementById("title").innerText = title.toUpperCase();
 
-/* Görsel yolu */
-let imgPath="cards/major/"+name+".jpg";
-if(!name) imgPath="cards/major/joker.jpg";
+const imgPath = "../cards/major/" + name + ".jpg";
+document.getElementById("cardImg").src = imgPath;
 
-document.getElementById("cardImg").src="../"+imgPath;
+/* ANLAM */
+const text = meanings[name] || meanings.default_minor;
+document.getElementById("meaning").innerText = text;
 </script>
 
 </body>
