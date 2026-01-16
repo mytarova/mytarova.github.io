@@ -206,6 +206,7 @@ header p{
     <button onclick="closeModal()">Kapat</button>
   </div>
 </div>
+<script src="card/meanings.js"></script>
 
 <script>
 /* === 78 KARTLIK DESTEDEN (şimdilik majör, minör otomatik genişler) === */
@@ -261,6 +262,24 @@ function closeModal(){
   const name=path.split("/").pop().replace(".jpg","");
   window.open("card/card.html?name="+name,"_blank");
 }
+/* === GÜNÜN KARTI (TARİH BAZLI) === */
+const today = new Date().toISOString().slice(0,10);
+let hash = 0;
+for (let c of today) hash += c.charCodeAt(0);
+
+/* ŞİMDİLİK MAJÖR + SONRA MİNÖR EKLENİR */
+const dailyDeck = Object.keys(meanings).filter(k => k !== "default_minor");
+const dailyName = dailyDeck[hash % dailyDeck.length];
+
+const dailyImg = "cards/major/" + dailyName + ".jpg";
+
+document.getElementById("dailyImg").src = dailyImg;
+document.getElementById("dailyText").innerText = meanings[dailyName];
+
+/* Günün kartına tıklama */
+document.getElementById("dailyImg").onclick = () => {
+  window.open("card/card.html?name=" + dailyName, "_blank");
+};
 
 </script>
 
