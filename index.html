@@ -5,11 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MYTAROVA | Tarot Rehberi</title>
+  <!-- SEO META -->
+<meta name="description" content="MYTAROVA, tarot kartları, günlük tarot, majör ve minör arkana, sezgisel tarot rehberi ve spiritüel mesajlar sunar.">
+<meta name="keywords" content="tarot, tarot kartları, günlük tarot, majör arkana, minör arkana, tarot açılımları, sezgisel tarot">
+<meta name="author" content="MYTAROVA">
+
+<!-- Open Graph (Instagram / WhatsApp / Facebook) -->
+<meta property="og:title" content="MYTAROVA | Tarot Rehberi">
+<meta property="og:description" content="Sezgilerin eşiğinde tarot rehberi. Günün kartı, tarot açılımları ve spiritüel mesajlar.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mytarova.github.io/">
+<meta property="og:image" content="https://mytarova.github.io/cards/major/joker.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MYTAROVA | Tarot Rehberi">
+<meta name="twitter:description" content="Tarot kartlarıyla sezgisel yolculuk. Günün kartı ve tarot açılımları.">
+<meta name="twitter:image" content="https://mytarova.github.io/cards/major/joker.jpg">
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* ===== TEMEL MOBİL AYAR ===== */
+/* ===== MOBİL FIRST TEMEL ===== */
 body{
   margin:0;
   background:#050008;
@@ -17,17 +35,14 @@ body{
   font-family:"Times New Roman", serif;
   line-height:1.6;
 }
-
 a{color:inherit;text-decoration:none}
 
 /* ===== ÜST MENÜ ===== */
 .topbar{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
+  justify-content:flex-end;
   padding:12px 16px;
 }
-
 .menu a{
   margin-left:14px;
   font-size:14px;
@@ -40,8 +55,8 @@ a{color:inherit;text-decoration:none}
 }
 .header h1{
   margin:0;
-  font-size:2.4rem;
-  letter-spacing:3px;
+  font-size:2.6rem;
+  letter-spacing:4px;
 }
 .header p{
   margin-top:6px;
@@ -49,7 +64,7 @@ a{color:inherit;text-decoration:none}
   opacity:.9;
 }
 
-/* ===== BİR SORU SOR ===== */
+/* ===== SORU SOR ===== */
 .question-area{
   padding:20px 16px;
 }
@@ -63,9 +78,10 @@ a{color:inherit;text-decoration:none}
   font-size:16px;
   border-radius:12px;
   border:none;
+  outline:none;
 }
 
-/* ===== KARTLAR ===== */
+/* ===== KART ÇEKİM ===== */
 .cards{
   display:flex;
   gap:12px;
@@ -112,17 +128,17 @@ a{color:inherit;text-decoration:none}
 /* ===== SOSYAL ===== */
 .social{
   text-align:center;
-  padding:20px 0 30px;
+  padding:24px 0 30px;
 }
 .social a{
   font-size:28px;
   margin:0 14px;
 }
-.social .fa-whatsapp{color:#25D366}
-.social .fa-instagram{color:#E4405F}
-.social .fa-youtube{color:#FF0000}
+.fa-whatsapp{color:#25D366}
+.fa-instagram{color:#E4405F}
+.fa-youtube{color:#FF0000}
 
-/* ===== DESKTOP İYİLEŞTİRME ===== */
+/* ===== TABLET & ÜSTÜ ===== */
 @media(min-width:768px){
   .cards{justify-content:center}
   .card{max-width:150px}
@@ -134,7 +150,6 @@ a{color:inherit;text-decoration:none}
 
 <!-- ÜST MENÜ -->
 <div class="topbar">
-  <strong>MYTAROVA</strong>
   <div class="menu">
     <a href="index.html">Anasayfa</a>
     <a href="tarot-kartlari.html">Tarot Kartları</a>
@@ -148,11 +163,10 @@ a{color:inherit;text-decoration:none}
   <p>Sezgilerin eşiğinde Tarot Rehberi</p>
 </div>
 
-<!-- BİR SORU SOR -->
+<!-- SORU SOR -->
 <div class="question-area">
   <h2>Bir Soru Sor</h2>
   <input id="question" class="question-input" placeholder="Sorunu yaz ve Enter'a bas">
-
   <div id="drawnCards" class="cards"></div>
 </div>
 
@@ -162,7 +176,7 @@ a{color:inherit;text-decoration:none}
   <div id="dailyCard" class="daily-box"></div>
 </div>
 
-<!-- BİLGİ ALANLARI -->
+<!-- BİLGİ -->
 <div class="section">
   <h3>Tarot Nedir?</h3>
   <p>(Daha sonra doldurulacak)</p>
@@ -188,38 +202,28 @@ a{color:inherit;text-decoration:none}
 <script>
 /* ===== 78 KARTLIK GERÇEK DESTEK ===== */
 
-/* MAJÖR ARKANA (22) */
-const majorArcana = [
+/* MAJÖR (22) */
+const major = [
   "joker","buyucu","azize","imparatorice","imparator","aziz",
   "asiklar","araba","guc","ermis","kader_carki","adalet",
   "asilan_adam","olum","denge","seytan","kule","yildiz",
   "ay","gunes","mahkeme","dunya"
-].map(c => `cards/major/${c}.jpg`);
+].map(c=>`cards/major/${c}.jpg`);
 
-/* MİNÖR ARKANA (56) */
-const suits = ["degnek","kupa","kilic","tilsim"];
-const minors = [];
-
-suits.forEach(suit=>{
-  for(let i=1;i<=10;i++){
-    minors.push(`cards/minor/${suit}/${i}.jpg`);
-  }
-  minors.push(`cards/minor/${suit}/${suit}_vale.jpg`);
-  minors.push(`cards/minor/${suit}/${suit}_sovalyesi.jpg`);
-  minors.push(`cards/minor/${suit}/${suit}_kralicesi.jpg`);
-  minors.push(`cards/minor/${suit}/${suit}_krali.jpg`);
+/* MİNÖR (56) */
+const suits=["degnek","kupa","kilic","tilsim"];
+const minor=[];
+suits.forEach(s=>{
+  for(let i=1;i<=10;i++) minor.push(`cards/minor/${s}/${i}.jpg`);
+  minor.push(`cards/minor/${s}/${s}_vale.jpg`);
+  minor.push(`cards/minor/${s}/${s}_sovalyesi.jpg`);
+  minor.push(`cards/minor/${s}/${s}_kralicesi.jpg`);
+  minor.push(`cards/minor/${s}/${s}_krali.jpg`);
 });
 
-/* TÜM DESTEK */
-const deck = [...majorArcana, ...minors];
+const deck=[...major,...minor];
 
-/* RASTGELE KART */
-function randomCard(){
-  return deck[Math.floor(Math.random() * deck.length)];
-}
-</script>
-
-
+/* ===== RASTGELE KART ===== */
 function randomCard(){
   return deck[Math.floor(Math.random()*deck.length)];
 }
@@ -239,6 +243,7 @@ document.getElementById("question").addEventListener("keydown",e=>{
   }
 });
 
+/* ===== KART AÇ ===== */
 function openCard(img){
   window.open(`card.html?img=${encodeURIComponent(img)}`,"_blank");
 }
@@ -252,7 +257,7 @@ function openCard(img){
     <img src="${card}">
     <div>
       <strong>Bugünün Mesajı</strong>
-      <p>Sezgilerine kulak ver.</p>
+      <p>Sezgilerine güven.</p>
     </div>`;
 })();
 </script>
