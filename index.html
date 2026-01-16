@@ -188,7 +188,7 @@ footer{
 </section>
 
 <section id="iletisim">
-  <h2>Tarot Açılımı İçin Bize Ulaşın</h2>
+  <h2>Lütfen Tarot Açılımı Yaptırmak İçin Bize Ulaşın</h2>
   <div class="contact">
     <a href="https://wa.me/905075669228" target="_blank"><i class="fab fa-whatsapp"></i></a>
     <a href="https://instagram.com/my_tarova/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -197,14 +197,14 @@ footer{
 </section>
 
 <footer>
-  © 2006 mytarova — Tüm hakları saklıdır
+  © 2006 mytarova' da yayınlanan içeriklerin her hakkı saklıdır — AOB
 </footer>
 
 <script>
 /* ===== GÜNÜN KARTI SİSTEMİ ===== */
 const tarotDeck=[
 "joker","buyucu","azize","imparatorice","imparator","aziz","asiklar","araba",
-"guc","ermis","kader_carki","Adalet","asilan_adam","olum","denge","seytan",
+"guc","ermis","kader carki","adalet","asilan adam","olum","denge","seytan",
 "kule","yildiz","ay","gunes","mahkeme","dunya"
 ];
 
@@ -220,12 +220,10 @@ document.addEventListener("DOMContentLoaded",()=>{
   const card=getDailyCard();
   el.innerHTML=`
     <div class="daily-box">
-      <img src="cards/major/${name}.jpg"
-     onerror="this.src='https://via.placeholder.com/200x350/120015/e6d28c?text=Tarot'">
-
+      <img src="https://via.placeholder.com/220x380/120015/e6d28c?text=Gunun+Karti">
       <h3>${card}</h3>
       <p class="daily-msg">Bugün için sezgisel bir mesaj var.</p>
-      <a class="daily-link" href="cards/major/guc.jpg">Detay için tıkla</a>
+      <a class="daily-link" href="tarot-kartlari.html">Detay için tıkla</a>
     </div>
   `;
 });
