@@ -214,6 +214,34 @@ document.getElementById("question").addEventListener("keydown", e => {
       const src = randomCard();
       const img = document.createElement("img");
       img.src = src;
+      
+      /* BUTON İLE 3 KART AÇ */
+document.getElementById("question").addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    document.getElementById("askBtn").click();
+  }
+});
+
+
+  const box = document.getElementById("threeCards");
+  box.innerHTML = "";
+
+  for (let i = 0; i < 3; i++) {
+    const src = randomCard();
+    const img = document.createElement("img");
+    img.src = src;
+
+    const name = src.split("/").pop().replace(".jpg", "");
+
+    img.onclick = () => {
+      location.href = "card.html?name=" + encodeURIComponent(name);
+    };
+
+    box.appendChild(img);
+  }
+
+});
+
 
       // 🔮 SADECE KART ADINI GÖNDER
       const name = src.split("/").pop().replace(".jpg", "");
