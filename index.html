@@ -166,6 +166,174 @@ header p{
 
 <!-- ALT İÇERİK -->
 <div class="sections">
+  <div class="section-box">Tarot Kartları Nedir? <!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYTAROVA | Tarot Rehberi</title>
+
+<!-- FAVICON -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<!-- FONT & ICON -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ==== GENEL ==== */
+body{
+  margin:0;
+  background:#050008;
+  color:#e6d28c;
+  font-family: "Times New Roman", serif;
+}
+a{color:#e6d28c;text-decoration:none}
+h1{text-align:center;letter-spacing:2px}
+
+/* ==== ÜST MENÜ ==== */
+.topbar{
+  position:fixed;
+  top:0; right:0;
+  padding:10px 15px;
+  z-index:10;
+}
+.topbar a{
+  margin-left:12px;
+  font-size:0.9em;
+}
+
+/* ==== SAYFA BAŞLIK ==== */
+header{
+  padding:80px 15px 20px;
+  text-align:center;
+}
+header h1{
+  font-size:2.2em;
+}
+header p{
+  font-size:0.95em;
+  opacity:0.9;
+}
+
+/* ==== ANA ALAN ==== */
+.main{
+  display:flex;
+  flex-wrap:wrap;
+  padding:15px;
+}
+
+/* ==== SORU & 3 KART ==== */
+.question-area{
+  flex:1 1 100%;
+}
+.question-area h2{
+  margin-bottom:5px;
+}
+.question-area input{
+  width:100%;
+  padding:10px;
+  font-size:1em;
+  border:none;
+  border-radius:6px;
+  margin-bottom:10px;
+}
+.cards3{
+  display:flex;
+  gap:10px;
+}
+.cards3 img{
+  width:32%;
+  border:1px solid #e6d28c;
+  border-radius:6px;
+}
+
+/* ==== GÜNÜN KARTI ==== */
+.daily{
+  flex:1 1 100%;
+  margin-top:20px;
+  text-align:center;
+  border:2px solid #e6d28c;
+  border-radius:10px;
+  padding:15px;
+}
+.daily button{
+  background:#120015;
+  color:#e6d28c;
+  border:1px solid #e6d28c;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.daily img{
+  width:180px;
+  margin-top:10px;
+}
+
+/* ==== ALT BÖLÜMLER ==== */
+.sections{
+  padding:20px;
+}
+.section-box{
+  border:1px solid #444;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+/* ==== SOSYAL ==== */
+.social{
+  text-align:center;
+  padding:20px;
+}
+.social a{
+  font-size:1.5em;
+  margin:0 10px;
+}
+
+/* ==== MOBİL ==== */
+@media(min-width:768px){
+  .question-area{flex:2}
+  .daily{flex:1;margin-left:15px}
+  .main{flex-wrap:nowrap}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MENÜ -->
+<div class="topbar">
+  <a href="index.html">Anasayfa</a>
+  <a href="tarot-kartlari.html">Tarot Kartları</a>
+  <a href="#sozluk">Tarot Sözlüğü</a>
+</div>
+
+<header>
+  <h1>MYTAROVA</h1>
+  <p>Sezgilerin eşiğinde Tarot Rehberi</p>
+</header>
+
+<div class="main">
+
+  <!-- SORU & 3 KART -->
+  <div class="question-area">
+    <h2>Bir Soru Sor</h2>
+    <input id="question" placeholder="Sorunu yaz ve Enter'a bas">
+    <div class="cards3" id="threeCards"></div>
+  </div>
+
+  <!-- GÜNÜN KARTI -->
+  <div class="daily">
+    <h2>Günün Kartı</h2>
+    <button onclick="drawDaily()">
+      <i class="fa-solid fa-hand-pointer"></i> Kart Çek
+    </button>
+    <div id="dailyCard"></div>
+  </div>
+
+</div>
+
+<!-- ALT İÇERİK -->
+<div class="sections">
   <div class="section-box">Tarot Nedir? (daha sonra doldurulacak)</div>
   <div class="section-box">Tarot Açılım Yöntemleri</div>
   <div class="section-box">Majör & Minör Arkana</div>
@@ -188,6 +356,61 @@ const deck = [
   ...["degnek","kupa","kilic","tilsim"].flatMap(t=>{
     return ["1","2","3","4","5","6","7","8","9","10",
     "vale","sovalye","kralice","krali"].map(n=>`cards/minor/${t}/${t}_${n}.jpg`)
+  })
+];
+
+/* ==== RASTGELE ==== */
+function randomCard(){
+  return deck[Math.floor(Math.random()*deck.length)];
+}
+
+/* ==== 3 KART ==== */
+document.getElementById("question").addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    const box=document.getElementById("threeCards");
+    box.innerHTML="";
+    for(let i=0;i<3;i++){
+      const img=document.createElement("img");
+      const src=randomCard();
+      img.src=src;
+      img.onclick=()=>location.href="card.html?img="+src;
+      box.appendChild(img);
+    }
+  }
+});
+
+/* ==== GÜNÜN KARTI ==== */
+function drawDaily(){
+  const src=randomCard();
+  document.getElementById("dailyCard").innerHTML=
+    `<img src="${src}" onclick="location.href='card.html?img=${src}'">`;
+}
+</script>
+
+</body>
+</html>
+</div>
+  <div class="section-box">Tarot Açılım Yöntemleri</div>
+  <div class="section-box">Majör & Minör Arkana</div>
+</div>
+
+<!-- SOSYAL -->
+<div class="social">
+  <a href="https://wa.me/905075669228"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://instagram.com/my_tarova/"><i class="fab fa-instagram"></i></a>
+  <a href="https://www.youtube.com/@mytarova"><i class="fab fa-youtube"></i></a>
+</div>
+
+<script>
+/* ==== 78 KARTLIK DESTE ==== */
+const deck = [
+  ...["joker","buyucu","azize","imparatorice","imparator","aziz","asiklar","araba",
+  "guc","ermis","kader_carki","adalet","asilan_adam","olum","denge","seytan",
+  "kule","yildiz","ay","gunes","mahkeme","dunya"].map(c=>"cards/major/"+c+".jpg"),
+
+  ...["degnek","kupa","kilic","tilsim"].flatMap(t=>{
+    return ["1","2","3","4","5","6","7","8","9","10",
+    "vale","sovalye","kralice","kral"].map(n=>`cards/minor/${t}/${t}_${n}.jpg`)
   })
 ];
 
