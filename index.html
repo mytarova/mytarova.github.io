@@ -210,31 +210,41 @@ function randomCard(){
 }
 
 /* 3 KART */
-document.getElementById("question").addEventListener("keydown",e=>{
-  if(e.key==="Enter"){
-    workingDeck = [...fullDeck];
+document.getElementById("question").addEventListener("keydown", e => {
+  if (e.key === "Enter") {
 
-    const box=document.getElementById("threeCards");
-    box.innerHTML="";
+    const box = document.getElementById("threeCards");
+    box.innerHTML = "";
 
-    ["c1","c2","c3"].forEach(id=>{
-      const src=randomCard();
-      const img=document.getElementById(id);
-      img.src=src;
-     img.onclick = () => location.href = "card.html?img=" + encodeURIComponent(src);
+    for (let i = 0; i < 3; i++) {
+      const src = randomCard();
+      const img = document.createElement("img");
+      img.src = src;
 
-    });
+      // 🔮 SADECE KART ADINI GÖNDER
+      const name = src.split("/").pop().replace(".jpg", "");
+
+      img.onclick = () => {
+        location.href = "card.html?name=" + encodeURIComponent(name);
+      };
+
+      box.appendChild(img);
+    }
   }
 });
 
 
 /* GÜNÜN KARTI */
-function drawDaily(){
-  const src=randomCard();
-  document.getElementById("dailyCard").innerHTML =
-  `<img src="${src}" onclick="location.href='card.html?img=${encodeURIComponent(src)}'">`;
+function drawDaily() {
+  const src = randomCard();
+  const name = src.split("/").pop().replace(".jpg", "");
 
+  document.getElementById("dailyCard").innerHTML = `
+    <img src="${src}"
+         onclick="location.href='card.html?name=${encodeURIComponent(name)}'">
+  `;
 }
+
 </script>
 
 </body>
