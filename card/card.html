@@ -68,41 +68,43 @@ h1{
 </div>
 
 <script>
-/* ==== URL'DEN KART YOLU ==== */
 const params = new URLSearchParams(window.location.search);
-const imgPath = params.get("img");
+const name = params.get("name");
 
-/* ==== GÜVENLİK ==== */
-if(!imgPath){
+if(!name){
   document.body.innerHTML = "<h2>Kart bulunamadı</h2>";
-  throw new Error("Kart yolu yok");
+  throw new Error("Kart adı yok");
 }
 
-/* ==== KART ADI ==== */
-const fileName = imgPath.split("/").pop().replace(".jpg","");
-const cardTitle = fileName.replace(/_/g," ").toUpperCase();
+/* MAJÖR LİSTE */
+const major = [
+  "joker","buyucu","azize","imparatorice","imparator","aziz","asiklar","araba",
+  "guc","ermis","kader_carki","adalet","asilan_adam","olum","denge","seytan",
+  "kule","yildiz","ay","gunes","mahkeme","dunya"
+];
 
-/* ==== KART ANLAMLARI (ÖRNEK – GENİŞLETECEĞİZ) ==== */
-const meanings = {
-  joker: "Yeni başlangıçlar, bilinmeyen yola cesaret.",
-  buyucu: "Niyet, irade ve yaratım gücü.",
-  azize: "Sezgi, iç ses, gizli bilgiler.",
-  kral: "Otorite, liderlik, sorumluluk.",
-  kralice: "Olgunluk, sezgi, denge.",
-  sovalye: "Hareket, cesaret, arayış.",
-  vale: "Merak, öğrenme, başlangıç."
-};
+/* GÖRSEL YOLU */
+let imgPath = "";
 
-/* ==== DOM ==== */
+if(major.includes(name)){
+  imgPath = "cards/major/" + name + ".jpg";
+}else{
+  const parts = name.split("_"); 
+  // örn: degnek_5 → ["degnek","5"]
+  imgPath = `cards/minor/${parts[0]}/${parts[1]}.jpg`;
+}
+
+/* KART ADI */
+const title = name.replace(/_/g," ").toUpperCase();
+
+/* DOM */
 document.getElementById("cardImg").src = imgPath;
-document.getElementById("cardTitle").innerText = cardTitle;
+document.getElementById("cardTitle").innerText = title;
 document.getElementById("cardMeaning").innerText =
-  meanings[fileName] || "Bu kart sezgisel olarak yorumlanmalıdır.";
+  "Bu kart sezgisel olarak yorumlanmalıdır.";
 
-/* ==== SEO ==== */
-document.title = cardTitle + " | MYTAROVA Tarot";
+document.title = title + " | MYTAROVA Tarot";
 </script>
-
 
 </body>
 </html>
