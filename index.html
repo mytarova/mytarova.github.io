@@ -106,23 +106,7 @@ header p{font-size:0.95em;opacity:0.9}
   .daily{flex:1;margin-left:15px}
   .main{flex-wrap:nowrap}
 }
-  .card-slot{
-  width:32%;
-  text-align:center;
-}
-.card-slot span{
-  display:block;
-  margin-top:6px;
-  font-size:0.85em;
-  opacity:0.85;
-}
-.card-slot img{
-  width:100%;
-  height:160px;
-  border:2px solid #e6d28c;
-  border-radius:6px;
-  object-fit:cover;
-}
+
 .ask-btn{
   margin-top:8px;
   padding:10px 18px;
@@ -134,11 +118,7 @@ header p{font-size:0.95em;opacity:0.9}
   cursor:pointer;
   font-weight:bold;
 }
-
-.ask-btn:hover{
-  background:#f0dc9a;
-}
-
+.ask-btn:hover{background:#f0dc9a}
 </style>
 </head>
 
@@ -159,17 +139,11 @@ header p{font-size:0.95em;opacity:0.9}
 
   <!-- SORU -->
   <div class="question-area">
-  <h2>Bir Soru Sor</h2>
-
-  <input id="question" placeholder="Sorunu yaz">
-
-  <!-- 👇 YENİ EKLENEN BUTON -->
-  <button id="askBtn" class="ask-btn">
-    Kartları Aç
-  </button>
-
-  <div class="cards3" id="threeCards"></div>
-</div>
+    <h2>Bir Soru Sor</h2>
+    <input id="question" placeholder="Sorunu yaz">
+    <button id="askBtn" class="ask-btn">Kartları Aç</button>
+    <div class="cards3" id="threeCards"></div>
+  </div>
 
   <!-- GÜNÜN KARTI -->
   <div class="daily">
@@ -216,50 +190,37 @@ document.addEventListener("DOMContentLoaded", () => {
     return deck[Math.floor(Math.random() * deck.length)];
   }
 
-  /* ==== BUTON ==== */
   const askBtn = document.getElementById("askBtn");
   const question = document.getElementById("question");
   const box = document.getElementById("threeCards");
 
-  if (askBtn) {
-    askBtn.addEventListener("click", () => {
-      box.innerHTML = "";
+  /* ==== 3 KART ==== */
+  askBtn.addEventListener("click", () => {
+    box.innerHTML = "";
+    for (let i = 0; i < 3; i++) {
+      const src = randomCard();
+      const img = document.createElement("img");
+      img.src = src;
+      img.onclick = () => {
+        location.href = "card.html?img=" + encodeURIComponent(src);
+      };
+      box.appendChild(img);
+    }
+  });
 
-      for (let i = 0; i < 3; i++) {
-        const src = randomCard();
-        const img = document.createElement("img");
-        img.src = src;
-
-        const name = src.split("/").pop().replace(".jpg", "");
-        img.onclick = () => {
-          location.href = "card.html?name=" + encodeURIComponent(name);
-        };
-
-        box.appendChild(img);
-      }
-    });
-  }
-
-  /* ==== ENTER ==== */
-  if (question) {
-    question.addEventListener("keydown", e => {
-      if (e.key === "Enter") {
-        askBtn.click();
-      }
-    });
-  }
+  question.addEventListener("keydown", e => {
+    if (e.key === "Enter") askBtn.click();
+  });
 
   /* ==== GÜNÜN KARTI ==== */
   window.drawDaily = function(){
     const src = randomCard();
-    const name = src.split("/").pop().replace(".jpg", "");
     document.getElementById("dailyCard").innerHTML =
-      `<img src="${src}" onclick="location.href='card.html?name=${name}'">`;
+      `<img src="${src}" onclick="location.href='card.html?img=${encodeURIComponent(src)}'">`;
   };
 
 });
 </script>
-
 
 </body>
 </html>
