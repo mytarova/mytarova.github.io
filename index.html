@@ -195,94 +195,71 @@ header p{font-size:0.95em;opacity:0.9}
 </div>
 
 <script>
-const fullDeck = [
-  ...["joker","buyucu","azize","imparatorice","imparator","aziz","asiklar","araba",
-  "guc","ermis","kader_carki","adalet","asilan_adam","olum","denge","seytan",
-  "kule","yildiz","ay","gunes","mahkeme","dunya"].map(c=>"cards/major/"+c+".jpg"),
+document.addEventListener("DOMContentLoaded", () => {
 
-  ...["degnek","kupa","kilic","tilsim"].flatMap(t =>
-    ["1","2","3","4","5","6","7","8","9","10",
-     "vale","sovalye","kral","kralice"]
-    .map(n => `cards/minor/${t}/${n}.jpg`)
-  )
-];
+  /* ==== 78 KARTLIK DESTE ==== */
+  const deck = [
+    ...[
+      "joker","buyucu","azize","imparatorice","imparator","aziz","asiklar","araba",
+      "guc","ermis","kader_carki","adalet","asilan_adam","olum","denge","seytan",
+      "kule","yildiz","ay","gunes","mahkeme","dunya"
+    ].map(c => "cards/major/" + c + ".jpg"),
 
-let workingDeck = [...fullDeck];
+    ...["degnek","kupa","kilic","tilsim"].flatMap(t =>
+      ["1","2","3","4","5","6","7","8","9","10",
+       "vale","sovalye","kral","kralice"]
+      .map(n => `cards/minor/${t}/${n}.jpg`)
+    )
+  ];
 
-
-function randomCard(){
-  if(workingDeck.length === 0){
-    workingDeck = [...fullDeck];
+  function randomCard(){
+    return deck[Math.floor(Math.random() * deck.length)];
   }
-  const i = Math.floor(Math.random() * workingDeck.length);
-  return workingDeck.splice(i,1)[0];
-}
 
-/* 3 KART */
-document.getElementById("question").addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-
-    const box = document.getElementById("threeCards");
-    box.innerHTML = "";
-
-    for (let i = 0; i < 3; i++) {
-      const src = randomCard();
-      const img = document.createElement("img");
-      img.src = src;
-      
-      /* BUTON İLE 3 KART AÇ */
-document.getElementById("question").addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    document.getElementById("askBtn").click();
-  }
-});
-
-
+  /* ==== BUTON ==== */
+  const askBtn = document.getElementById("askBtn");
+  const question = document.getElementById("question");
   const box = document.getElementById("threeCards");
-  box.innerHTML = "";
 
-  for (let i = 0; i < 3; i++) {
+  if (askBtn) {
+    askBtn.addEventListener("click", () => {
+      box.innerHTML = "";
+
+      for (let i = 0; i < 3; i++) {
+        const src = randomCard();
+        const img = document.createElement("img");
+        img.src = src;
+
+        const name = src.split("/").pop().replace(".jpg", "");
+        img.onclick = () => {
+          location.href = "card.html?name=" + encodeURIComponent(name);
+        };
+
+        box.appendChild(img);
+      }
+    });
+  }
+
+  /* ==== ENTER ==== */
+  if (question) {
+    question.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        askBtn.click();
+      }
+    });
+  }
+
+  /* ==== GÜNÜN KARTI ==== */
+  window.drawDaily = function(){
     const src = randomCard();
-    const img = document.createElement("img");
-    img.src = src;
-
     const name = src.split("/").pop().replace(".jpg", "");
-
-    img.onclick = () => {
-      location.href = "card.html?name=" + encodeURIComponent(name);
-    };
-
-    box.appendChild(img);
-  }
+    document.getElementById("dailyCard").innerHTML =
+      `<img src="${src}" onclick="location.href='card.html?name=${name}'">`;
+  };
 
 });
-
-
-      // 🔮 SADECE KART ADINI GÖNDER
-      const name = src.split("/").pop().replace(".jpg", "");
-
-      img.onclick = () => {
-        location.href = "card.html?name=" + encodeURIComponent(name);
-      };
-
-      box.appendChild(img);
-    }
-  }
-});
-
-
-/* GÜNÜN KARTI */
-function drawDaily() {
-  const src = randomCard();
-  const name = src.split("/").pop().replace(".jpg", "");
-
-  document.getElementById("dailyCard").innerHTML = `
-    <img src="${src}"
-         onclick="location.href='card.html?name=${encodeURIComponent(name)}'">
-  `;
-}
-
 </script>
+
 
 </body>
 </html>
