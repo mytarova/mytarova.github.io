@@ -190,21 +190,27 @@ document.addEventListener("DOMContentLoaded", () => {
     return deck[Math.floor(Math.random() * deck.length)];
   }
 
-  const askBtn = document.getElementById("askBtn");
-  const question = document.getElementById("question");
-  const box = document.getElementById("threeCards");
+  const src = randomCard();
+const img = document.createElement("img");
+img.src = src;
 
-  /* ==== 3 KART ==== */
-  askBtn.addEventListener("click", () => {
-    box.innerHTML = "";
-    for (let i = 0; i < 3; i++) {
-      const src = randomCard();
-      const img = document.createElement("img");
-      img.src = src;
-      img.onclick = () => {
-       location.href = "card.html?name=" + name;
+/* 👇 KART ADINI DOĞRU ÜRET */
+let name = "";
 
-      };
+if (src.includes("/major/")) {
+  name = src.split("/major/")[1].replace(".jpg","");
+} else {
+  // cards/minor/degnek/5.jpg → degnek_5
+  const parts = src.split("/minor/")[1].replace(".jpg","").split("/");
+  name = parts[0] + "_" + parts[1];
+}
+
+img.onclick = () => {
+  location.href = "card.html?name=" + encodeURIComponent(name);
+};
+
+box.appendChild(img);
+
       box.appendChild(img);
     }
   });
