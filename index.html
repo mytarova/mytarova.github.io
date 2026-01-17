@@ -144,23 +144,17 @@ header p{font-size:0.95em;opacity:0.9}
 
   <!-- SORU -->
   <div class="question-area">
-    <h2>Bir Soru Sor</h2>
-    <input id="question" placeholder="Sorunu yaz ve Enter'a bas">
+  <h2>Bir Soru Sor</h2>
 
-    <div class="cards3">
-  <div class="card-slot">
-    <img id="c1">
-    <span>Geçmiş</span>
-  </div>
-  <div class="card-slot">
-    <img id="c2">
-    <span>Şimdi</span>
-  </div>
-  <div class="card-slot">
-    <img id="c3">
-    <span>Gelecek</span>
-  </div>
-  </div>
+  <input id="question" placeholder="Sorunu yaz">
+
+  <!-- 👇 YENİ EKLENEN BUTON -->
+  <button id="askBtn" class="ask-btn">
+    Kartları Aç
+  </button>
+
+  <div class="cards3" id="threeCards"></div>
+</div>
 
   <!-- GÜNÜN KARTI -->
   <div class="daily">
