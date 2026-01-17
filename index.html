@@ -171,18 +171,25 @@ header p{font-size:0.95em;opacity:0.9}
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ==== 78 KARTLIK DESTE ==== */
+  /* ===== 78 KARTLIK DESTE ===== */
   const deck = [
+    // MAJÖR
     ...[
       "joker","buyucu","azize","imparatorice","imparator","aziz","asiklar","araba",
       "guc","ermis","kader_carki","adalet","asilan_adam","olum","denge","seytan",
       "kule","yildiz","ay","gunes","mahkeme","dunya"
-    ].map(c => "cards/major/" + c + ".jpg"),
+    ].map(c => ({
+      img: `cards/major/${c}.jpg`,
+      name: c
+    })),
 
+    // MİNÖR
     ...["degnek","kupa","kilic","tilsim"].flatMap(t =>
       ["1","2","3","4","5","6","7","8","9","10",
-       "vale","sovalye","kral","kralice"]
-      .map(n => `cards/minor/${t}/${n}.jpg`)
+       "vale","sovalye","kral","kralice"].map(n => ({
+        img: `cards/minor/${t}/${n}.jpg`,
+        name: `${t}_${n}`
+      }))
     )
   ];
 
@@ -190,44 +197,59 @@ document.addEventListener("DOMContentLoaded", () => {
     return deck[Math.floor(Math.random() * deck.length)];
   }
 
-  const src = randomCard();
-const img = document.createElement("img");
-img.src = src;
+  /* ===== 3 KART AÇILIMI ===== */
+  const askBtn = document.getElementById("askBtn");
+  const question = document.getElementById("question");
+  const box = document.getElementById("threeCards");
 
-/* 👇 KART ADINI DOĞRU ÜRET */
-let name = "";
+  function openThreeCards(){
+    if(!box) return;
+    box.innerHTML = "";
 
-if (src.includes("/major/")) {
-  name = src.split("/major/")[1].replace(".jpg","");
-} else {
-  // cards/minor/degnek/5.jpg → degnek_5
-  const parts = src.split("/minor/")[1].replace(".jpg","").split("/");
-  name = parts[0] + "_" + parts[1];
-}
+    for(let i=0;i<3;i++){
+      const card = randomCard();
+      const img = document.createElement("img");
+      img.src = card.img;
+      img.alt = card.name;
 
-img.onclick = () => {
-  location.href = "card.html?name=" + encodeURIComponent(name);
-};
-
-box.appendChild(img);
+      img.onclick = () => {
+        window.location.href = `card.html?name=${encodeURIComponent(card.name)}`;
+      };
 
       box.appendChild(img);
     }
-  });
+  }
 
-  question.addEventListener("keydown", e => {
-    if (e.key === "Enter") askBtn.click();
-  });
+  if(askBtn){
+    askBtn.addEventListener("click", openThreeCards);
+  }
 
-  /* ==== GÜNÜN KARTI ==== */
+  if(question){
+    question.addEventListener("keydown", e => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        openThreeCards();
+      }
+    });
+  }
+
+  /* ===== GÜNÜN KARTI (BUTONLA) ===== */
   window.drawDaily = function(){
-    const src = randomCard();
-    document.getElementById("dailyCard").innerHTML =
-      `<img src="${src}" onclick="location.href='card.html?img=${encodeURIComponent(src)}'">`;
+    const card = randomCard();
+    const dailyBox = document.getElementById("dailyCard");
+    if(!dailyBox) return;
+
+    dailyBox.innerHTML = `
+      <img src="${card.img}" 
+           alt="${card.name}"
+           style="cursor:pointer"
+           onclick="location.href='card.html?name=${encodeURIComponent(card.name)}'">
+    `;
   };
 
 });
 </script>
+
 
 </body>
 </html>
