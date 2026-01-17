@@ -67,7 +67,8 @@ a:hover{
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name") || "joker";
 
-  document.title = cardTitle + " | MYTAROVA Tarot";
+ const cardTitle = name.replace(/_/g," ").toUpperCase();
+
 
 const metaDesc = document.querySelector("meta[name='description']");
 if (metaDesc) {
