@@ -221,7 +221,8 @@ document.getElementById("question").addEventListener("keydown",e=>{
       const src=randomCard();
       const img=document.getElementById(id);
       img.src=src;
-      img.onclick=()=>location.href="card.html?img="+src;
+     img.onclick = () => location.href = "card.html?img=" + encodeURIComponent(src);
+
     });
   }
 });
@@ -230,8 +231,9 @@ document.getElementById("question").addEventListener("keydown",e=>{
 /* GÜNÜN KARTI */
 function drawDaily(){
   const src=randomCard();
-  document.getElementById("dailyCard").innerHTML=
-    `<img src="${src}" onclick="location.href='card.html?img=${src}'">`;
+  document.getElementById("dailyCard").innerHTML =
+  `<img src="${src}" onclick="location.href='card.html?img=${encodeURIComponent(src)}'">`;
+
 }
 </script>
 
