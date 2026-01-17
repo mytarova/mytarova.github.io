@@ -349,15 +349,25 @@ header p{
 <script>
 /* ==== 78 KARTLIK DESTE ==== */
 const deck = [
-  ...["joker","buyucu","azize","imparatorice","imparator","aziz","asiklar","araba",
-  "guc","ermis","kader_carki","adalet","asilan_adam","olum","denge","seytan",
-  "kule","yildiz","ay","gunes","mahkeme","dunya"].map(c=>"cards/major/"+c+".jpg"),
+  // MAJÖR
+  ...[
+    "joker","buyucu","azize","imparatorice","imparator","aziz","asiklar","araba",
+    "guc","ermis","kader_carki","adalet","asilan_adam","olum","denge","seytan",
+    "kule","yildiz","ay","gunes","mahkeme","dunya"
+  ].map(c => `cards/major/${c}.jpg`),
 
-  ...["degnek","kupa","kilic","tilsim"].flatMap(t=>{
-    return ["1","2","3","4","5","6","7","8","9","10",
-    "vale","sovalye","kralice","krali"].map(n=>`cards/minor/${t}/${t}_${n}.jpg`)
-  })
+  // MİNÖR
+  ...["degnek","kupa","kilic","tilsim"].flatMap(t =>
+    ["1","2","3","4","5","6","7","8","9","10",
+     "vale","sovalye","kral","kralice"]
+    .map(n => `cards/minor/${t}/${n}.jpg`)
+  )
 ];
+
+// Rastgele kart
+function randomCard(){
+  return deck[Math.floor(Math.random() * deck.length)];
+}
 
 /* ==== RASTGELE ==== */
 function randomCard(){
