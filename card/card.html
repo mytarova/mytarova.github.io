@@ -2,8 +2,10 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Tarot Kartı | MYTAROVA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarot Kartı | MYTAROVA</title>
+
+<link rel="icon" href="favicon.ico">
 
 <style>
 body{
@@ -12,87 +14,162 @@ body{
   color:#e6d28c;
   font-family:"Times New Roman", serif;
   text-align:center;
-  padding:30px;
+  padding:20px;
 }
-
-h1{
-  margin-bottom:20px;
-  letter-spacing:2px;
+.card-box{
+  max-width:420px;
+  margin:auto;
 }
-
-img{
-  width:260px;
+.card-box img{
+  width:100%;
+  border-radius:10px;
   border:2px solid #e6d28c;
-  margin-bottom:20px;
 }
-
-.box{
-  max-width:600px;
-  margin:0 auto;
-  font-size:18px;
-  line-height:1.6;
+h1{
+  margin:15px 0 5px;
+  font-size:1.4em;
 }
-
-a{
+.position{
+  font-size:0.85em;
+  opacity:0.8;
+  margin-bottom:6px;
+}
+.meaning{
+  font-size:0.95em;
+  line-height:1.55;
+}
+.ritual{
+  margin-top:15px;
+  font-size:0.9em;
+  opacity:0.9;
+  border-top:1px dashed #444;
+  padding-top:10px;
+}
+.back{
+  margin-top:20px;
   display:inline-block;
-  margin-top:30px;
   color:#e6d28c;
-  text-decoration:none;
-  font-size:14px;
-}
-a:hover{
-  text-decoration:underline;
+  border:1px solid #e6d28c;
+  padding:8px 16px;
+  border-radius:6px;
 }
 </style>
 </head>
 
 <body>
 
-<h1 id="title">Tarot Kartı</h1>
-
-<img id="cardImg" alt="Tarot Kartı">
-
-<div class="box">
-  <p id="meaning">Kart anlamı yükleniyor...</p>
+<div class="card-box">
+  <img id="cardImg">
+  <h1 id="cardTitle"></h1>
+  <div class="position" id="cardPosition"></div>
+  <div class="meaning" id="cardMeaning"></div>
+  <div class="ritual" id="cardRitual"></div>
+  <a class="back" href="index.html">← Anasayfaya Dön</a>
 </div>
 
-<a href="../index.html">← Anasayfaya Dön</a>
-
-<!-- KART ANLAMLARI -->
-<script src="meanings.js"></script>
-
-<!-- ANA SCRIPT -->
 <script>
-/* URL PARAMETRESİ */
+/* =======================
+   MAJÖR + MİNÖR ANLAMLAR
+======================= */
+const meanings = {
+  /* MAJÖR */
+  joker:"Yeni başlangıçlar, saf potansiyel, cesaret.",
+  buyucu:"Niyet, yaratım gücü, odaklanma.",
+  azize:"Sezgi, içsel bilgelik.",
+  imparatorice:"Bereket, üretkenlik.",
+  imparator:"Yapı, disiplin.",
+  aziz:"Ruhsal rehberlik.",
+  asiklar:"Seçimler, bağ.",
+  araba:"İlerleme, kontrol.",
+  guc:"Şefkatli güç.",
+  ermis:"İçe dönüş.",
+  kader_carki:"Kader döngüsü.",
+  adalet:"Denge, hakikat.",
+  asilan_adam:"Bekleme, teslimiyet.",
+  olum:"Dönüşüm.",
+  denge:"Uyum.",
+  seytan:"Bağımlılıklar.",
+  kule:"Ani farkındalık.",
+  yildiz:"Umut.",
+  ay:"Bilinçaltı.",
+  gunes:"Neşe, başarı.",
+  mahkeme:"Uyanış.",
+  dunya:"Tamamlanma.",
+
+  /* MİNÖR – ORTAK */
+  "1":"Yeni başlangıç.",
+  "2":"Denge arayışı.",
+  "3":"Büyüme.",
+  "4":"Stabilite.",
+  "5":"Çatışma.",
+  "6":"Uyum.",
+  "7":"Sabır.",
+  "8":"Hareket.",
+  "9":"Tamamlanmaya yakın.",
+  "10":"Yük / doruk.",
+  vale:"Merak, öğrenme.",
+  sovalye:"Hareket, tutku.",
+  kralice:"Duygusal olgunluk.",
+  kral:"Kontrol, liderlik."
+};
+
+/* =======================
+   POZİSYON ANLAMLARI
+======================= */
+const positions = {
+  past:"Geçmiş Etki",
+  present:"Şu An",
+  future:"Olası Gelecek",
+  daily:"Günün Mesajı"
+};
+
+/* =======================
+   GÜNÜN RİTÜEL MESAJLARI
+======================= */
+const rituals = [
+  "Bugün kartın enerjisini hissetmek için 3 derin nefes al.",
+  "Bugün bir niyet belirle ve yaz.",
+  "Bugün sezgilerine güvenerek küçük bir adım at.",
+  "Bugün yalnız kalıp 5 dakika iç sesini dinle."
+];
+
+/* =======================
+   URL PARAMETRELER
+======================= */
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name") || "joker";
+const pos = params.get("pos"); // past / present / future / daily
 
- const cardTitle = name.replace(/_/g," ").toUpperCase();
-
-
-const metaDesc = document.querySelector("meta[name='description']");
-if (metaDesc) {
-  metaDesc.setAttribute(
-    "content",
-    cardTitle + " tarot kartının sezgisel anlamı, mesajı ve spiritüel yorumu."
-  );
+/* =======================
+   GÖRSEL YOLU
+======================= */
+let imgPath = "cards/major/" + name + ".jpg";
+if(name.includes("_") || !meanings[name]){
+  imgPath = "cards/minor/" + name.replace("_","/") + ".jpg";
 }
 
+/* =======================
+   BAŞLIK & ANLAM
+======================= */
+document.getElementById("cardImg").src = imgPath;
+document.getElementById("cardTitle").innerText =
+  name.replace(/_/g," ").toUpperCase();
 
-/* BAŞLIK */
-const title = name.replace(/_/g," ");
-document.getElementById("title").innerText = title.toUpperCase();
-
-/* GÖRSEL YOLU
-   Önce majör dener, yoksa minör klasörlerine bakar */
-const majorPath = "../cards/major/" + name + ".jpg";
-
-/* GÖRSEL */
-document.getElementById("cardImg").src = majorPath;
+/* POZİSYON */
+if(pos && positions[pos]){
+  document.getElementById("cardPosition").innerText = positions[pos];
+}
 
 /* ANLAM */
-const text = meanings[name] || meanings.default_minor;
-document.getElementById("meaning").innerText = text;
+let key = name.split("_").pop();
+document.getElementById("cardMeaning").innerText =
+  meanings[name] || meanings[key] || "Bu kart sezgisel olarak yorumlanmalıdır.";
+
+/* RİTÜEL (sadece günlük kartta) */
+if(pos==="daily"){
+  document.getElementById("cardRitual").innerText =
+    "✨ Günlük Ritüel: " + rituals[Math.floor(Math.random()*rituals.length)];
+}
 </script>
 
 </body>
