@@ -143,6 +143,41 @@ a{color:inherit;text-decoration:none}
   .cards{justify-content:center}
   .card{max-width:150px}
 }
+  /* === GÜNÜN KARTI === */
+#daily-card {
+  text-align: center;
+  margin: 20px auto;
+  padding: 15px;
+  border: 2px solid #e6d28c;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 360px;
+}
+
+#daily-card button {
+  background: #120015;
+  color: #e6d28c;
+  border: 1px solid #e6d28c;
+  padding: 10px 18px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#card-display img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin-top: 10px;
+}
+
+#card-display p {
+  font-size: 0.95em;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
 </style>
 </head>
 
@@ -171,10 +206,15 @@ a{color:inherit;text-decoration:none}
 </div>
 
 <!-- GÜNÜN KARTI -->
-<div class="daily">
-  <h2>Günün Kartı</h2>
-  <div id="dailyCard" class="daily-box"></div>
+<div id="daily-card" class="daily-box">
+  <h3>Günün Kartı</h3>
+  <button id="get-card-btn">Günü Seç</button>
+  <div id="card-display">
+    <img src="https://via.placeholder.com/220x380/120015/e6d28c?text=Günün+Kartı">
+    <p id="card-message">Bugün için bir kart seçin ve mesajınızı alın.</p>
+  </div>
 </div>
+
 
 <!-- BİLGİ -->
 <div class="section">
@@ -260,6 +300,48 @@ function openCard(img){
       <p>Sezgilerine güven.</p>
     </div>`;
 })();
+</script>
+<script>
+  const tarotDeck = [
+    "Joker", "Buyucu", "Azize", "Imparatorice", "Imparator", "Aziz", "Asiklar", "Araba", "Guc", "Ermis", 
+    "Kader Carki", "Adalet", "Asilan Adam", "Olum", "Denge", "Seytan", "Kule", "Yildiz", "Ay", "Gunes", 
+    "Mahkeme", "Dunya"
+  ];
+  
+  const tarotMessages = {
+    "Joker": "Yeni başlangıçlar ve özgürlük. Yenilikçi bir düşünceye ihtiyacınız var.",
+    "Buyucu": "İçsel gücünüzü kullanın, kontrol sizde.",
+    "Azize": "Sevgi ve sadakat, kalbinizin sesini dinleyin.",
+    "Imparatorice": "Hayatınızda dengeyi kurun, sezgilerinize güvenin.",
+    "Imparator": "Güçlü bir liderlik ve kararlılık gerekiyor.",
+    "Aziz": "Dersler ve öğreticiler bekliyor. Dini veya manevi bir yolculuğa çıkın.",
+    "Asiklar": "Aşk hayatınızda önemli kararlar almanız gerekebilir.",
+    "Araba": "İlerlemek için gücünüzü doğru şekilde kullanmalısınız.",
+    "Guc": "İçsel gücünüzü keşfedin, cesaret ve azimle ilerleyin.",
+    "Ermis": "Değişim zamanı. Yolculuğunuzda yeni adımlar atın.",
+    "Kader Carki": "Hayatınızda dönüm noktası. Değişim kaçınılmaz.",
+    "Adalet": "Adalet ve denge. Doğru olanı yapın.",
+    "Asilan Adam": "Zorluklar ve mücadele. Karşılaştığınız engelleri aşın.",
+    "Olum": "Eskiyi bırakın ve yeniyi kabul edin.",
+    "Denge": "Dengeli düşünceler ve eylemler hayatınıza huzur getirecek.",
+    "Seytan": "Kendinizle yüzleşin, sınırlarınızı zorlayın.",
+    "Kule": "Ani bir değişim ve şok. Yıkılmadan yeniden inşa edin.",
+    "Yildiz": "Umudunuzu kaybetmeyin, ışığınız her zaman var.",
+    "Ay": "Sezgilerinize güvenin, gizli bilgileri ortaya çıkarın.",
+    "Gunes": "Başarı ve mutluluk, hayatınızda aydınlık bir dönem.",
+    "Mahkeme": "Karar verme zamanı, sorumluluklarınızı üstlenin.",
+    "Dunya": "Bir döngü sona erdi, yeni bir başlangıç yapın."
+  };
+
+  function getDailyCard() {
+    const randomCard = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+    document.getElementById('card-display').innerHTML = `
+      <img src="cards/major/${randomCard.toLowerCase()}.jpg" alt="${randomCard}">
+      <p>${tarotMessages[randomCard]}</p>
+    `;
+  }
+
+  document.getElementById('get-card-btn').addEventListener('click', getDailyCard);
 </script>
 
 </body>
