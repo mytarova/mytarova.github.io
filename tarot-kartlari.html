@@ -137,7 +137,8 @@ a:hover{color:#fff}
     <img id="modalImg">
     <h3 id="modalTitle"></h3>
     <p id="modalText">Bu kartın sezgisel anlamı yakında eklenecek.</p>
-    <span class="close">Kapat</span>
+ <span class="close" onclick="closeCardModal()">Kapat</span>
+
   </div>
 </div>
 
@@ -268,6 +269,14 @@ minorSets.forEach(set=>{
     document.getElementById(set).appendChild(d);
   });
 });
+</script>
+<script>
+function closeCardModal(){
+  const modal = document.getElementById("cardModal");
+  if(modal){
+    modal.style.display = "none";
+  }
+}
 </script>
 
 </body>
