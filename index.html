@@ -408,60 +408,60 @@ document.addEventListener("DOMContentLoaded", () => {
     return deck[Math.floor(Math.random() * deck.length)];
   }
 
- /* ===== 3 KART AÇILIMI (TEKRARSIZ) ===== */
+/* ===== 3 KART AÇILIMI (SAĞLAM + TEKRARSIZ) ===== */
 
 const askBtn = document.getElementById("askBtn");
 const question = document.getElementById("question");
 const box = document.getElementById("threeCards");
 
-/* 
-  randomCard() FONKSİYONU AYNEN KALIYOR
-  deck / fullDeck yapına dokunmuyoruz
-*/
+const threeCardPositions = ["Geçmiş", "Şimdi", "Gelecek"];
 
 function openThreeCards(){
   if(!box) return;
 
   box.innerHTML = "";
 
-  // 🔹 Desteden kopya oluştur
-  const workingDeck = [...fullDeck];
+  // 🔹 string destenin kopyası
+  const workingDeck = [...deck];
 
   for(let i = 0; i < 3; i++){
-
-    // 🔹 Rastgele index
     const index = Math.floor(Math.random() * workingDeck.length);
+    const src = workingDeck[index];
 
-    // 🔹 Kartı al
-    const card = workingDeck[index];
-
-    // 🔹 Kartı desteden çıkar (TEKRARI ENGELLER)
+    // 🔹 tekrar engelle
     workingDeck.splice(index, 1);
 
-    // 🔹 Görsel oluştur
-    const img = document.createElement("img");
-    img.src = card.img;
-    img.alt = card.name;
+    // 🔹 kart kapsayıcı
+    const slot = document.createElement("div");
+    slot.className = "card-slot";
 
-    // 🔹 Tıklama (modal)
+    // 🔹 pozisyon etiketi
+    const label = document.createElement("span");
+    label.textContent = threeCardPositions[i];
+
+    // 🔹 kart görseli
+    const img = document.createElement("img");
+    img.src = src;
+
     img.onclick = () => {
+      const name = src.split("/").pop().replace(".jpg", "");
       openCardModal(
-        card.img,
-        card.name.toUpperCase(),
-        card.meaning || "Bu kart sezgisel olarak yorumlanmalıdır."
+        src,
+        name.toUpperCase(),
+        "Bu kart " + threeCardPositions[i] + " pozisyonunda okunur."
       );
     };
 
-    box.appendChild(img);
+    slot.appendChild(img);
+    slot.appendChild(label);
+    box.appendChild(slot);
   }
 }
 
-/* ==== BUTON ==== */
 if(askBtn){
   askBtn.addEventListener("click", openThreeCards);
 }
 
-/* ==== ENTER ==== */
 if(question){
   question.addEventListener("keydown", e => {
     if(e.key === "Enter"){
