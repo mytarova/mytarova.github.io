@@ -258,6 +258,55 @@ header p{font-size:0.95em;opacity:0.9}
 .consult-btn:hover{
   opacity:0.9;
 }
+/* ==== 3 KART AÇILIMI GELİŞTİRME ==== */
+
+.cards3{
+  display:flex;
+  gap:14px;
+  margin-top:12px;
+}
+
+.card-slot{
+  width:32%;
+  padding:8px;
+  border:2px solid #e6d28c;
+  border-radius:10px;
+  background:#0b0012;
+  box-sizing:border-box;
+}
+
+.card-slot img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.card-slot img:hover{
+  transform:scale(1.03);
+  transition:0.2s ease;
+}
+
+.card-slot span{
+  margin-top:8px;
+  font-size:0.9em;
+  font-weight:bold;
+  letter-spacing:0.5px;
+}
+
+/* ==== MOBİL İYİLEŞTİRME ==== */
+@media(max-width:600px){
+  .cards3{
+    gap:10px;
+  }
+  .card-slot{
+    padding:6px;
+  }
+  .card-slot img{
+    height:160px;
+  }
+}
 
 </style>
 </head>
