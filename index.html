@@ -408,46 +408,69 @@ document.addEventListener("DOMContentLoaded", () => {
     return deck[Math.floor(Math.random() * deck.length)];
   }
 
-  /* ===== 3 KART AÇILIMI ===== */
-  const askBtn = document.getElementById("askBtn");
-  const question = document.getElementById("question");
-  const box = document.getElementById("threeCards");
+ /* ===== 3 KART AÇILIMI (TEKRARSIZ) ===== */
 
-  function openThreeCards(){
-    if(!box) return;
-    box.innerHTML = "";
+const askBtn = document.getElementById("askBtn");
+const question = document.getElementById("question");
+const box = document.getElementById("threeCards");
 
-    for(let i=0;i<3;i++){
-      const card = randomCard();
-      const img = document.createElement("img");
-      img.src = card.img;
-      img.alt = card.name;
+/* 
+  randomCard() FONKSİYONU AYNEN KALIYOR
+  deck / fullDeck yapına dokunmuyoruz
+*/
 
-      img.onclick = () => {
-  openCardModal(
-    src,
-    name.toUpperCase(),
-    "Bu kart sezgisel olarak yorumlanmalıdır."
-  );
-};
+function openThreeCards(){
+  if(!box) return;
 
+  box.innerHTML = "";
 
-      box.appendChild(img);
+  // 🔹 Desteden kopya oluştur
+  const workingDeck = [...fullDeck];
+
+  for(let i = 0; i < 3; i++){
+
+    // 🔹 Rastgele index
+    const index = Math.floor(Math.random() * workingDeck.length);
+
+    // 🔹 Kartı al
+    const card = workingDeck[index];
+
+    // 🔹 Kartı desteden çıkar (TEKRARI ENGELLER)
+    workingDeck.splice(index, 1);
+
+    // 🔹 Görsel oluştur
+    const img = document.createElement("img");
+    img.src = card.img;
+    img.alt = card.name;
+
+    // 🔹 Tıklama (modal)
+    img.onclick = () => {
+      openCardModal(
+        card.img,
+        card.name.toUpperCase(),
+        card.meaning || "Bu kart sezgisel olarak yorumlanmalıdır."
+      );
+    };
+
+    box.appendChild(img);
+  }
+}
+
+/* ==== BUTON ==== */
+if(askBtn){
+  askBtn.addEventListener("click", openThreeCards);
+}
+
+/* ==== ENTER ==== */
+if(question){
+  question.addEventListener("keydown", e => {
+    if(e.key === "Enter"){
+      e.preventDefault();
+      openThreeCards();
     }
-  }
+  });
+}
 
-  if(askBtn){
-    askBtn.addEventListener("click", openThreeCards);
-  }
-
-  if(question){
-    question.addEventListener("keydown", e => {
-      if(e.key === "Enter"){
-        e.preventDefault();
-        openThreeCards();
-      }
-    });
-  }
 
   /* ===== GÜNÜN KARTI (BUTONLA) ===== */
   window.drawDaily = function(){
