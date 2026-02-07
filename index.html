@@ -409,69 +409,45 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 /* ===== 3 KART AÇILIMI ===== */
+  const askBtn = document.getElementById("askBtn");
+  const question = document.getElementById("question");
+  const box = document.getElementById("threeCards");
 
-const askBtn = document.getElementById("askBtn");
-const question = document.getElementById("question");
-const box = document.getElementById("threeCards");
+  function openThreeCards(){
+    if(!box) return;
+    box.innerHTML = "";
 
-const positions = ["Geçmiş", "Şimdi", "Gelecek"];
+    for(let i=0;i<3;i++){
+      const card = randomCard();
+      const img = document.createElement("img");
+      img.src = card.img;
+      img.alt = card.name;
 
-function openThreeCards(){
-  if(!box) return;
+      img.onclick = () => {
+  openCardModal(
+    src,
+    name.toUpperCase(),
+    "Bu kart sezgisel olarak yorumlanmalıdır."
+  );
+};
 
-  box.innerHTML = "";
 
-  const usedCards = new Set();
-
-  for(let i = 0; i < 3; i++){
-    let src;
-
-    do {
-      src = randomCard(); // STRING döner
-    } while (usedCards.has(src));
-
-    usedCards.add(src);
-
-    const slot = document.createElement("div");
-    slot.className = "card-slot";
-
-    const img = document.createElement("img");
-    img.src = src;
-
-    const name = src.split("/").pop().replace(".jpg","");
-
-    img.addEventListener("click", () => {
-      openCardModal(
-        src,
-        name.toUpperCase(),
-        positions[i] + " pozisyonu için gelen kart."
-      );
-    });
-
-    const label = document.createElement("span");
-    label.textContent = positions[i];
-
-    slot.appendChild(img);
-    slot.appendChild(label);
-    box.appendChild(slot);
-  }
-}
-
-/* BUTON */
-if(askBtn){
-  askBtn.addEventListener("click", openThreeCards);
-}
-
-/* ENTER */
-if(question){
-  question.addEventListener("keydown", e => {
-    if(e.key === "Enter"){
-      e.preventDefault();
-      openThreeCards();
+      box.appendChild(img);
     }
-  });
-}
+  }
 
+  if(askBtn){
+    askBtn.addEventListener("click", openThreeCards);
+  }
+
+  if(question){
+    question.addEventListener("keydown", e => {
+      if(e.key === "Enter"){
+        e.preventDefault();
+        openThreeCards();
+      }
+    });
+  }
 
   /* ===== GÜNÜN KARTI (BUTONLA) ===== */
   window.drawDaily = function(){
