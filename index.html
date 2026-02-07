@@ -408,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return deck[Math.floor(Math.random() * deck.length)];
   }
 
- /* ===== 3 KART AÇILIMI (TEKRARSIZ) ===== */
+/* ===== 3 KART AÇILIMI ===== */
 
 const askBtn = document.getElementById("askBtn");
 const question = document.getElementById("question");
@@ -426,29 +426,27 @@ function openThreeCards(){
   for(let i = 0; i < 3; i++){
     let src;
 
-    // aynı kart gelmesini engelle
     do {
-      src = randomCard(); // STRING
+      src = randomCard(); // STRING döner
     } while (usedCards.has(src));
 
     usedCards.add(src);
-
-    const name = src.split("/").pop().replace(".jpg","");
 
     const slot = document.createElement("div");
     slot.className = "card-slot";
 
     const img = document.createElement("img");
     img.src = src;
-    img.alt = name;
 
-    img.onclick = () => {
+    const name = src.split("/").pop().replace(".jpg","");
+
+    img.addEventListener("click", () => {
       openCardModal(
         src,
         name.toUpperCase(),
         positions[i] + " pozisyonu için gelen kart."
       );
-    };
+    });
 
     const label = document.createElement("span");
     label.textContent = positions[i];
