@@ -561,6 +561,66 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   numerologyBtn.addEventListener("click", displayNumerologyCards);
+  /* ===== NUMEROLOJİK KART AÇILIMI ===== */
+
+const numerologyBtn = document.getElementById("numerologyBtn");
+const numerologyCards = document.getElementById("numerologyCards");
+
+function reduceToRange(num, max){
+  while(num > max){
+    num = num
+      .toString()
+      .split("")
+      .reduce((a,b) => a + Number(b), 0);
+  }
+  return num;
+}
+
+function getMajorCardByNumber(n){
+  const majors = [
+    "joker","buyucu","azize","imparatorice","imparator","aziz",
+    "asiklar","araba","guc","ermis","kader_carki","adalet",
+    "asilan_adam","olum","denge","seytan","kule","yildiz",
+    "ay","gunes","mahkeme","dunya"
+  ];
+
+  return {
+    name: majors[n - 1],
+    img: `cards/major/${majors[n - 1]}.jpg`
+  };
+}
+
+if(numerologyBtn){
+  numerologyBtn.addEventListener("click", () => {
+    const input = document.getElementById("birthdate").value.trim();
+    if(!input) return;
+
+    const parts = input.split("/");
+    if(parts.length !== 3) return;
+
+    const day = parts[0].split("").reduce((a,b)=>a+Number(b),0);
+    const month = parts[1].split("").reduce((a,b)=>a+Number(b),0);
+    const year = parts[2].split("").reduce((a,b)=>a+Number(b),0);
+
+    // Kişilik Kartı (1–9)
+    let personality = reduceToRange(day, 9);
+
+    // Ruh Kartı (1–22)
+    let soul = reduceToRange(day + month + year, 22);
+
+    const pCard = getMajorCardByNumber(personality);
+    const sCard = getMajorCardByNumber(soul);
+
+    numerologyCards.innerHTML = `
+      <img src="${pCard.img}" alt="${pCard.name}"
+        onclick="openCardModal('${pCard.img}','${pCard.name.toUpperCase()}','Kişilik Kartı')">
+
+      <img src="${sCard.img}" alt="${sCard.name}"
+        onclick="openCardModal('${sCard.img}','${sCard.name.toUpperCase()}','Ruh Kartı')">
+    `;
+  });
+}
+
 });
 
 // Numeroloji kartları için belirli bir numaraya ait kartı almak
