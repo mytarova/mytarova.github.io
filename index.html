@@ -447,7 +447,7 @@ document.addEventListener("DOMContentLoaded", () => {
       img: `cards/major/${c}.jpg`,
       name: c
     })),
-
+    
     // MİNÖR
     ...["degnek","kupa","kilic","tilsim"].flatMap(t =>
       ["1","2","3","4","5","6","7","8","9","10",
@@ -458,42 +458,41 @@ document.addEventListener("DOMContentLoaded", () => {
     )
   ];
 
+  // Random kart seçimi
   function randomCard(){
     return deck[Math.floor(Math.random() * deck.length)];
   }
 
-/* ===== 3 KART AÇILIMI ===== */
+  /* ===== ÜÇ KART AÇILIMI ===== */
   const askBtn = document.getElementById("askBtn");
   const question = document.getElementById("question");
   const box = document.getElementById("threeCards");
 
   function openThreeCards(){
     if(!box) return;
-    box.innerHTML = "";
+    box.innerHTML = ""; // Kartları sıfırla
 
-    for(let i=0;i<3;i++){
+    for(let i=0; i<3; i++){
       const card = randomCard();
       const img = document.createElement("img");
       img.src = card.img;
       img.alt = card.name;
 
+      // Kart tıklama fonksiyonu
       img.onclick = () => {
-  openCardModal(
-    src,
-    name.toUpperCase(),
-    "Bu kart sezgisel olarak yorumlanmalıdır."
-  );
-};
-
+        openCardModal(img.src, img.alt.toUpperCase(), "Bu kart sezgisel olarak yorumlanmalıdır.");
+      };
 
       box.appendChild(img);
     }
   }
 
+  // Üç kart butonu
   if(askBtn){
     askBtn.addEventListener("click", openThreeCards);
   }
 
+  // Enter ile soru sorulması
   if(question){
     question.addEventListener("keydown", e => {
       if(e.key === "Enter"){
@@ -503,72 +502,89 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const majorArcana = [
-    "joker", "buyucu", "azize", "imparatorice", "imparator", "aziz", "asiklar", "araba", 
-    "guc", "ermis", "kader_carki", "adalet", "asilan_adam", "olum", "denge", "seytan", 
-    "kule", "yildiz", "ay", "gunes", "mahkeme", "dunya"
-  ];
+  /* ===== NUMEROLOJİK KART AÇILIMI ===== */
+  const numerologyBtn = document.getElementById("numerologyBtn");
+  const numerologyCards = document.getElementById("numerologyCards");
 
-  return {
-    img: `cards/major/${majorArcana[number - 1]}.jpg`,
-    name: majorArcana[number - 1]
-  };
-}
-<script>
-/* ===== NUMEROLOJİK KART AÇILIMI (SAĞLAM) ===== */
-
-const numerologyBtn = document.getElementById("numerologyBtn");
-const numerologyCards = document.getElementById("numerologyCards");
-
-function reduceNumber(num, max){
-  while(num > max){
-    num = num.toString().split("").reduce((a,b)=>a+Number(b),0);
+  function reduceToRange(num, max){
+    while(num > max){
+      num = num.toString().split("").reduce((a,b) => a + Number(b), 0);
+    }
+    return num;
   }
-  return num;
-}
 
-function getMajorCard(n){
-  const majors = [
-    "joker","buyucu","azize","imparatorice","imparator","aziz",
-    "asiklar","araba","guc","ermis","kader_carki","adalet",
-    "asilan_adam","olum","denge","seytan","kule","yildiz",
-    "ay","gunes","mahkeme","dunya"
-  ];
+  function getMajorCardByNumber(n){
+    const majors = [
+      "joker","buyucu","azize","imparatorice","imparator","aziz",
+      "asiklar","araba","guc","ermis","kader_carki","adalet",
+      "asilan_adam","olum","denge","seytan","kule","yildiz",
+      "ay","gunes","mahkeme","dunya"
+    ];
+    return {
+      name: majors[n-1],
+      img: `cards/major/${majors[n-1]}.jpg`
+    };
+  }
 
-  return {
-    name: majors[n-1],
-    img: `cards/major/${majors[n-1]}.jpg`
-  };
-}
+  if(numerologyBtn){
+    numerologyBtn.addEventListener("click", () => {
+      const input = document.getElementById("birthdate").value.trim();
+      if(!input) return;
 
-if(numerologyBtn){
-  numerologyBtn.addEventListener("click", () => {
-    const input = document.getElementById("birthdate").value.trim();
-    if(!input) return;
+      const parts = input.split("/");
+      if(parts.length !== 3) return;
 
-    const parts = input.split("/");
-    if(parts.length !== 3) return;
+      const day = parts[0].split("").reduce((a,b) => a + Number(b), 0);
+      const month = parts[1].split("").reduce((a,b) => a + Number(b), 0);
+      const year = parts[2].split("").reduce((a,b) => a + Number(b), 0);
 
-    const day = parts[0].split("").reduce((a,b)=>a+Number(b),0);
-    const month = parts[1].split("").reduce((a,b)=>a+Number(b),0);
-    const year = parts[2].split("").reduce((a,b)=>a+Number(b),0);
+      const personality = reduceToRange(day, 9); // Kişilik kartı
+      const soul = reduceToRange(day + month + year, 22); // Ruh kartı
 
-    const personality = reduceNumber(day, 9);
-    const soul = reduceNumber(day + month + year, 22);
+      const pCard = getMajorCardByNumber(personality);
+      const sCard = getMajorCardByNumber(soul);
 
-    const pCard = getMajorCard(personality);
-    const sCard = getMajorCard(soul);
+      numerologyCards.innerHTML = `
+        <img src="${pCard.img}"
+          onclick="openCardModal('${pCard.img}','${pCard.name.toUpperCase()}','Kişilik Kartı')">
 
-    numerologyCards.innerHTML = `
-      <img src="${pCard.img}"
-        onclick="openCardModal('${pCard.img}','${pCard.name.toUpperCase()}','Kişilik Kartı')">
+        <img src="${sCard.img}"
+          onclick="openCardModal('${sCard.img}','${sCard.name.toUpperCase()}','Ruh Kartı')">
+      `;
+    });
+  }
 
-      <img src="${sCard.img}"
-        onclick="openCardModal('${sCard.img}','${sCard.name.toUpperCase()}','Ruh Kartı')">
+  /* ===== GÜNÜN KARTI (BUTONLA) ===== */
+  window.drawDaily = function(){
+    const card = randomCard();
+    const dailyBox = document.getElementById("dailyCard");
+    if(!dailyBox) return;
+
+    dailyBox.innerHTML = `
+      <img src="${card.img}" 
+           alt="${card.name}"
+           style="cursor:pointer"
+           onclick="location.href='card.html?name=${encodeURIComponent(card.name)}'">
     `;
-  });
-}
+  };
+
+  // Kart modal açma fonksiyonu
+  function openCardModal(src, title, meaning){
+    document.getElementById("modalImg").src = src;
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalMeaning").innerText = meaning;
+
+    document.getElementById("cardModal").style.display = "flex";
+  }
+
+  // Kart kapama fonksiyonu
+  function closeCard(){
+    document.getElementById("cardModal").style.display = "none";
+  }
+
+});
 </script>
+
 
   /* ===== GÜNÜN KARTI (BUTONLA) ===== */
   window.drawDaily = function(){
