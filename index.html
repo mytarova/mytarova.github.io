@@ -66,6 +66,48 @@ header p{font-size:0.95em;opacity:0.9}
   object-fit:contain;
   background:#050008;
 }
+/* Numerolojik Kart Açılımı */
+.numerology-section {
+  margin-top: 40px;
+  text-align: center;
+  border: 2px solid #e6d28c;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #120015;
+}
+
+.numerology-section input {
+  width: 80%;
+  max-width: 200px;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #e6d28c;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.numerology-section button {
+  background: #e6d28c;
+  color: #120015;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.numerology-section button:hover {
+  background: #f0dc9a;
+}
+
+.numerology-section .cards3 img {
+  width: 32%;
+  height: 160px;
+  border: 3px solid #e6d28c;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #050008;
+}
 
 /* GÜNÜN KARTI */
 .daily{
@@ -314,6 +356,18 @@ header p{font-size:0.95em;opacity:0.9}
     Ekran Görüntüsünü Al Yorum İçin Gönder
   </a>
 </div>
+<!-- Numerolojik Açılım -->
+<div class="numerology-section">
+  <h2>Numerolojik Kart Açılımı</h2>
+  <p>Doğum tarihinizi aşağıdaki formatta girin (GG/AA/YYYY) ve kişilik ile ruh kartınızı keşfedin:</p>
+  
+  <input id="birthdate" type="text" placeholder="GG/AA/YYYY" />
+  <button id="numerologyBtn" class="ask-btn">Kartları Aç</button>
+
+  <div id="numerologyCards" class="cards3">
+    <!-- Kişilik Kartı ve Ruh Kartı burada görünecek -->
+  </div>
+</div>
 
   <!-- GÜNÜN KARTI -->
   <div class="daily">
@@ -448,6 +502,80 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+document.addEventListener("DOMContentLoaded", () => {
+
+  // Numeroloji Kartları
+  const numerologyBtn = document.getElementById("numerologyBtn");
+  const numerologyCards = document.getElementById("numerologyCards");
+
+  function calculateNumerology(date) {
+    // Doğum tarihi (GG/AA/YYYY) formatında girildiğini varsayıyoruz.
+    const parts = date.split('/');
+    if (parts.length !== 3) return null;
+
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10);
+    const year = parseInt(parts[2], 10);
+
+    // Kişilik kartı hesaplama
+    let personalityCard = (day + month + year) % 9;
+    if (personalityCard === 0) personalityCard = 9; // 1-9 arasında olması için
+
+    // Ruh kartı hesaplama (Tüm rakamlar toplanacak ve 22'ye indirgenecek)
+    const sum = (day + month + year)
+      .toString()
+      .split('')
+      .reduce((sum, num) => sum + parseInt(num), 0);
+
+    let soulCard = sum;
+    while (soulCard > 22) {
+      soulCard = soulCard.toString().split('').reduce((sum, num) => sum + parseInt(num), 0);
+    }
+
+    return { personalityCard, soulCard };
+  }
+
+  function displayNumerologyCards() {
+    const birthdate = document.getElementById("birthdate").value;
+    const cards = calculateNumerology(birthdate);
+    if (!cards) return;
+
+    const { personalityCard, soulCard } = cards;
+
+    // Kişilik ve Ruh kartlarını al
+    const personalityCardImg = randomCardByNumber(personalityCard);
+    const soulCardImg = randomCardByNumber(soulCard);
+
+    numerologyCards.innerHTML = `
+      <div class="card">
+        <h3>Kişilik Kartı</h3>
+        <img src="${personalityCardImg.img}" alt="${personalityCardImg.name}">
+        <p>${personalityCardImg.name.toUpperCase()}</p>
+      </div>
+      <div class="card">
+        <h3>Ruh Kartı</h3>
+        <img src="${soulCardImg.img}" alt="${soulCardImg.name}">
+        <p>${soulCardImg.name.toUpperCase()}</p>
+      </div>
+    `;
+  }
+
+  numerologyBtn.addEventListener("click", displayNumerologyCards);
+});
+
+// Numeroloji kartları için belirli bir numaraya ait kartı almak
+function randomCardByNumber(number) {
+  const majorArcana = [
+    "joker", "buyucu", "azize", "imparatorice", "imparator", "aziz", "asiklar", "araba", 
+    "guc", "ermis", "kader_carki", "adalet", "asilan_adam", "olum", "denge", "seytan", 
+    "kule", "yildiz", "ay", "gunes", "mahkeme", "dunya"
+  ];
+
+  return {
+    img: `cards/major/${majorArcana[number - 1]}.jpg`,
+    name: majorArcana[number - 1]
+  };
+}
 
   /* ===== GÜNÜN KARTI (BUTONLA) ===== */
   window.drawDaily = function(){
