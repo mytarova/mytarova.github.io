@@ -502,81 +502,32 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-document.addEventListener("DOMContentLoaded", () => {
 
-  // Numeroloji Kartları
-  const numerologyBtn = document.getElementById("numerologyBtn");
-  const numerologyCards = document.getElementById("numerologyCards");
+  const majorArcana = [
+    "joker", "buyucu", "azize", "imparatorice", "imparator", "aziz", "asiklar", "araba", 
+    "guc", "ermis", "kader_carki", "adalet", "asilan_adam", "olum", "denge", "seytan", 
+    "kule", "yildiz", "ay", "gunes", "mahkeme", "dunya"
+  ];
 
-  function calculateNumerology(date) {
-    // Doğum tarihi (GG/AA/YYYY) formatında girildiğini varsayıyoruz.
-    const parts = date.split('/');
-    if (parts.length !== 3) return null;
-
-    const day = parseInt(parts[0], 10);
-    const month = parseInt(parts[1], 10);
-    const year = parseInt(parts[2], 10);
-
-    // Kişilik kartı hesaplama
-    let personalityCard = (day + month + year) % 9;
-    if (personalityCard === 0) personalityCard = 9; // 1-9 arasında olması için
-
-    // Ruh kartı hesaplama (Tüm rakamlar toplanacak ve 22'ye indirgenecek)
-    const sum = (day + month + year)
-      .toString()
-      .split('')
-      .reduce((sum, num) => sum + parseInt(num), 0);
-
-    let soulCard = sum;
-    while (soulCard > 22) {
-      soulCard = soulCard.toString().split('').reduce((sum, num) => sum + parseInt(num), 0);
-    }
-
-    return { personalityCard, soulCard };
-  }
-
-  function displayNumerologyCards() {
-    const birthdate = document.getElementById("birthdate").value;
-    const cards = calculateNumerology(birthdate);
-    if (!cards) return;
-
-    const { personalityCard, soulCard } = cards;
-
-    // Kişilik ve Ruh kartlarını al
-    const personalityCardImg = randomCardByNumber(personalityCard);
-    const soulCardImg = randomCardByNumber(soulCard);
-
-    numerologyCards.innerHTML = `
-      <div class="card">
-        <h3>Kişilik Kartı</h3>
-        <img src="${personalityCardImg.img}" alt="${personalityCardImg.name}">
-        <p>${personalityCardImg.name.toUpperCase()}</p>
-      </div>
-      <div class="card">
-        <h3>Ruh Kartı</h3>
-        <img src="${soulCardImg.img}" alt="${soulCardImg.name}">
-        <p>${soulCardImg.name.toUpperCase()}</p>
-      </div>
-    `;
-  }
-
-  numerologyBtn.addEventListener("click", displayNumerologyCards);
-  /* ===== NUMEROLOJİK KART AÇILIMI ===== */
+  return {
+    img: `cards/major/${majorArcana[number - 1]}.jpg`,
+    name: majorArcana[number - 1]
+  };
+}
+<script>
+/* ===== NUMEROLOJİK KART AÇILIMI (SAĞLAM) ===== */
 
 const numerologyBtn = document.getElementById("numerologyBtn");
 const numerologyCards = document.getElementById("numerologyCards");
 
-function reduceToRange(num, max){
+function reduceNumber(num, max){
   while(num > max){
-    num = num
-      .toString()
-      .split("")
-      .reduce((a,b) => a + Number(b), 0);
+    num = num.toString().split("").reduce((a,b)=>a+Number(b),0);
   }
   return num;
 }
 
-function getMajorCardByNumber(n){
+function getMajorCard(n){
   const majors = [
     "joker","buyucu","azize","imparatorice","imparator","aziz",
     "asiklar","araba","guc","ermis","kader_carki","adalet",
@@ -585,8 +536,8 @@ function getMajorCardByNumber(n){
   ];
 
   return {
-    name: majors[n - 1],
-    img: `cards/major/${majors[n - 1]}.jpg`
+    name: majors[n-1],
+    img: `cards/major/${majors[n-1]}.jpg`
   };
 }
 
@@ -602,40 +553,22 @@ if(numerologyBtn){
     const month = parts[1].split("").reduce((a,b)=>a+Number(b),0);
     const year = parts[2].split("").reduce((a,b)=>a+Number(b),0);
 
-    // Kişilik Kartı (1–9)
-    let personality = reduceToRange(day, 9);
+    const personality = reduceNumber(day, 9);
+    const soul = reduceNumber(day + month + year, 22);
 
-    // Ruh Kartı (1–22)
-    let soul = reduceToRange(day + month + year, 22);
-
-    const pCard = getMajorCardByNumber(personality);
-    const sCard = getMajorCardByNumber(soul);
+    const pCard = getMajorCard(personality);
+    const sCard = getMajorCard(soul);
 
     numerologyCards.innerHTML = `
-      <img src="${pCard.img}" alt="${pCard.name}"
+      <img src="${pCard.img}"
         onclick="openCardModal('${pCard.img}','${pCard.name.toUpperCase()}','Kişilik Kartı')">
 
-      <img src="${sCard.img}" alt="${sCard.name}"
+      <img src="${sCard.img}"
         onclick="openCardModal('${sCard.img}','${sCard.name.toUpperCase()}','Ruh Kartı')">
     `;
   });
 }
-
-});
-
-// Numeroloji kartları için belirli bir numaraya ait kartı almak
-function randomCardByNumber(number) {
-  const majorArcana = [
-    "joker", "buyucu", "azize", "imparatorice", "imparator", "aziz", "asiklar", "araba", 
-    "guc", "ermis", "kader_carki", "adalet", "asilan_adam", "olum", "denge", "seytan", 
-    "kule", "yildiz", "ay", "gunes", "mahkeme", "dunya"
-  ];
-
-  return {
-    img: `cards/major/${majorArcana[number - 1]}.jpg`,
-    name: majorArcana[number - 1]
-  };
-}
+</script>
 
   /* ===== GÜNÜN KARTI (BUTONLA) ===== */
   window.drawDaily = function(){
