@@ -504,56 +504,84 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ===== NUMEROLOJİK KART AÇILIMI ===== */
-  const numerologyBtn = document.getElementById("numerologyBtn");
-  const numerologyCards = document.getElementById("numerologyCards");
-
-  function reduceToRange(num, max){
-    while(num > max){
-      num = num.toString().split("").reduce((a,b) => a + Number(b), 0);
+  function reduceToRange(num, max) {
+    while (num > max) {
+        num = num.toString().split("").reduce((a, b) => a + Number(b), 0);
     }
     return num;
-  }
+}
 
-  function getMajorCardByNumber(n){
+function getMajorCardByNumber(n) {
     const majors = [
-      "joker","buyucu","azize","imparatorice","imparator","aziz",
-      "asiklar","araba","guc","ermis","kader_carki","adalet",
-      "asilan_adam","olum","denge","seytan","kule","yildiz",
-      "ay","gunes","mahkeme","dunya"
+        "buyucu",        // 1
+        "azize",         // 2
+        "imparatorice",  // 3
+        "imparator",     // 4
+        "aziz",          // 5
+        "asiklar",       // 6
+        "araba",         // 7
+        "guc",           // 8
+        "ermis",         // 9
+        "kader_carki",   // 10
+        "adalet",        // 11
+        "asilan_adam",   // 12
+        "olum",          // 13
+        "denge",         // 14
+        "seytan",        // 15
+        "kule",          // 16
+        "yildiz",        // 17
+        "ay",            // 18
+        "gunes",         // 19
+        "mahkeme",       // 20
+        "dunya",         // 21
+        "joker"          // 22
     ];
     return {
-      name: majors[n-1],
-      img: `cards/major/${majors[n-1]}.jpg`
+        name: majors[n - 1],  // Tarot kartını alıyoruz
+        img: `cards/major/${majors[n - 1]}.jpg`  // Kartın resmini oluşturuyoruz
     };
-  }
+}
 
-  if(numerologyBtn){
+// Numerolojik kart açılımı işlemi
+const numerologyBtn = document.getElementById("numerologyBtn");
+const numerologyCards = document.getElementById("numerologyCards");
+
+if (numerologyBtn) {
     numerologyBtn.addEventListener("click", () => {
-      const input = document.getElementById("birthdate").value.trim();
-      if(!input) return;
+        const input = document.getElementById("birthdate").value.trim();
+        if (!input) return;
 
-      const parts = input.split("/");
-      if(parts.length !== 3) return;
+        const parts = input.split("/");  // GG/AA/YYYY formatı
+        if (parts.length !== 3) return;
 
-      const day = parts[0].split("").reduce((a,b) => a + Number(b), 0);
-      const month = parts[1].split("").reduce((a,b) => a + Number(b), 0);
-      const year = parts[2].split("").reduce((a,b) => a + Number(b), 0);
+        // Gün + Ay + Yıl hesaplamaları
+        const day = parts[0].split("").reduce((a, b) => a + Number(b), 0);  // Gün sayısı (ilk rakamları topla)
+        const month = parts[1].split("").reduce((a, b) => a + Number(b), 0);  // Ay sayısı (ilk rakamları topla)
+        const year = parts[2].split("").reduce((a, b) => a + Number(b), 0);  // Yıl sayısı (ilk rakamları topla)
 
-      const personality = reduceToRange(day, 9); // Kişilik kartı
-      const soul = reduceToRange(day + month + year, 22); // Ruh kartı
+        // Kişilik kartı ve ruh kartı hesaplama
+        const personality = reduceToRange(day, 9);  // Kişilik kartı için 9'a kadar indirgemek
+        const soul = reduceToRange(day + month + year, 22);  // Ruh kartı için 22'ye kadar indirgemek
 
-      const pCard = getMajorCardByNumber(personality);
-      const sCard = getMajorCardByNumber(soul);
+        // Kartları gösterme
+        const pCard = getMajorCardByNumber(personality);  // Kişilik kartı
+        const sCard = getMajorCardByNumber(soul);  // Ruh kartı
 
-      numerologyCards.innerHTML = `
-        <img src="${pCard.img}"
-          onclick="openCardModal('${pCard.img}','${pCard.name.toUpperCase()}','Kişilik Kartı')">
+        numerologyCards.innerHTML = `
+            <div>
+                <img src="${pCard.img}" 
+                    onclick="openCardModal('${pCard.img}', '${pCard.name.toUpperCase()}', 'Kişilik Kartı')">
+                <div>Kişilik Kartı: ${pCard.name.toUpperCase()}</div>
+            </div>
 
-        <img src="${sCard.img}"
-          onclick="openCardModal('${sCard.img}','${sCard.name.toUpperCase()}','Ruh Kartı')">
-      `;
+            <div>
+                <img src="${sCard.img}" 
+                    onclick="openCardModal('${sCard.img}', '${sCard.name.toUpperCase()}', 'Ruh Kartı')">
+                <div>Ruh Kartı: ${sCard.name.toUpperCase()}</div>
+            </div>
+        `;
     });
-  }
+}
 
   /* ===== GÜNÜN KARTI (BUTONLA) ===== */
   window.drawDaily = function(){
