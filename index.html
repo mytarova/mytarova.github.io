@@ -612,36 +612,8 @@ if (numerologyBtn) {
   }
 
 });
-</script>
 
-
-  /* ===== GÜNÜN KARTI (BUTONLA) ===== */
-  window.drawDaily = function(){
-    const card = randomCard();
-    const dailyBox = document.getElementById("dailyCard");
-    if(!dailyBox) return;
-
-    dailyBox.innerHTML = `
-      <img src="${card.img}" 
-           alt="${card.name}"
-           style="cursor:pointer"
-           onclick="location.href='card.html?name=${encodeURIComponent(card.name)}'">
-    `;
-  };
-
-});
-  function openCardModal(src, title, meaning){
-  document.getElementById("modalImg").src = src;
-  document.getElementById("modalTitle").innerText = title;
-  document.getElementById("modalMeaning").innerText = meaning;
-
-  document.getElementById("cardModal").style.display = "flex";
-}
-
-function closeCard(){
-  document.getElementById("cardModal").style.display = "none";
-}
-
+  
 </script>
 <!-- KART MODAL -->
 <div id="cardModal" class="modal">
