@@ -625,6 +625,29 @@ function closeCard(){
     <button class="close-btn" onclick="closeCard()">Kapat</button>
   </div>
 </div>
+<input id="birthdate" type="text" placeholder="GG/AA/YYYY" maxlength="10" />
+
+<script>
+// Doğum tarihi input'unu al
+const birthdateInput = document.getElementById('birthdate');
+
+birthdateInput.addEventListener('input', function() {
+  let inputValue = birthdateInput.value;
+
+  // Sadece rakamları al ve '/' karakteri ekle
+  inputValue = inputValue.replace(/[^\d]/g, ''); // Sadece rakamları bırak
+
+  if (inputValue.length <= 2) {
+    inputValue = inputValue.replace(/(\d{2})/, '$1/'); // Gün kısmı (GG/)
+  } else if (inputValue.length <= 4) {
+    inputValue = inputValue.replace(/(\d{2})(\d{2})/, '$1/$2/'); // Ay kısmı (GG/AA/)
+  } else if (inputValue.length > 4) {
+    inputValue = inputValue.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3'); // Yıl kısmı (GG/AA/YYYY)
+  }
+
+  birthdateInput.value = inputValue;
+});
+</script>
 
 
 
