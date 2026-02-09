@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYTAROVA | Astroloji Doğum Haritası</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+  margin:0;
+  background:#050008;
+  color:#e6d28c;
+  font-family:"Times New Roman", serif;
+}
+
+header{
+  text-align:center;
+  padding:60px 15px 20px;
+}
+
+header h1{
+  font-size:2.2em;
+}
+
+header p{
+  opacity:0.9;
+}
+
+.astro-form{
+  max-width:420px;
+  margin:30px auto;
+  padding:25px;
+  background:#120015;
+  border-radius:14px;
+}
+
+.astro-form label{
+  display:block;
+  margin:14px 0 6px;
+  font-size:0.95em;
+}
+
+.astro-form input,
+.astro-form select{
+  width:100%;
+  padding:10px;
+  font-size:1em;
+  border-radius:6px;
+  border:none;
+  background:#050008;
+  color:#e6d28c;
+}
+
+.time-row{
+  display:flex;
+  gap:10px;
+}
+
+.time-row input{
+  flex:1;
+  text-align:center;
+}
+
+.astro-form button{
+  margin-top:22px;
+  width:100%;
+  padding:12px;
+  font-size:1.1em;
+  background:#e6d28c;
+  color:#120015;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.astro-form button:hover{
+  background:#f0dc9a;
+}
+
+.note{
+  font-size:0.8em;
+  opacity:0.8;
+  margin-top:12px;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Astrolojik Doğum Haritası</h1>
+  <p>Doğum bilgilerinizi girin, yıldız haritanız çözülsün</p>
+</header>
+
+<div class="astro-form">
+
+  <label>Doğum Tarihi</label>
+  <input
+    type="text"
+    id="birthDate"
+    placeholder="GG/AA/YYYY"
+    maxlength="10"
+  >
+
+  <label>Doğum Saati</label>
+  <div class="time-row">
+    <input type="text" id="birthHour" placeholder="SS" maxlength="2">
+    <input type="text" id="birthMinute" placeholder="DD" maxlength="2">
+  </div>
+
+  <label>Ülke</label>
+  <input type="text" value="Türkiye" disabled>
+
+  <label>İl</label>
+  <select id="city">
+    <option value="">İl seçiniz</option>
+    <option>Adana</option>
+    <option>Adıyaman</option>
+    <option>Afyonkarahisar</option>
+    <option>Ağrı</option>
+    <option>Amasya</option>
+    <option>Ankara</option>
+    <option>Antalya</option>
+    <option>İstanbul</option>
+    <option>İzmir</option>
+  </select>
+
+  <label>İlçe</label>
+  <select id="district">
+    <option value="">Önce il seçiniz</option>
+  </select>
+
+  <button id="astroSubmit">
+    Doğum Haritamı Hesapla
+  </button>
+
+  <div class="note">
+    * Sonuçlar yeni sayfada açılacaktır
+  </div>
+
+</div>
+
+<script>
+/* GG/AA/YYYY otomatik / */
+document.getElementById("birthDate").addEventListener("input", e => {
+  let v = e.target.value.replace(/\D/g,"");
+  if(v.length > 2) v = v.slice(0,2)+"/"+v.slice(2);
+  if(v.length > 5) v = v.slice(0,5)+"/"+v.slice(5,9);
+  e.target.value = v;
+});
+
+/* Saat sınırları */
+document.getElementById("birthHour").addEventListener("input", e => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,2);
+});
+
+document.getElementById("birthMinute").addEventListener("input", e => {
+  e.target.value = e.target.value.replace(/\D/g,"").slice(0,2);
+});
+</script>
+
+</body>
+</html>
