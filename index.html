@@ -301,21 +301,6 @@ header p{font-size:0.95em;opacity:0.9}
 .consult-btn:hover{
   opacity:0.9;
 }
-/* 🔕 TÜM KART ÇERÇEVELERİNİ KALDIR */
-.cards3 img,
-.daily img,
-.numerology-section,
-.daily,
-.section-box,
-.consult-note,
-.online-consult,
-.modal-content {
-  border: none !important;
-}
-.cards3 img,
-.daily img {
-  background: transparent;
-}
 
 </style>
 </head>
@@ -382,7 +367,7 @@ header p{font-size:0.95em;opacity:0.9}
 
   <div id="numerologyCards" class="cards3">
     <!-- Kişilik Kartı ve Ruh Kartı burada görünecek -->
-</div>
+  </div>
   
 <div class="astrology-section">
   <h2>ASTROLOJİK BURÇ HESAPLAMA</h2>
@@ -400,7 +385,6 @@ header p{font-size:0.95em;opacity:0.9}
     window.location.href = 'astroloji.html';  // Burada astroloji.html sayfası açılacak
   });
 </script>
-
 
   <!-- GÜNÜN KARTI -->
   <div class="daily">
@@ -605,7 +589,7 @@ if (numerologyBtn) {
                     onclick="openCardModal('${pCard.img}', '${pCard.name.toUpperCase()}', 'Kişilik Kartı')">
                 <div>Kişilik Kartı: ${pCard.name.toUpperCase()}</div>
             </div>
-<input id="birthdate" type="text" placeholder="GG/AA/YYYY" maxlength="10" />
+
             <div>
                 <img src="${sCard.img}" 
                     onclick="openCardModal('${sCard.img}', '${sCard.name.toUpperCase()}', 'Ruh Kartı')">
@@ -656,7 +640,8 @@ if (numerologyBtn) {
 
     <button class="close-btn" onclick="closeCard()">Kapat</button>
   </div>
-
+</div>
+<input id="birthdate" type="text" placeholder="GG/AA/YYYY" maxlength="10" />
 
 <script>
 // Doğum tarihi input'unu al
@@ -676,6 +661,7 @@ birthdateInput.addEventListener('input', function() {
     inputValue = inputValue.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3'); // Yıl kısmı (GG/AA/YYYY)
   }
 
+  birthdateInput.value = inputValue;
 });
 </script>
 
