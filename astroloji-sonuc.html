@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MYTAROVA | Doğum Haritası Sonucu</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+  margin:0;
+  background:#050008;
+  color:#e6d28c;
+  font-family:"Times New Roman", serif;
+}
+
+header{
+  padding:40px 15px 20px;
+  text-align:center;
+}
+
+header h1{
+  font-size:2em;
+}
+
+header p{
+  font-size:0.95em;
+  opacity:0.85;
+}
+
+/* ANA KAPSAYICI */
+.container{
+  padding:20px;
+  max-width:1100px;
+  margin:auto;
+}
+
+/* BÖLÜM KUTULARI */
+.section{
+  border:1px solid #e6d28c;
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:25px;
+  background:#0b0010;
+}
+
+.section h2{
+  text-align:center;
+  margin-bottom:15px;
+}
+
+/* KART GRID */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:15px;
+}
+
+.card{
+  border:2px solid #e6d28c;
+  border-radius:10px;
+  padding:12px;
+  text-align:center;
+  background:#050008;
+}
+
+.card h3{
+  font-size:1em;
+  margin-bottom:6px;
+}
+
+.card p{
+  font-size:0.85em;
+  opacity:0.9;
+}
+
+/* ALT */
+.footer-note{
+  text-align:center;
+  margin:30px 0;
+  font-size:0.9em;
+  opacity:0.85;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌌 Doğum Haritanız Oluşturuldu</h1>
+  <p>Gezegenlerinizin konumu ve ruhsal haritanız</p>
+</header>
+
+<div class="container">
+
+  <!-- TEMEL ÜÇLÜ -->
+  <div class="section">
+    <h2>☀️ Temel Kimliğiniz</h2>
+    <div class="card-grid">
+
+      <div class="card">
+        <h3>Güneş Burcu</h3>
+        <p>Burcunuz</p>
+      </div>
+
+      <div class="card">
+        <h3>Ay Burcu</h3>
+        <p>Duygularınız</p>
+      </div>
+
+      <div class="card">
+        <h3>Yükselen</h3>
+        <p>Dış dünyaya yansıyan enerji</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GEZEGENLER -->
+  <div class="section">
+    <h2>🪐 Gezegenler</h2>
+    <div class="card-grid">
+
+      <div class="card"><h3>Merkür</h3><p>İletişim</p></div>
+      <div class="card"><h3>Venüs</h3><p>Aşk</p></div>
+      <div class="card"><h3>Mars</h3><p>Enerji</p></div>
+      <div class="card"><h3>Jüpiter</h3><p>Şans</p></div>
+      <div class="card"><h3>Satürn</h3><p>Sorumluluk</p></div>
+      <div class="card"><h3>Uranüs</h3><p>Değişim</p></div>
+      <div class="card"><h3>Neptün</h3><p>Sezgi</p></div>
+      <div class="card"><h3>Plüton</h3><p>Dönüşüm</p></div>
+
+    </div>
+  </div>
+
+  <!-- EVLER -->
+  <div class="section">
+    <h2>🏠 Astrolojik Evler</h2>
+    <div class="card-grid">
+
+      <div class="card">1. Ev (Yükselen)</div>
+      <div class="card">2. Ev</div>
+      <div class="card">3. Ev</div>
+      <div class="card">4. Ev (IC)</div>
+      <div class="card">5. Ev</div>
+      <div class="card">6. Ev</div>
+      <div class="card">7. Ev (Alçalan)</div>
+      <div class="card">8. Ev</div>
+      <div class="card">9. Ev</div>
+      <div class="card">10. Ev (MC)</div>
+      <div class="card">11. Ev</div>
+      <div class="card">12. Ev</div>
+
+    </div>
+  </div>
+
+  <!-- ALT NOT -->
+  <div class="footer-note">
+    Bu doğum haritası bilgilendirme amaçlıdır.  
+    Detaylı yorum için danışmanlık alabilirsiniz.
+  </div>
+
+</div>
+
+</body>
+</html>
