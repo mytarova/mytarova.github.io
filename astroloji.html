@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MYTAROVA | Astroloji Doğum Haritası</title>
+<title>Astrolojik Doğum Haritası | MYTAROVA</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -15,56 +15,39 @@ body{
   font-family:"Times New Roman", serif;
 }
 
-header{
-  text-align:center;
-  padding:60px 15px 20px;
-}
-
-header h1{
-  font-size:2.2em;
-}
-
-header p{
-  opacity:0.9;
-}
-
-.astro-form{
-  max-width:420px;
-  margin:30px auto;
-  padding:25px;
+.container{
+  max-width:480px;
+  margin:80px auto;
+  padding:20px;
+  border:2px solid #e6d28c;
+  border-radius:12px;
   background:#120015;
-  border-radius:14px;
 }
 
-.astro-form label{
+h1{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.field{
+  margin-bottom:15px;
+}
+
+label{
   display:block;
-  margin:14px 0 6px;
-  font-size:0.95em;
+  margin-bottom:6px;
+  font-size:0.9em;
 }
 
-.astro-form input,
-.astro-form select{
+input, select{
   width:100%;
   padding:10px;
   font-size:1em;
   border-radius:6px;
   border:none;
-  background:#050008;
-  color:#e6d28c;
 }
 
-.time-row{
-  display:flex;
-  gap:10px;
-}
-
-.time-row input{
-  flex:1;
-  text-align:center;
-}
-
-.astro-form button{
-  margin-top:22px;
+button{
   width:100%;
   padding:12px;
   font-size:1.1em;
@@ -76,90 +59,118 @@ header p{
   font-weight:bold;
 }
 
-.astro-form button:hover{
+button:hover{
   background:#f0dc9a;
 }
 
-.note{
-  font-size:0.8em;
-  opacity:0.8;
-  margin-top:12px;
-  text-align:center;
+.icon{
+  margin-right:6px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Astrolojik Doğum Haritası</h1>
-  <p>Doğum bilgilerinizi girin, yıldız haritanız çözülsün</p>
-</header>
+<div class="container">
+  <h1>🌌 Astrolojik Doğum Haritası</h1>
 
-<div class="astro-form">
+  <form action="astroloji-sonuc.html" method="GET">
 
-  <label>Doğum Tarihi</label>
-  <input
-    type="text"
-    id="birthDate"
-    placeholder="GG/AA/YYYY"
-    maxlength="10"
-  >
+    <!-- DOĞUM TARİHİ -->
+    <div class="field">
+      <label><i class="fa-solid fa-calendar-days icon"></i>Doğum Tarihi</label>
+      <input 
+        type="text"
+        name="date"
+        placeholder="GG/AA/YYYY"
+        maxlength="10"
+        required
+      >
+    </div>
 
-  <label>Doğum Saati</label>
-  <div class="time-row">
-    <input type="text" id="birthHour" placeholder="SS" maxlength="2">
-    <input type="text" id="birthMinute" placeholder="DD" maxlength="2">
-  </div>
+    <!-- DOĞUM SAATİ -->
+    <div class="field">
+      <label><i class="fa-solid fa-clock icon"></i>Doğum Saati</label>
+      <input 
+        type="text"
+        name="time"
+        placeholder="SS:DD"
+        maxlength="5"
+        required
+      >
+    </div>
 
-  <label>Ülke</label>
-  <input type="text" value="Türkiye" disabled>
+    <!-- ÜLKE -->
+    <div class="field">
+      <label><i class="fa-solid fa-earth-europe icon"></i>Ülke</label>
+      <input type="text" value="Türkiye" disabled>
+      <input type="hidden" name="country" value="Turkey">
+    </div>
 
-  <label>İl</label>
-  <select id="city">
-    <option value="">İl seçiniz</option>
-    <option>Adana</option>
-    <option>Adıyaman</option>
-    <option>Afyonkarahisar</option>
-    <option>Ağrı</option>
-    <option>Amasya</option>
-    <option>Ankara</option>
-    <option>Antalya</option>
-    <option>İstanbul</option>
-    <option>İzmir</option>
-  </select>
+    <!-- İL -->
+    <div class="field">
+      <label><i class="fa-solid fa-map icon"></i>İl</label>
+      <select name="city" id="citySelect" required>
+        <option value="">İl seçiniz</option>
+      </select>
+    </div>
 
-  <label>İlçe</label>
-  <select id="district">
-    <option value="">Önce il seçiniz</option>
-  </select>
+    <!-- İLÇE -->
+    <div class="field">
+      <label><i class="fa-solid fa-location-dot icon"></i>İlçe</label>
+      <select name="district" id="districtSelect" required>
+        <option value="">İlçe seçiniz</option>
+      </select>
+    </div>
 
-  <button id="astroSubmit">
-    Doğum Haritamı Hesapla
-  </button>
+    <button type="submit">
+      🔮 Doğum Haritamı Hesapla
+    </button>
 
-  <div class="note">
-    * Sonuçlar yeni sayfada açılacaktır
-  </div>
-
+  </form>
 </div>
 
 <script>
-/* GG/AA/YYYY otomatik / */
-document.getElementById("birthDate").addEventListener("input", e => {
-  let v = e.target.value.replace(/\D/g,"");
-  if(v.length > 2) v = v.slice(0,2)+"/"+v.slice(2);
-  if(v.length > 5) v = v.slice(0,5)+"/"+v.slice(5,9);
+/* === OTOMATİK TARİH / SAAT FORMAT === */
+const dateInput = document.querySelector('input[name="date"]');
+const timeInput = document.querySelector('input[name="time"]');
+
+dateInput.addEventListener("input", e => {
+  let v = e.target.value.replace(/\D/g,'');
+  if(v.length >= 3) v = v.slice(0,2) + "/" + v.slice(2);
+  if(v.length >= 6) v = v.slice(0,5) + "/" + v.slice(5,9);
   e.target.value = v;
 });
 
-/* Saat sınırları */
-document.getElementById("birthHour").addEventListener("input", e => {
-  e.target.value = e.target.value.replace(/\D/g,"").slice(0,2);
+timeInput.addEventListener("input", e => {
+  let v = e.target.value.replace(/\D/g,'');
+  if(v.length >= 3) v = v.slice(0,2) + ":" + v.slice(2,4);
+  e.target.value = v;
 });
 
-document.getElementById("birthMinute").addEventListener("input", e => {
-  e.target.value = e.target.value.replace(/\D/g,"").slice(0,2);
+/* === İL / İLÇE VERİSİ (GEÇİCİ) === */
+const cities = {
+  "Adana": ["Seyhan","Çukurova","Yüreğir"],
+  "Ankara": ["Çankaya","Keçiören","Etimesgut"],
+  "Giresun": ["Merkez","Bulancak","Keşap"],
+  "İstanbul": ["Kadıköy","Beşiktaş","Üsküdar"]
+};
+
+const citySelect = document.getElementById("citySelect");
+const districtSelect = document.getElementById("districtSelect");
+
+for(const city in cities){
+  citySelect.innerHTML += `<option value="${city}">${city}</option>`;
+}
+
+citySelect.addEventListener("change", () => {
+  districtSelect.innerHTML = '<option value="">İlçe seçiniz</option>';
+  const selected = citySelect.value;
+  if(cities[selected]){
+    cities[selected].forEach(d =>
+      districtSelect.innerHTML += `<option value="${d}">${d}</option>`
+    );
+  }
 });
 </script>
 
