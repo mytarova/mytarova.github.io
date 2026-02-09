@@ -382,8 +382,28 @@ header p{font-size:0.95em;opacity:0.9}
 
   <div id="numerologyCards" class="cards3">
     <!-- Kişilik Kartı ve Ruh Kartı burada görünecek -->
-  </div>
 </div>
+<!-- Numeroloji Butonunun Altına Eklenecek Astroloji Butonu -->
+
+<!-- Numerolojik Kart Açılımı Altına -->
+<div class="numerology-section">
+  <h2>Numerolojik Kart Açılımı</h2>
+  <p>Doğum tarihinizi aşağıdaki formatta girin (GG/AA/YYYY) ve kişilik ile ruh kartınızı keşfedin:</p>
+
+  <!-- Numerolojik Kart Açılımı Butonu (Astroloji Butonu Eklenecek) -->
+  <button class="astroloji-btn">
+    <i class="fa-solid fa-astrology"></i> Astrolojik Doğum Haritası Hesaplama
+  </button>
+</div>
+
+<!-- Bu buton tıklandığında astroloji.html açılacak -->
+<script>
+  // Astroloji butonuna tıklandığında astroloji.html sayfasına yönlendirme
+  document.querySelector('.astroloji-btn').addEventListener('click', function() {
+    window.location.href = 'astroloji.html';  // Burada astroloji.html sayfası açılacak
+  });
+</script>
+
 
   <!-- GÜNÜN KARTI -->
   <div class="daily">
