@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>Doğum Haritası Sonucu</title>
+<meta charset="UTF-8">
+<title>Doğum Haritası Sonucu</title>
 </head>
 <body>
 
 <h2>Doğum Haritası Sonucu</h2>
 
-<div id="result"></div>
+<div id="result">Yükleniyor...</div>
 
 <script>
+
 const params = new URLSearchParams(window.location.search);
 
-const year = params.get("year");
-const month = params.get("month");
-const day = params.get("day");
-const hour = params.get("hour");
-const minute = params.get("minute");
-const lat = params.get("lat");
-const lon = params.get("lon");
-
-fetch(`http://127.0.0.1:5000/calculate?year=${year}&month=${month}&day=${day}&hour=${hour}&minute=${minute}&lat=${lat}&lon=${lon}`)
-.then(response => response.json())
+fetch(`http://127.0.0.1:5000/calculate?${params.toString()}`)
+.then(res => res.json())
 .then(data => {
     document.getElementById("result").innerHTML = `
         <p><strong>Güneş:</strong> ${data.Sun.sign} ${data.Sun.degree}°</p>
@@ -31,6 +24,7 @@ fetch(`http://127.0.0.1:5000/calculate?year=${year}&month=${month}&day=${day}&ho
         <p><strong>Yükselen:</strong> ${data.Ascendant.sign} ${data.Ascendant.degree}°</p>
     `;
 });
+
 </script>
 
 </body>
