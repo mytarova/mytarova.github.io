@@ -1,45 +1,87 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>Astrolojik Doğum Haritası</title>
+<meta charset="UTF-8">
+<title>Astrolojik Doğum Haritası</title>
 </head>
 <body>
 
 <h2>Astrolojik Doğum Haritası Hesaplama</h2>
 
 <form id="astroForm">
-    <label>Doğum Tarihi:</label><br>
-    <input type="date" id="birthdate" required><br><br>
 
-    <label>Doğum Saati:</label><br>
-    <input type="time" id="birthtime" required><br><br>
+<label>Doğum Tarihi</label><br>
+<input type="date" id="birthdate" required><br><br>
 
-    <label>Enlem (Latitude):</label><br>
-    <input type="text" id="lat" placeholder="41.01" required><br><br>
+<label>Doğum Saati</label><br>
+<input type="time" id="birthtime" required><br><br>
 
-    <label>Boylam (Longitude):</label><br>
-    <input type="text" id="lon" placeholder="28.97" required><br><br>
+<label>Ülke</label><br>
+<select id="country"></select><br><br>
 
-    <button type="submit">Hesapla</button>
+<label>İl</label><br>
+<select id="city"></select><br><br>
+
+<label>İlçe</label><br>
+<select id="district"></select><br><br>
+
+<button type="submit">Haritayı Hesapla</button>
+
 </form>
 
+<script src="locations.js"></script>
+
 <script>
+
+const countrySelect = document.getElementById("country");
+const citySelect = document.getElementById("city");
+const districtSelect = document.getElementById("district");
+
+for (let country in locations) {
+    countrySelect.innerHTML += `<option value="${country}">${country}</option>`;
+}
+
+countrySelect.addEventListener("change", function() {
+    citySelect.innerHTML = "";
+    districtSelect.innerHTML = "";
+
+    let cities = locations[this.value];
+
+    for (let city in cities) {
+        citySelect.innerHTML += `<option value="${city}">${city}</option>`;
+    }
+
+    citySelect.dispatchEvent(new Event("change"));
+});
+
+citySelect.addEventListener("change", function() {
+    districtSelect.innerHTML = "";
+
+    let districts = locations[countrySelect.value][this.value];
+
+    for (let district in districts) {
+        districtSelect.innerHTML += `<option value="${district}">${district}</option>`;
+    }
+});
+
+countrySelect.dispatchEvent(new Event("change"));
+
 document.getElementById("astroForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const date = document.getElementById("birthdate").value;
     const time = document.getElementById("birthtime").value;
-    const lat = document.getElementById("lat").value;
-    const lon = document.getElementById("lon").value;
 
     const [year, month, day] = date.split("-");
     const [hour, minute] = time.split(":");
 
-    const query = `astroloji-sonuc.html?year=${year}&month=${month}&day=${day}&hour=${hour}&minute=${minute}&lat=${lat}&lon=${lon}`;
+    const locationData = locations[countrySelect.value][citySelect.value][districtSelect.value];
+
+    const query = `/sonuc?year=${year}&month=${month}&day=${day}&hour=${hour}&minute=${minute}&lat=${locationData.lat}&lon=${locationData.lon}`;
 
     window.location.href = query;
 });
+
 </script>
 
 </body>
