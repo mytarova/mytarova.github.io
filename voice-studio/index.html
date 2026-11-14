@@ -3,123 +3,163 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#101014">
 <title>MyTarova Voice Studio</title>
 <style>
-:root{--bg:#101014;--panel:#1b1a20;--gold:#c9a45c;--text:#eee9df;--muted:#aaa3a0}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at top,#29202a,#101014 55%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
-header{text-align:center;padding:30px 15px 22px;border-bottom:1px solid #57452c}
-.logo{font-family:Georgia,serif;font-size:34px;letter-spacing:5px;color:var(--gold)}
-.subtitle{color:var(--muted);font-size:12px;letter-spacing:3px;margin-top:8px}
-main{max-width:1100px;margin:28px auto;padding:0 16px;display:grid;grid-template-columns:230px 1fr;gap:20px}
-.panel{background:#1b1a20;border:1px solid #453824;border-radius:14px;padding:20px}
-h2{font-family:Georgia,serif;color:var(--gold);font-size:19px;font-weight:normal;margin:0 0 18px}
-button,select,input,textarea{font:inherit}
-button{cursor:pointer;border:1px solid #8e7040;background:#29242a;color:var(--text);padding:11px 14px;border-radius:8px}
-button:hover{background:#493a28}
-.presets{display:grid;gap:9px}
-.presets button{text-align:left}
-textarea{width:100%;height:280px;background:#111116;color:#f2eee7;border:1px solid #51432e;border-radius:10px;padding:16px;resize:vertical;line-height:1.7;font-size:16px}
-.controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
-.primary{background:#9a763d;color:#fff;border-color:#c9a45c}
-.settings{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-label{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}
-select{width:100%;background:#111116;color:white;border:1px solid #51432e;padding:10px;border-radius:7px}
-input[type=range]{width:100%;accent-color:#c9a45c}
-.status{color:var(--gold);font-size:13px;margin-top:14px;min-height:18px}
-footer{text-align:center;padding:25px;color:#81786e;font-size:12px}
-@media(max-width:700px){main{grid-template-columns:1fr}.settings{grid-template-columns:1fr}}
+:root{--bg:#101014;--panel:#1b1a20;--panel2:#222027;--gold:#c9a45c;--gold2:#8e7040;--text:#eee9df;--muted:#aaa3a0;--line:#453824;--danger:#a64e4e;--ok:#8cad79}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#392b36 0,#17151b 36%,#101014 72%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;min-height:100vh}
+header{padding:24px 18px 20px;text-align:center;border-bottom:1px solid #57452c;background:#111015bb}
+.logo{font:34px Georgia,serif;letter-spacing:6px;color:var(--gold)}.subtitle{font-size:11px;letter-spacing:3px;color:var(--muted);margin-top:7px}
+.topbar{max-width:1400px;margin:16px auto 0;padding:0 18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{font-size:12px;color:var(--gold);border:1px solid var(--line);padding:7px 11px;border-radius:30px}
+button,select,input,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--gold2);background:#29242a;color:var(--text);padding:10px 13px;border-radius:8px;transition:.15s}button:hover{background:#493a28;border-color:var(--gold)}button:disabled{opacity:.45;cursor:not-allowed}
+.primary{background:#94713c;color:white;border-color:var(--gold)}.danger{border-color:#784343;color:#e8baba}.small{padding:7px 9px;font-size:12px}
+main{max-width:1400px;margin:18px auto 34px;padding:0 18px;display:grid;grid-template-columns:260px minmax(360px,1fr) 285px;gap:16px;align-items:start}
+.panel{background:linear-gradient(155deg,#211f26,#18171d);border:1px solid var(--line);border-radius:14px;padding:17px;box-shadow:0 12px 30px #0003;min-width:0}
+h2{font:normal 19px Georgia,serif;color:var(--gold);margin:0 0 14px}h3{font-size:13px;font-weight:600;color:#e5d6b8;margin:18px 0 9px}
+.muted{color:var(--muted);font-size:12px;line-height:1.5}.stack{display:grid;gap:8px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{min-width:0}.between{display:flex;align-items:center;justify-content:space-between;gap:8px}
+input[type=text],input[type=search],select,textarea{width:100%;background:#111116;color:var(--text);border:1px solid #51432e;border-radius:8px;padding:10px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{height:300px;resize:vertical;line-height:1.7;font-size:16px;padding:16px}
+.preset-list{display:grid;gap:7px;max-height:390px;overflow:auto}.preset-list button{text-align:left;font-size:13px}.preset-list button span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.toolbar button{flex:1}
+.settings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:19px}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:7px}.field input[type=range]{width:100%;accent-color:var(--gold)}.field output{color:var(--gold);font-size:11px}
+.status{color:var(--gold);font-size:12px;margin-top:14px;min-height:18px}.section{border-top:1px solid #3d3428;margin-top:17px;padding-top:15px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:13px}.tabs button{font-size:12px;padding:8px 10px}.tabs button.active{background:#806238;border-color:var(--gold)}
+.sound-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.sound-grid button{text-align:left;font-size:12px}.sound-grid button.active{background:#57452c;border-color:var(--gold)}
+.sound-controls{display:grid;gap:9px;margin-top:12px}.range-line{display:grid;grid-template-columns:75px 1fr 34px;gap:8px;align-items:center;font-size:11px;color:var(--muted)}.range-line input{width:100%;accent-color:var(--gold)}
+.item{background:#141319;border:1px solid #39312a;border-radius:9px;padding:9px;margin-top:7px}.item-title{font-size:12px;overflow-wrap:anywhere}.item-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+hr{border:0;border-top:1px solid #39312a;margin:14px 0}.hidden{display:none!important}
+footer{text-align:center;color:#81786e;padding:20px;font-size:11px}
+@media(max-width:1050px){main{grid-template-columns:230px minmax(0,1fr)}main>aside:last-child{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}main>aside:last-child>.panel-sub{min-width:0}}
+@media(max-width:700px){header{padding-top:20px}.logo{font-size:27px}main{grid-template-columns:1fr;padding:0 11px}.topbar{padding:0 11px}main>aside:last-child{grid-column:auto;display:block}.settings{grid-template-columns:1fr 1fr}textarea{height:240px}.panel{padding:14px}}
 </style>
 </head>
 <body>
-<header>
-<div class="logo">MYTAROVA</div>
-<div class="subtitle">VOICE STUDIO · SESİNLE IŞIK OL</div>
-</header>
+<header><div class="logo">MYTAROVA</div><div class="subtitle">VOICE STUDIO · SESİNLE IŞIK OL</div></header>
+<div class="topbar"><span class="pill">✦ Kişisel seslendirme ve atmosfer stüdyosu</span><div class="row"><button class="small" id="exportBackup">Yedeği indir</button><button class="small" id="importBackupBtn">Yedeği yükle</button><input id="importBackup" type="file" accept=".json,application/json" class="hidden"></div></div>
 <main>
 <aside class="panel">
-<h2>Hazır Metinler</h2>
-<div class="presets">
-<button data-text="Sevgili dostlar, bugün kendimizi dinlemeye ve iç sesimize kulak vermeye ne dersiniz?">✦ Sohbete Başla</button>
-<button data-text="Derin bir nefes alın. Omuzlarınızı gevşetin. Şimdi zihninizi sakinleştirin ve kendinize güzel bir alan açın.">☾ Meditasyon</button>
-<button data-text="Kartların sembollerine bakarken unutmayın: Tarot geleceği kesin olarak söylemez. Bize farklı olasılıkları ve kendi iç dünyamızı anlamak için bir ayna sunar.">✧ Tarot Açılışı</button>
-<button data-text="Bugünkü yolculuğumuzda kendimizi, düşüncelerimizi ve seçimlerimizi keşfedeceğiz. Hazırsanız başlayalım.">♧ Danışmanlık</button>
-</div>
+ <div class="between"><h2>Metin Kütüphanesi</h2><button class="small" id="newText">＋ Yeni</button></div>
+ <input type="search" id="searchText" placeholder="Metinlerde ara...">
+ <div class="preset-list" id="textLibrary"></div>
+ <div class="section">
+  <h3>Hazır metinler</h3>
+  <div class="preset-list" id="starterTexts"></div>
+ </div>
 </aside>
 <section class="panel">
-<h2>Metin Stüdyosu</h2>
-<textarea id="text" placeholder="Seslendirmek istediğiniz metni buraya yazın..."></textarea>
-<div class="controls">
-<button class="primary" id="read">▶ Seslendir</button>
-<button id="pause">Ⅱ Duraklat</button>
-<button id="resume">↻ Devam</button>
-<button id="stop">■ Durdur</button>
-<button id="clear">Temizle</button>
-</div>
-<div class="settings">
-<div><label for="language">Dil</label><select id="language"><option value="tr">Türkçe</option><option value="de">Almanca</option><option value="en">İngilizce</option></select></div>
-<div><label for="voice">Ses</label><select id="voice"><option>Sesler yükleniyor...</option></select></div>
-<div><label for="rate">Konuşma hızı</label><input id="rate" type="range" min="0.5" max="1.8" step="0.1" value="1"></div>
-<div><label for="pitch">Ses tonu</label><input id="pitch" type="range" min="0.5" max="1.8" step="0.1" value="1"></div>
-<div><label for="volume">Ses seviyesi</label><input id="volume" type="range" min="0" max="1" step="0.1" value="1"></div>
-</div>
-<div class="status" id="status">Hazır. Metninizi yazabilirsiniz.</div>
+ <div class="between"><h2>Metin Stüdyosu</h2><span class="muted" id="wordCount">0 kelime</span></div>
+ <input type="text" id="textTitle" placeholder="Metin başlığı" style="margin-bottom:10px">
+ <textarea id="editor" placeholder="Seslendirmek istediğiniz metni buraya yazın..."></textarea>
+ <div class="toolbar">
+  <button class="primary" id="speak">▶ Seslendir</button><button id="pause">Ⅱ Duraklat</button><button id="resume">↻ Devam</button><button id="stop">■ Durdur</button>
+ </div>
+ <div class="row" style="margin-top:9px"><button class="small" id="saveText">Kaydet</button><button class="small" id="favoriteText">☆ Favori</button><button class="small" id="deleteText">Sil</button><button class="small" id="clearText">Temizle</button></div>
+ <div class="settings">
+  <div class="field"><label for="language">Okuma dili</label><select id="language"><option value="tr">Türkçe</option><option value="de">Almanca</option><option value="en">İngilizce</option></select></div>
+  <div class="field"><label for="voice">Ses seçimi</label><select id="voice"><option>Sesler yükleniyor...</option></select></div>
+  <div class="field"><label for="rate">Konuşma hızı <output id="rateVal">1.0</output></label><input id="rate" type="range" min=".5" max="1.8" step=".1" value="1"></div>
+  <div class="field"><label for="pitch">Ses tonu <output id="pitchVal">1.0</output></label><input id="pitch" type="range" min=".5" max="1.8" step=".1" value="1"></div>
+  <div class="field"><label for="volume">Ses seviyesi <output id="volumeVal">100%</output></label><input id="volume" type="range" min="0" max="1" step=".05" value="1"></div>
+ </div>
+ <div class="status" id="status" role="status">Hazır. Metninizi yazabilir veya kütüphaneden seçebilirsiniz.</div>
+ <div class="section">
+  <div class="between"><h3 style="margin:0">Oynatma listesi</h3><button class="small" id="addToPlaylist">＋ Metni ekle</button></div>
+  <div class="muted">Kaydettiğiniz metinleri sırayla açmak için listeye ekleyin.</div>
+  <div id="playlist"></div>
+ </div>
 </section>
+<aside class="panel">
+ <h2>Atmosfer Sesleri</h2>
+ <div class="muted">Bir fon sesi seçin. Seslendirme sırasında arka planda çalabilir.</div>
+ <div class="tabs"><button class="active" data-tab="builtins">Ses paleti</button><button data-tab="uploads">Dosyalarım</button></div>
+ <div id="builtins">
+  <div class="sound-grid" id="soundGrid"></div>
+ </div>
+ <div id="uploads" class="hidden">
+  <label class="muted" for="audioUpload">MP3 / WAV / OGG ses dosyası ekle</label>
+  <input id="audioUpload" type="file" accept="audio/*" multiple style="margin:8px 0">
+  <div id="uploadedSounds"></div>
+ </div>
+ <div class="sound-controls">
+  <div class="row"><button class="primary" id="playSound">▶ Fon sesi</button><button id="stopSound">■ Fon durdur</button></div>
+  <div class="range-line"><span>Fon sesi</span><input id="bgVolume" type="range" min="0" max="1" step=".05" value=".25"><span id="bgVal">25%</span></div>
+  <div class="range-line"><span>Tekrar</span><input id="loopSound" type="checkbox" checked><span></span></div>
+  <div class="muted" id="soundStatus">Henüz fon sesi seçilmedi.</div>
+ </div>
+ <audio id="audioPlayer" preload="metadata"></audio>
+ <div class="section">
+  <h3>Veri ve gizlilik</h3>
+  <p class="muted">Metinler ve tercihler bu tarayıcıda saklanır. Yedek dosyası metinleri, ayarları ve eklediğiniz ses dosyalarını içerir. Tarayıcı verilerini temizlerseniz yedeğinizi kullanın.</p>
+  <div class="muted">Seslendirme, cihazınızın ve tarayıcınızın sunduğu konuşma seslerini kullanır. Bazı sesler internet bağlantısı isteyebilir.</div>
+ </div>
+</aside>
 </main>
 <footer>MyTarova Voice Studio · Sevgiyle ve ışıkla</footer>
 <script>
-const text=document.getElementById('text');
-const language=document.getElementById('language');
-const voiceSelect=document.getElementById('voice');
-const statusBox=document.getElementById('status');
-let voices=[];
-function loadVoices(){
- voices=speechSynthesis.getVoices();
- updateVoices();
-}
-function updateVoices(){
- const lang=language.value;
- const matching=voices.filter(v=>v.lang.toLowerCase().startsWith(lang));
- voiceSelect.innerHTML='';
- (matching.length?matching:voices).forEach(v=>{
-  const option=document.createElement('option');
-  option.value=v.name;
-  option.textContent=v.name+' ('+v.lang+')';
-  voiceSelect.appendChild(option);
- });
- if(!voices.length)voiceSelect.innerHTML='<option>Bu tarayıcıda ses bulunamadı</option>';
-}
-if('speechSynthesis' in window){
- loadVoices();
- speechSynthesis.onvoiceschanged=loadVoices;
-}else{
- statusBox.textContent='Tarayıcınız sesli okumayı desteklemiyor.';
-}
-language.addEventListener('change',updateVoices);
-document.getElementById('read').onclick=()=>{
- if(!text.value.trim()){statusBox.textContent='Önce bir metin yazın.';return;}
- speechSynthesis.cancel();
- const utterance=new SpeechSynthesisUtterance(text.value);
- utterance.lang=language.value==='tr'?'tr-TR':language.value==='de'?'de-DE':'en-US';
- utterance.rate=Number(document.getElementById('rate').value);
- utterance.pitch=Number(document.getElementById('pitch').value);
- utterance.volume=Number(document.getElementById('volume').value);
- const selected=voices.find(v=>v.name===voiceSelect.value);
- if(selected)utterance.voice=selected;
- utterance.onstart=()=>statusBox.textContent='Metin seslendiriliyor...';
- utterance.onend=()=>statusBox.textContent='Seslendirme tamamlandı.';
- utterance.onerror=()=>statusBox.textContent='Seslendirme sırasında bir sorun oluştu.';
- speechSynthesis.speak(utterance);
-};
-document.getElementById('pause').onclick=()=>{speechSynthesis.pause();statusBox.textContent='Duraklatıldı.'};
-document.getElementById('resume').onclick=()=>{speechSynthesis.resume();statusBox.textContent='Devam ediyor.'};
-document.getElementById('stop').onclick=()=>{speechSynthesis.cancel();statusBox.textContent='Durduruldu.'};
-document.getElementById('clear').onclick=()=>{text.value='';speechSynthesis.cancel();statusBox.textContent='Metin temizlendi.'};
-document.querySelectorAll('[data-text]').forEach(button=>{
- button.onclick=()=>{text.value=button.dataset.text;statusBox.textContent='Hazır metin yüklendi.'};
-});
+const $=id=>document.getElementById(id);
+const DB_NAME='mytarova-voice-studio',DB_STORE='audio';
+let db=null, voices=[], currentTextId=null, currentSound=null, uploaded=[];
+let texts=JSON.parse(localStorage.getItem('mtvs_texts')||'[]');
+let playlist=JSON.parse(localStorage.getItem('mtvs_playlist')||'[]');
+const starters=[
+ ['Sohbete Başla','Sevgili dostlar, bugün kendimizi dinlemeye ve iç sesimize kulak vermeye ne dersiniz?'],
+ ['Meditasyon','Derin bir nefes alın. Omuzlarınızı gevşetin. Şimdi zihninizi sakinleştirin ve kendinize güzel bir alan açın.'],
+ ['Tarot Açılışı','Kartların sembollerine bakarken unutmayın: Tarot geleceği kesin olarak söylemez. Bize farklı olasılıkları ve kendi iç dünyamızı anlamak için bir ayna sunar.'],
+ ['Danışmanlık','Bugünkü yolculuğumuzda kendimizi, düşüncelerimizi ve seçimlerimizi keşfedeceğiz. Hazırsanız başlayalım.'],
+ ['Kapanış','Bugün kendinize ayırdığınız zaman için teşekkür edin. İçinizde kalanları sakince gözlemleyin. Sevgiyle ve ışıkla.'],
+ ['Nefes Egzersizi','Burnunuzdan yavaşça nefes alın. Bir an bekleyin. Şimdi nefesinizi yavaşça bırakın. Her nefeste biraz daha gevşeyin.'],
+ ['Olumlama','Kendi seçimlerime güveniyorum. Sınırlarımı sevgiyle koruyorum. Hayatımda bana iyi gelen alanlara yer açıyorum.'],
+ ['Video Girişi','Merhaba, MyTarova kanalına hoş geldiniz. Bugün birlikte yeni bir farkındalık yolculuğuna çıkıyoruz.']
+];
+const soundDefs=[['🌧️','Yağmur','rain'],['🌊','Deniz','sea'],['🌲','Orman','forest'],['🐦','Kuşlar','birds'],['🍃','Rüzgâr','wind'],['💧','Şelale','waterfall'],['⛈️','Gök gürültüsü','thunder'],['🔔','Tibet çanağı','bowl'],['✨','Meditasyon','meditation'],['🛎️','Çan','bell'],['🔥','Şömine','fire'],['🌙','Gece','night'],['🎐','Rüzgâr çanı','chime'],['🕊️','Huzur','calm'],['👏','Alkış','applause'],['😄','Neşe','laugh'],['🎬','Geçiş','transition'],['💗','Kalp atışı','heartbeat'],['🚶','Ayak sesleri','steps'],['🎵','Fon müziği','music']];
+function saveTexts(){localStorage.setItem('mtvs_texts',JSON.stringify(texts));renderTexts()}
+function savePlaylist(){localStorage.setItem('mtvs_playlist',JSON.stringify(playlist));renderPlaylist()}
+function makeId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function setStatus(s){$('status').textContent=s}
+function countWords(){let n=$('editor').value.trim().split(/\s+/).filter(Boolean).length;$('wordCount').textContent=n+' kelime'}
+function loadEditor(t){currentTextId=t.id;$('textTitle').value=t.title;$('editor').value=t.body;$('favoriteText').textContent=t.favorite?'★ Favoride':'☆ Favori';countWords();setStatus('Metin açıldı: '+t.title)}
+function renderTexts(){let q=$('searchText').value.toLocaleLowerCase('tr');$('textLibrary').innerHTML='';texts.filter(t=>(t.title+' '+t.body).toLocaleLowerCase('tr').includes(q)).forEach(t=>{let b=document.createElement('button');b.innerHTML=(t.favorite?'★ ':'')+escapeHtml(t.title)+'<span>'+escapeHtml(t.body.slice(0,58))+'</span>';b.onclick=()=>loadEditor(t);$('textLibrary').appendChild(b)})}
+function renderStarters(){ $('starterTexts').innerHTML='';starters.forEach(([title,body])=>{let b=document.createElement('button');b.textContent='✧ '+title;b.onclick=()=>{$('textTitle').value=title;$('editor').value=body;currentTextId=null;countWords();setStatus('Hazır metin yüklendi.')};$('starterTexts').appendChild(b)})}
+function renderPlaylist(){$('playlist').innerHTML='';playlist.forEach((id,i)=>{let t=texts.find(x=>x.id===id);if(!t)return;let d=document.createElement('div');d.className='item';d.innerHTML='<div class="between"><span class="item-title">'+(i+1)+'. '+escapeHtml(t.title)+'</span><button class="small" data-remove="'+i+'">×</button></div><div class="item-actions"><button class="small" data-open="'+id+'">Aç</button><button class="small" data-next="'+i+'">Sonraki</button></div>';$('playlist').appendChild(d)});$('playlist').querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{playlist.splice(+b.dataset.remove,1);savePlaylist()});$('playlist').querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{let t=texts.find(x=>x.id===b.dataset.open);if(t)loadEditor(t)});$('playlist').querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>{let t=texts.find(x=>x.id===playlist[+b.dataset.next]);if(t){loadEditor(t);speak()}})}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+$('editor').addEventListener('input',countWords);$('searchText').addEventListener('input',renderTexts);
+$('newText').onclick=()=>{currentTextId=null;$('textTitle').value='Yeni metin';$('editor').value='';countWords();$('editor').focus();setStatus('Yeni metin oluşturuluyor.')};
+$('saveText').onclick=()=>{let title=$('textTitle').value.trim()||'Adsız metin',body=$('editor').value;if(!body.trim()){setStatus('Kaydetmek için önce metin yazın.');return}let t=texts.find(x=>x.id===currentTextId);if(t){t.title=title;t.body=body;t.updated=Date.now()}else{t={id:makeId(),title,body,favorite:false,updated:Date.now()};texts.unshift(t);currentTextId=t.id}saveTexts();loadEditor(t);setStatus('Metin bu tarayıcıya kaydedildi.')};
+$('favoriteText').onclick=()=>{let t=texts.find(x=>x.id===currentTextId);if(!t){$('saveText').click();t=texts.find(x=>x.id===currentTextId)}if(t){t.favorite=!t.favorite;saveTexts();$('favoriteText').textContent=t.favorite?'★ Favoride':'☆ Favori'}};
+$('deleteText').onclick=()=>{if(!currentTextId){setStatus('Önce kayıtlı bir metin açın.');return}texts=texts.filter(x=>x.id!==currentTextId);playlist=playlist.filter(x=>x!==currentTextId);currentTextId=null;$('textTitle').value='';$('editor').value='';saveTexts();savePlaylist();countWords();setStatus('Metin silindi.')};
+$('clearText').onclick=()=>{$('editor').value='';countWords();setStatus('Metin alanı temizlendi.')};
+$('addToPlaylist').onclick=()=>{if(!currentTextId){$('saveText').click()}if(currentTextId&&!playlist.includes(currentTextId)){playlist.push(currentTextId);savePlaylist();setStatus('Metin oynatma listesine eklendi.')}else if(currentTextId)setStatus('Bu metin listede zaten var.')};
+function loadVoices(){voices=speechSynthesis.getVoices();updateVoiceOptions()}
+function updateVoiceOptions(){let lang=$('language').value,matching=voices.filter(v=>v.lang.toLowerCase().startsWith(lang));$('voice').innerHTML='';(matching.length?matching:voices).forEach(v=>{let o=document.createElement('option');o.value=v.name;o.textContent=v.name+' ('+v.lang+')';$('voice').appendChild(o)});if(!voices.length)$('voice').innerHTML='<option value="">Tarayıcı sesi bulunamadı</option>'}
+if('speechSynthesis'in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}else setStatus('Bu tarayıcı sesli okumayı desteklemiyor.');
+$('language').onchange=updateVoiceOptions;
+['rate','pitch','volume'].forEach(id=>$(id).oninput=()=>{$(id+'Val').textContent=id==='volume'?Math.round($(id).value*100)+'%':Number($(id).value).toFixed(1)});
+function speak(){let body=$('editor').value.trim();if(!body){setStatus('Önce seslendirilecek bir metin yazın.');return}if(!('speechSynthesis'in window)){setStatus('Tarayıcı seslendirmeyi desteklemiyor.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(body);u.lang={tr:'tr-TR',de:'de-DE',en:'en-US'}[$('language').value];u.rate=+$('rate').value;u.pitch=+$('pitch').value;u.volume=+$('volume').value;let v=voices.find(x=>x.name===$('voice').value);if(v)u.voice=v;u.onstart=()=>setStatus('Metin seslendiriliyor...');u.onend=()=>setStatus('Seslendirme tamamlandı.');u.onerror=()=>setStatus('Seslendirme sırasında hata oluştu.');speechSynthesis.speak(u)}
+$('speak').onclick=speak;$('pause').onclick=()=>{speechSynthesis.pause();setStatus('Seslendirme duraklatıldı.')};$('resume').onclick=()=>{speechSynthesis.resume();setStatus('Seslendirme devam ediyor.')};$('stop').onclick=()=>{speechSynthesis.cancel();setStatus('Seslendirme durduruldu.')};
+function openDB(){return new Promise((resolve,reject)=>{let req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>req.result.createObjectStore(DB_STORE,{keyPath:'id'});req.onsuccess=()=>{db=req.result;resolve(db)};req.onerror=()=>reject(req.error)})}
+function dbPut(item){return new Promise((res,rej)=>{let tx=db.transaction(DB_STORE,'readwrite');tx.objectStore(DB_STORE).put(item);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+function dbGetAll(){return new Promise((res,rej)=>{let tx=db.transaction(DB_STORE,'readonly'),r=tx.objectStore(DB_STORE).getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+function dbDelete(id){return new Promise((res,rej)=>{let tx=db.transaction(DB_STORE,'readwrite');tx.objectStore(DB_STORE).delete(id);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error)})}
+function renderSoundGrid(){$('soundGrid').innerHTML='';soundDefs.forEach(([icon,name,key])=>{let b=document.createElement('button');b.textContent=icon+' '+name;b.onclick=()=>selectBuiltin(key,name,b);b.dataset.key=key;$('soundGrid').appendChild(b)})}
+let builtinAudio=null;
+function selectBuiltin(key,name,button){currentSound={kind:'builtin',key,name};$('soundGrid').querySelectorAll('button').forEach(x=>x.classList.remove('active'));button.classList.add('active');$('soundStatus').textContent=name+' seçildi. Bu kategori için kendi ses dosyanı ekleyebilir veya dosyalarından seçebilirsin.';setStatus('Seçilen atmosfer: '+name)}
+function renderUploads(){ $('uploadedSounds').innerHTML='';uploaded.forEach(a=>{let d=document.createElement('div');d.className='item';d.innerHTML='<div class="item-title">'+escapeHtml(a.name)+'</div><div class="item-actions"><button class="small" data-use="'+a.id+'">Seç</button><button class="small danger" data-del="'+a.id+'">Sil</button></div>';$('uploadedSounds').appendChild(d)});$('uploadedSounds').querySelectorAll('[data-use]').forEach(b=>b.onclick=()=>{let a=uploaded.find(x=>x.id===b.dataset.use);if(a){currentSound={kind:'upload',id:a.id,name:a.name};$('soundStatus').textContent=a.name+' seçildi.';setStatus('Fon sesi seçildi: '+a.name)}});$('uploadedSounds').querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{await dbDelete(b.dataset.del);uploaded=uploaded.filter(x=>x.id!==b.dataset.del);renderUploads();if(currentSound?.id===b.dataset.del){currentSound=null;$('audioPlayer').pause();$('audioPlayer').removeAttribute('src')} }) }
+$('audioUpload').onchange=async e=>{for(let f of e.target.files){if(!f.type.startsWith('audio/'))continue;let item={id:makeId(),name:f.name,type:f.type,blob:f};await dbPut(item);uploaded.push(item)}renderUploads();e.target.value='';$('soundStatus').textContent='Ses dosyaların bu tarayıcıya kaydedildi.'};
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));$('builtins').classList.toggle('hidden',b.dataset.tab!=='builtins');$('uploads').classList.toggle('hidden',b.dataset.tab!=='uploads')});
+$('bgVolume').oninput=()=>{$('bgVal').textContent=Math.round(+$('bgVolume').value*100)+'%';$('audioPlayer').volume=+$('bgVolume').value};
+$('loopSound').onchange=()=>{$('audioPlayer').loop=$('loopSound').checked};
+$('playSound').onclick=async()=>{if(!currentSound){$('soundStatus').textContent='Önce bir fon sesi seçin.';return}if(currentSound.kind==='builtin'){$('soundStatus').textContent='Bu hazır kategori için Dosyalarım bölümünden ilgili MP3/WAV kaydını ekleyip seçin. Lisanslı/özgün ses dosyası kullanın.';return}let item=uploaded.find(x=>x.id===currentSound.id);if(!item)return;let url=URL.createObjectURL(item.blob);let audio=$('audioPlayer');if(audio.dataset.objectUrl)URL.revokeObjectURL(audio.dataset.objectUrl);audio.dataset.objectUrl=url;audio.src=url;audio.volume=+$('bgVolume').value;audio.loop=$('loopSound').checked;try{await audio.play();$('soundStatus').textContent='Fon sesi çalıyor: '+item.name}catch(e){$('soundStatus').textContent='Tarayıcı oynatmayı başlatamadı. Tekrar deneyin.'}};
+$('stopSound').onclick=()=>{$('audioPlayer').pause();$('audioPlayer').currentTime=0;$('soundStatus').textContent='Fon sesi durduruldu.'};
+$('exportBackup').onclick=async()=>{let aud=await dbGetAll();let enc=[];for(let a of aud){let data=await blobToDataURL(a.blob);enc.push({id:a.id,name:a.name,type:a.type,data})}let backup={format:'mytarova-voice-studio',version:1,texts,playlist,audio:enc,settings:{language:$('language').value,rate:$('rate').value,pitch:$('pitch').value,volume:$('volume').value,bgVolume:$('bgVolume').value}};downloadBlob(new Blob([JSON.stringify(backup)],{type:'application/json'}),'mytarova-voice-studio-yedek.json');setStatus('Yedek dosyası hazırlandı.')};
+function blobToDataURL(blob){return new Promise((res,rej)=>{let r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(blob)})}
+function dataURLtoBlob(url){let [meta,data]=url.split(',');let mime=(meta.match(/:(.*?);/)||[])[1]||'application/octet-stream';let bin=atob(data),arr=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new Blob([arr],{type:mime})}
+function downloadBlob(blob,name){let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+$('importBackupBtn').onclick=()=>$('importBackup').click();
+$('importBackup').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let data=JSON.parse(await f.text());if(data.format!=='mytarova-voice-studio')throw Error('Geçersiz yedek');if(!confirm('Mevcut metinler ve ses dosyaları yedekteki içerikle değiştirilsin mi?'))return;texts=data.texts||[];playlist=data.playlist||[];localStorage.setItem('mtvs_texts',JSON.stringify(texts));localStorage.setItem('mtvs_playlist',JSON.stringify(playlist));for(let a of (data.audio||[])){await dbPut({id:a.id,name:a.name,type:a.type,blob:dataURLtoBlob(a.data)})}let s=data.settings||{};for(let k of ['language','rate','pitch','volume','bgVolume'])if(s[k]!==undefined)$(k).value=s[k];updateVoiceOptions();renderTexts();renderPlaylist();uploaded=await dbGetAll();renderUploads();setStatus('Yedek başarıyla yüklendi.')}catch(err){setStatus('Yedek okunamadı: '+err.message)}e.target.value=''};
+(async()=>{try{await openDB();uploaded=await dbGetAll();renderUploads()}catch(e){$('soundStatus').textContent='Tarayıcı yerel ses deposunu açamadı.'}})();
+renderTexts();renderStarters();renderPlaylist();renderSoundGrid();countWords();
 </script>
 </body>
 </html>
