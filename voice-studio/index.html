@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101014">
+<title>MyTarova Voice Studio</title>
+<style>
+:root{--bg:#101014;--panel:#1b1a20;--gold:#c9a45c;--text:#eee9df;--muted:#aaa3a0}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top,#29202a,#101014 55%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh}
+header{text-align:center;padding:30px 15px 22px;border-bottom:1px solid #57452c}
+.logo{font-family:Georgia,serif;font-size:34px;letter-spacing:5px;color:var(--gold)}
+.subtitle{color:var(--muted);font-size:12px;letter-spacing:3px;margin-top:8px}
+main{max-width:1100px;margin:28px auto;padding:0 16px;display:grid;grid-template-columns:230px 1fr;gap:20px}
+.panel{background:#1b1a20;border:1px solid #453824;border-radius:14px;padding:20px}
+h2{font-family:Georgia,serif;color:var(--gold);font-size:19px;font-weight:normal;margin:0 0 18px}
+button,select,input,textarea{font:inherit}
+button{cursor:pointer;border:1px solid #8e7040;background:#29242a;color:var(--text);padding:11px 14px;border-radius:8px}
+button:hover{background:#493a28}
+.presets{display:grid;gap:9px}
+.presets button{text-align:left}
+textarea{width:100%;height:280px;background:#111116;color:#f2eee7;border:1px solid #51432e;border-radius:10px;padding:16px;resize:vertical;line-height:1.7;font-size:16px}
+.controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.primary{background:#9a763d;color:#fff;border-color:#c9a45c}
+.settings{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+label{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}
+select{width:100%;background:#111116;color:white;border:1px solid #51432e;padding:10px;border-radius:7px}
+input[type=range]{width:100%;accent-color:#c9a45c}
+.status{color:var(--gold);font-size:13px;margin-top:14px;min-height:18px}
+footer{text-align:center;padding:25px;color:#81786e;font-size:12px}
+@media(max-width:700px){main{grid-template-columns:1fr}.settings{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">MYTAROVA</div>
+<div class="subtitle">VOICE STUDIO · SESİNLE IŞIK OL</div>
+</header>
+<main>
+<aside class="panel">
+<h2>Hazır Metinler</h2>
+<div class="presets">
+<button data-text="Sevgili dostlar, bugün kendimizi dinlemeye ve iç sesimize kulak vermeye ne dersiniz?">✦ Sohbete Başla</button>
+<button data-text="Derin bir nefes alın. Omuzlarınızı gevşetin. Şimdi zihninizi sakinleştirin ve kendinize güzel bir alan açın.">☾ Meditasyon</button>
+<button data-text="Kartların sembollerine bakarken unutmayın: Tarot geleceği kesin olarak söylemez. Bize farklı olasılıkları ve kendi iç dünyamızı anlamak için bir ayna sunar.">✧ Tarot Açılışı</button>
+<button data-text="Bugünkü yolculuğumuzda kendimizi, düşüncelerimizi ve seçimlerimizi keşfedeceğiz. Hazırsanız başlayalım.">♧ Danışmanlık</button>
+</div>
+</aside>
+<section class="panel">
+<h2>Metin Stüdyosu</h2>
+<textarea id="text" placeholder="Seslendirmek istediğiniz metni buraya yazın..."></textarea>
+<div class="controls">
+<button class="primary" id="read">▶ Seslendir</button>
+<button id="pause">Ⅱ Duraklat</button>
+<button id="resume">↻ Devam</button>
+<button id="stop">■ Durdur</button>
+<button id="clear">Temizle</button>
+</div>
+<div class="settings">
+<div><label for="language">Dil</label><select id="language"><option value="tr">Türkçe</option><option value="de">Almanca</option><option value="en">İngilizce</option></select></div>
+<div><label for="voice">Ses</label><select id="voice"><option>Sesler yükleniyor...</option></select></div>
+<div><label for="rate">Konuşma hızı</label><input id="rate" type="range" min="0.5" max="1.8" step="0.1" value="1"></div>
+<div><label for="pitch">Ses tonu</label><input id="pitch" type="range" min="0.5" max="1.8" step="0.1" value="1"></div>
+<div><label for="volume">Ses seviyesi</label><input id="volume" type="range" min="0" max="1" step="0.1" value="1"></div>
+</div>
+<div class="status" id="status">Hazır. Metninizi yazabilirsiniz.</div>
+</section>
+</main>
+<footer>MyTarova Voice Studio · Sevgiyle ve ışıkla</footer>
+<script>
+const text=document.getElementById('text');
+const language=document.getElementById('language');
+const voiceSelect=document.getElementById('voice');
+const statusBox=document.getElementById('status');
+let voices=[];
+function loadVoices(){
+ voices=speechSynthesis.getVoices();
+ updateVoices();
+}
+function updateVoices(){
+ const lang=language.value;
+ const matching=voices.filter(v=>v.lang.toLowerCase().startsWith(lang));
+ voiceSelect.innerHTML='';
+ (matching.length?matching:voices).forEach(v=>{
+  const option=document.createElement('option');
+  option.value=v.name;
+  option.textContent=v.name+' ('+v.lang+')';
+  voiceSelect.appendChild(option);
+ });
+ if(!voices.length)voiceSelect.innerHTML='<option>Bu tarayıcıda ses bulunamadı</option>';
+}
+if('speechSynthesis' in window){
+ loadVoices();
+ speechSynthesis.onvoiceschanged=loadVoices;
+}else{
+ statusBox.textContent='Tarayıcınız sesli okumayı desteklemiyor.';
+}
+language.addEventListener('change',updateVoices);
+document.getElementById('read').onclick=()=>{
+ if(!text.value.trim()){statusBox.textContent='Önce bir metin yazın.';return;}
+ speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(text.value);
+ utterance.lang=language.value==='tr'?'tr-TR':language.value==='de'?'de-DE':'en-US';
+ utterance.rate=Number(document.getElementById('rate').value);
+ utterance.pitch=Number(document.getElementById('pitch').value);
+ utterance.volume=Number(document.getElementById('volume').value);
+ const selected=voices.find(v=>v.name===voiceSelect.value);
+ if(selected)utterance.voice=selected;
+ utterance.onstart=()=>statusBox.textContent='Metin seslendiriliyor...';
+ utterance.onend=()=>statusBox.textContent='Seslendirme tamamlandı.';
+ utterance.onerror=()=>statusBox.textContent='Seslendirme sırasında bir sorun oluştu.';
+ speechSynthesis.speak(utterance);
+};
+document.getElementById('pause').onclick=()=>{speechSynthesis.pause();statusBox.textContent='Duraklatıldı.'};
+document.getElementById('resume').onclick=()=>{speechSynthesis.resume();statusBox.textContent='Devam ediyor.'};
+document.getElementById('stop').onclick=()=>{speechSynthesis.cancel();statusBox.textContent='Durduruldu.'};
+document.getElementById('clear').onclick=()=>{text.value='';speechSynthesis.cancel();statusBox.textContent='Metin temizlendi.'};
+document.querySelectorAll('[data-text]').forEach(button=>{
+ button.onclick=()=>{text.value=button.dataset.text;statusBox.textContent='Hazır metin yüklendi.'};
+});
+</script>
+</body>
+</html>
